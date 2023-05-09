@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 14:34:01 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 17:38:18 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/05/07 11:37:36 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/05/09 22:04:14 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#ifndef LEXER_H
+# define LEXER_H
 
-void	tokens_traversal(char **t)
-{
-	while (*t)
-	{
-		printf("[.] %s\n", *t);
-		++t;
-	}
-}
- 
+# include "./minishell.h"
+
+char	*handle_quotes(char *p, int *q, char c);
+char	*split_command(char *s);
+char	**create_tokens(char *s);
+void	tokens_traversal(char **t);
+
+#endif

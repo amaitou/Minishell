@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 17:41:47 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/05/09 14:34:01 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/05/09 22:02:34 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/lexer.h"
 
-# include "./superlib/superlib.h"
-# include "./lexer/lexer.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <dirent.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-char	*prompt_string(void);
-
-#endif
+void	tokens_traversal(char **t)
+{
+	while (*t)
+	{
+		printf("[.] %s\n", *t);
+		++t;
+	}
+}
+ 

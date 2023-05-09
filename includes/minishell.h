@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 11:37:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 16:46:12 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/05/09 22:04:23 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-# include "../minishell.h"
+# include "../superlib/superlib.h"
+# include "./lexer.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-char	*handle_quotes(char *p, int *q, char c);
-char	*split_command(char *s);
-char	**create_tokens(char *s);
-void	tokens_traversal(char **t);
+char	*prompt_string(void);
 
 #endif

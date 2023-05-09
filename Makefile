@@ -4,8 +4,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CFILES = command_prompt.c \
 		 minishell.c \
-		 lexer/split_command.c \
-		 lexer/lexer_utils.c
+		 sources/lexer/split_command.c \
+		 sources/lexer/lexer_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
