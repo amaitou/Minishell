@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 15:19:12 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/01/24 00:08:34 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/05/09 14:34:01 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/05/09 14:39:56 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./superlib.h"
+#include "lexer.h"
 
-static int	helper(t_ui nb)
+void	tokens_traversal(char **t)
 {
-	int	i;
-
-	i = 0;
-	if (nb == 0)
-		++i;
-	while (nb)
+	while (*t)
 	{
-		++i;
-		nb /= 10;
+		printf("[.] %s\n", *t);
+		++t;
 	}
-	return (i);
-}
-
-int	ft_putunsigned(t_ui nb)
-{
-	if (nb > 0 && nb <= 9)
-		ft_putchar(nb + 48);
-	else
-	{
-		ft_putunsigned(nb / 10);
-		ft_putunsigned(nb % 10);
-	}
-	return (helper(nb));
 }

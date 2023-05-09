@@ -6,11 +6,25 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/08 21:25:06 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:40:21 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+char	*handle_quotes(char *p, int *q, char c)
+{
+	*q = 1;
+	while (!(*p == c && *(p + 1) == ' ') && *p)
+		++p;
+	if (*p == c && *(p + 1) == ' ')
+	{
+		*q = 0;
+		*(p + 1) = 0x3;
+		++p;
+	}
+	return (p);
+}
 
 char	*split_command(char *s)
 {
@@ -24,52 +38,25 @@ char	*split_command(char *s)
 	while (*p)
 	{
 		if (*p == '"')
-		{
-			q = 1;
-			while (!(*p == '"' && *(p + 1) == ' ') && *p)
-				++p;
-			if (*p == '"' && *(p + 1) == ' ')
-			{
-				q = 0;
-				*(p + 1) = ',';
-				++p;
-			}
-		}
+			p = handle_quotes(p, &q, '"');
 		else if (*p == '\'')
-		{
-			q = 1;
-			while (!(*p == '\'' && *(p + 1) == ' ') && *p)
-				++p;
-			if (*p == '\'' && *(p + 1) == ' ')
-			{
-				q = 0;
-				*(p + 1) = ',';
-				++p;
-			}
-		}
+			p = handle_quotes(p, &q, '\'');
 		else
 		{
 			if ((*p == '\t' || *p == ' ') && !q)
-				*p = ',';
+				*p = 0x3;
 			++p;
 		}
 	}
 	return (r);
 }
 
-int main(int ac, char **ag)
+char	**create_tokens(char *s)
 {
-	char *s = split_command(ag[1]);
-	(void)ac;
-	char **p = ft_split(s, ',');
-	if (p)
-	{
-		int i = 0;
-		while (p[i])
-		{
-			printf("%s\n", p[i]);
-			++i;
-		}
-	}
-	return (0);
+	char	*p;
+	char	**tokens;
+
+	p = split_command(s);
+	tokens = ft_split(p, 0x03);
+	return (tokens);
 }
