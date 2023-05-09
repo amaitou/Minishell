@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:47:07 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/07 11:16:44 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:42:56 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **ag)
 {
 	char	*cmd;
+	char	**tokens;
 
 	(void)ac;
 	(void)ag;
@@ -27,7 +28,10 @@ int	main(int ac, char **ag)
 			cmd = prompt_string();
 		}
 		else
-			printf("%s\n", cmd);
+		{
+			tokens = create_tokens(cmd);
+			tokens_traversal(tokens);
+		}
 		free(cmd);
 	}
 	return (0);

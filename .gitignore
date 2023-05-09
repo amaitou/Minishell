@@ -2,4 +2,5 @@
 *.pdf
 *.out
 *.a
+*.o
 minishell

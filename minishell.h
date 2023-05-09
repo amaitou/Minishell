@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/07 10:24:07 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:41:47 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./superlib/superlib.h"
+# include "./lexer/lexer.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

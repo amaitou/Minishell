@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 14:40:21 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:18:32 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,22 @@
 char	*handle_quotes(char *p, int *q, char c)
 {
 	*q = 1;
-	while (!(*p == c && *(p + 1) == ' ') && *p)
-		++p;
-	if (*p == c && *(p + 1) == ' ')
+	++p;
+	while (*q && *p)
 	{
-		*q = 0;
-		*(p + 1) = 0x3;
+		if (*p == c && *(p + 1) != ' ')
+		{
+			*q = 0;
+			while (*p != ' ' && *p != '\t' && *p)
+				++p;
+			if (*p)
+				*p = 0x3;
+		}
+		if (*(p + 1) == ' ' && *p == c)
+		{
+			*q = 0;
+			*(p + 1) = 0x3;
+		}
 		++p;
 	}
 	return (p);
@@ -43,7 +53,9 @@ char	*split_command(char *s)
 			p = handle_quotes(p, &q, '\'');
 		else
 		{
-			if ((*p == '\t' || *p == ' ') && !q)
+			while ((*p != '\t' && *p != ' ') && !q && *p)
+				++p;
+			if (*p)
 				*p = 0x3;
 			++p;
 		}

@@ -3,7 +3,9 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CFILES = command_prompt.c \
-		 minishell.c
+		 minishell.c \
+		 lexer/split_command.c \
+		 lexer/lexer_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
