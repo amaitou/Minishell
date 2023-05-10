@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/10 16:13:22 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/11 00:09:12 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*handle_quotes(char *p, int *q, char c)
 				++p;
 			}
 		}
-		++p;	
+		++p;
 	}
 	return (p);
 }
@@ -70,6 +70,6 @@ char	**create_tokens(char *s)
 	char	**tokens;
 
 	p = split_command(s);
-	tokens = ft_split(p, 0x03);
+	tokens = ft_split(p, (int)3);
 	return (tokens);
 }
