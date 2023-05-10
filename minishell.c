@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:47:07 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 22:04:00 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:22:02 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int ac, char **ag)
 			tokens = create_tokens(cmd);
 			tokens_traversal(tokens);
 		}
+		add_history(cmd);
 		free(cmd);
 	}
 	return (0);
