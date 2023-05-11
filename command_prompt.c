@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:43:24 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 22:03:52 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/11 03:07:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 char	*prompt_string(void)
 {
-	char	*cmd;
-
-	cmd = readline("minishell $ ");
-	return (cmd);
+	return (readline("minishell $ "));
 }
