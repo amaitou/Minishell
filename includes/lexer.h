@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:37:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 22:04:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:28:16 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,18 @@
 
 # include "./minishell.h"
 
-char	*handle_quotes(char *p, int *q, char c);
-char	*split_command(char *s);
-char	**create_tokens(char *s);
+typedef struct s_lexer
+{
+	int		i;
+	int		j;
+	char	*line;
+	char	c;
+}	t_lexer;
+
+void	quotes(t_lexer *lexer, char *s);
+void	operators(t_lexer *lexer, char *s);
+char 	*scanner(char *s);
+char	**tokenizer(char *s);
 void	tokens_traversal(char **t);
 
 #endif

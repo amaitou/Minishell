@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:34:01 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/09 22:02:34 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:52:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	tokens_traversal(char **t)
 {
-	while (*t)
+	int	i;
+
+	i = 0;
+	while (t[i])
 	{
-		printf("[.] %s\n", *t);
-		++t;
+		printf(" [.] %s\n", t[i]);
+		++i;
 	}
 }
  
