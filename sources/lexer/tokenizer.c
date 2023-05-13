@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 10:24:33 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:46:05 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,22 @@ void	quotes(t_lexer *lexer, char *s)
 
 void	operators(t_lexer *lexer, char *s)
 {
-	lexer->line = string_join(lexer->line, ft_strdup("\n"));
-	lexer->line = string_join(lexer->line, ft_substr(s, lexer->i, 1));
-	lexer->line = string_join(lexer->line, ft_strdup("\n"));
+	if (!ft_memcmp(s + lexer->i, ">>", 2)
+		|| !ft_memcmp(s + lexer->i, "<<", 2)
+		|| !ft_memcmp(s + lexer->i, "||", 2)
+		|| !ft_memcmp(s + lexer->i, "&&", 2))
+	{
+		lexer->line = string_join(lexer->line, ft_strdup("\n"));
+		lexer->line = string_join(lexer->line, ft_substr(s, lexer->i, 2));
+		lexer->line = string_join(lexer->line, ft_strdup("\n"));
+		lexer->i++;
+	}
+	else
+	{
+		lexer->line = string_join(lexer->line, ft_strdup("\n"));
+		lexer->line = string_join(lexer->line, ft_substr(s, lexer->i, 1));
+		lexer->line = string_join(lexer->line, ft_strdup("\n"));
+	}
 }
 
 char	*scanner(char *s, t_lexer *lexer)
