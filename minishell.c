@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/12 20:52:32 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:19:49 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int ac, char **ag, char **envp)
 		{
 			tokens = tokenizer(cmd);
 			tokens_traversal(tokens);
+			free_tokenizer(tokens);
 			add_history(cmd);
 			free(cmd);
 		}

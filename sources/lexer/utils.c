@@ -6,20 +6,33 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:51:54 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/12 20:51:58 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/13 10:27:01 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
-void	tokens_traversal(char **t)
+void	tokens_traversal(char **tokenizer)
 {
 	int	i;
 
 	i = 0;
-	while (t[i])
+	while (tokenizer[i])
 	{
-		printf(" [.] %s\n", t[i]);
+		printf(" [.] %s\n", tokenizer[i]);
 		++i;
 	}
+}
+
+void	free_tokenizer(char **tokenizer)
+{
+	int	i;
+
+	i = 0;
+	while (tokenizer[i])
+	{
+		free(tokenizer[i]);
+		++i;
+	}
+	free(tokenizer);
 }
