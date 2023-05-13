@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:51:54 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 13:26:48 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:19:11 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ void	free_tokenizer(char **tokenizer)
 	i = -1;
 	while (tokenizer[++i])
 		free(tokenizer[i]);
-		++i;
 	free(tokenizer);
 }
