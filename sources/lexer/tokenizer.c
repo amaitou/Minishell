@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 19:11:01 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/14 17:13:50 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ char	**tokenizer(char *s)
 	tmp = scanner(s, &lexer);
 	lexer.tokens = ft_split(tmp, '\n');
 	free(tmp);
+	lexer.tokens = expand_variables(&lexer);
 	return (lexer.tokens);
 }

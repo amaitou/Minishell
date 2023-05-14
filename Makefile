@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 CFILES = prompt_string.c \
 		 minishell.c \
 		 sources/lexer/tokenizer.c \
-		 sources/lexer/utils.c
+		 sources/lexer/utils.c \
+		 sources/lexer/expansion.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a

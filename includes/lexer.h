@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 13:29:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:11:49 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_lexer
 {
 	int		i;
 	int		j;
+	int		param_exp;
 	char	*line;
 	char	c;
 	char	**tokens;
@@ -35,14 +36,16 @@ typedef enum e_cntrl_op
 
 typedef struct s_info
 {
-	char		*full_cmd;
-	t_cntrl_op	op;
+	char			*full_cmd;
+	t_cntrl_op		op;
+	struct s_info	*next;
 }	t_info;
 
 void	quotes(t_lexer *lexer, char *s);
 void	operators(t_lexer *lexer, char *s);
 char	*scanner(char *s, t_lexer *lexer);
 char	**tokenizer(char *s);
+char	**expand_variables(t_lexer *lexer);
 void	tokens_traversal(char **tokenizer);
 void	free_tokenizer(char **tokenizer);
 
