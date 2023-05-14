@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 10:19:49 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/14 00:07:43 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-int	main(int ac, char **ag, char **envp)
+int	main(void)
 {
 	char	*cmd;
 	char	**tokens;
 
-	(void)ac;
-	(void)ag;
-	(void)envp;
 	while (1)
 	{
 		cmd = prompt_string();
