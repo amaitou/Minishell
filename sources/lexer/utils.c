@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:51:54 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/13 19:19:11 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:05:57 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	tokens_traversal(char **tokenizer)
 		printf(" [.] %s\n", tokenizer[i]);
 }
 
-void	free_tokenizer(char **tokenizer)
+void	free_struct(t_lexer *lexer)
 {
 	int	i;
 
 	i = -1;
-	while (tokenizer[++i])
-		free(tokenizer[i]);
-	free(tokenizer);
+	free (lexer->cmd);
+	while (lexer->tokens[++i])
+		free(lexer->tokens[i]);
+	free(lexer->tokens);
+	free(lexer);
 }

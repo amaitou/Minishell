@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 17:13:50 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:08:29 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,14 @@ char	*scanner(char *s, t_lexer *lexer)
 	return (lexer->line);
 }
 
-char	**tokenizer(char *s)
+void	tokenizer(t_lexer *lexer)
 {
-	t_lexer	lexer;
 	char	*tmp;
 
-	lexer.i = 0;
-	lexer.line = NULL;
-	tmp = scanner(s, &lexer);
-	lexer.tokens = ft_split(tmp, '\n');
+	lexer->i = 0;
+	lexer->line = NULL;
+	tmp = scanner(lexer->cmd, lexer);
+	lexer->tokens = ft_split(tmp, '\n');
 	free(tmp);
-	lexer.tokens = expand_variables(&lexer);
-	return (lexer.tokens);
+	expand_variables(lexer);
 }

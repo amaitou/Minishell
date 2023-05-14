@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:51 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 01:14:46 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:12:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ char	*get_user(void)
 	return_line = string_join(return_line, ft_strdup("\033[0m\033[0;36m "));
 	return_line = string_join(return_line, ft_strdup(ft_strrchr(cwd, '/') + 1));
 	return_line = string_join(return_line, ft_strdup("\033[0m]$ "));
+	free(cwd);
 	return (return_line);
 }
 
 char	*prompt_string(void)
 {
-	if (getenv("USER") && getcwd(NULL, PATH_MAX))
+	if (getenv("USER"))
 		return (readline(get_user()));
 	else
 		return (readline("\033[0;36mminishell\033[0m]$ "));

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 15:11:49 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:08:20 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_lexer
 	char	*line;
 	char	c;
 	char	**tokens;
+	char	*cmd;
 }	t_lexer;
 
 typedef enum e_cntrl_op
@@ -44,9 +45,9 @@ typedef struct s_info
 void	quotes(t_lexer *lexer, char *s);
 void	operators(t_lexer *lexer, char *s);
 char	*scanner(char *s, t_lexer *lexer);
-char	**tokenizer(char *s);
-char	**expand_variables(t_lexer *lexer);
+void	tokenizer(t_lexer *lexer);
+void	expand_variables(t_lexer *lexer);
 void	tokens_traversal(char **tokenizer);
-void	free_tokenizer(char **tokenizer);
+void	free_struct(t_lexer *lexer);
 
 #endif
