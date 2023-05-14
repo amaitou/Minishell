@@ -3,5 +3,7 @@
 *.out
 *.a
 *.o
+test*
 .DS_Store
+.vscode
 minishell
