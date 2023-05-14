@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/14 19:08:13 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:16:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	expnad_var(t_lexer *l)
 	tmp2 = l->tokens[l->i];
 	tmp = ft_substr(l->tokens[l->i], 0, l->j - 1);
 	i = l->j;
-	while (l->tokens[l->i][i] &&
-		(ft_isalpha(l->tokens[l->i][i]) || ft_isdigit(l->tokens[l->i][i])))
+	while (l->tokens[l->i][i] && (ft_isalpha(l->tokens[l->i][i])
+		|| ft_isdigit(l->tokens[l->i][i]) || l->tokens[l->i][i] == '_'))
 		i++;
 	var = ft_substr(l->tokens[l->i], l->j, i - l->j);
 	if (getenv(var))
@@ -82,7 +82,7 @@ void	expand_variables(t_lexer *l)
 		{
 			if (l->tokens[l->i][l->j] == '\'')
 				break ;
-			if (l->tokens[l->i][l->j] == '$')
+			else if (l->tokens[l->i][l->j] == '$')
 				l->param_exp = 1;
 			else if (l->param_exp && ft_isdigit(l->tokens[l->i][l->j])
 					&& l->tokens[l->i][l->j - 1] == '$')
