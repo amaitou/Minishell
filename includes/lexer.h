@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/15 04:20:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:36:09 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef enum e_cntrl_op
 	RED_OUT,
 	RED_OUT_APP,
 	RED_IN_DEL,
-	PIPE
+	PIPE,
+	COMMAND
 }	t_cntrl_op;
 
 typedef struct s_info
