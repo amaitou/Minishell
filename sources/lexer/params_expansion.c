@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/15 22:27:34 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 00:04:20 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static void	expnad_var(t_lexer *l)
 
 void	expand_variables(t_lexer *l)
 {
-	expand_wildcards(l);
 	l->i = -1;
 	while (l->tokens[++l->i])
 	{
@@ -91,5 +90,6 @@ void	expand_variables(t_lexer *l)
 			else if (l->param_exp && ft_isalpha(l->tokens[l->i][l->j]))
 				expnad_var(l);
 		}
+		expand_wildcards(l);
 	}
 }

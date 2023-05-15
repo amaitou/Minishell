@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/15 04:55:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 00:08:35 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,31 @@ static void	search_for_match(t_lexer *l)
 			free (l->p_matches);
 		dir_entry = readdir(dir);
 	}
-	free(l->tokens[l->i]);
-	l->tokens[l->i] = ft_strdup("");
 	if (l->matched)
 	{
 		free(l->tokens[l->i]);
 		l->tokens[l->i] = ft_strdup(l->matched);
 		free (l->matched);
 	}
+	else
+		printf("no matches found: %s\n", l->tokens[l->i]);
+	free(l->tokens[l->i]);
+	l->tokens[l->i] = ft_strdup("");
 	closedir(dir);
 }
 
 void	expand_wildcards(t_lexer *l)
 {
-	l->i = -1;
-	while (l->tokens[++l->i])
+	l->j = -1;
+	l->param_exp = 0;
+	while (l->tokens[l->i][++l->j])
 	{
-		l->j = -1;
-		l->param_exp = 0;
-		while (l->tokens[l->i][++l->j])
+		if (l->tokens[l->i][l->j] == '$')
+			l->param_exp = 1;
+		else if (l->tokens[l->i][l->j] == '*' && !l->param_exp)
 		{
-			if (l->tokens[l->i][l->j] == '$')
-				l->param_exp = 1;
-			else if (l->tokens[l->i][l->j] == '*' && !l->param_exp)
-			{
-				search_for_match(l);
-				break ;
-			}
+			search_for_match(l);
+			break ;
 		}
 	}
 }
