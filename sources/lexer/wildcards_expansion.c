@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/15 04:30:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/15 04:55:44 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ static void	search_for_match(t_lexer *l)
 		dir_entry = readdir(dir);
 	}
 	free(l->tokens[l->i]);
-	l->tokens[l->i] = NULL;
+	l->tokens[l->i] = ft_strdup("");
 	if (l->matched)
 	{
+		free(l->tokens[l->i]);
 		l->tokens[l->i] = ft_strdup(l->matched);
 		free (l->matched);
 	}
