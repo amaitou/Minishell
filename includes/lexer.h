@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/15 22:36:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 00:55:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ typedef struct s_lexer
 	int		i;
 	int		j;
 	int		param_exp;
+	int		wc_is_last;
 	char	*line;
 	char	c;
 	char	**tokens;
 	char	**req;
-	char	*p_matches;
+	char	*p_match;
 	char	*matched;
 	char	*cmd;
 }	t_lexer;
