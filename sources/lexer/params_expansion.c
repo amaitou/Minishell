@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   params_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/14 21:16:04 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/15 03:32:51 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ static void	expnad_var(t_lexer *l)
 
 void	expand_variables(t_lexer *l)
 {
+	expand_wildcards(l);
 	l->i = -1;
-	l->param_exp = 0;
 	while (l->tokens[++l->i])
 	{
 		l->j = -1;
+		l->param_exp = 0;
 		while (l->tokens[l->i][++l->j])
 		{
 			if (l->tokens[l->i][l->j] == '\'')

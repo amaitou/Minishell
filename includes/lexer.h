@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 19:08:20 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/15 04:20:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct s_lexer
 	char	*line;
 	char	c;
 	char	**tokens;
+	char	**req;
+	char	*p_matches;
+	char	*matched;
 	char	*cmd;
 }	t_lexer;
 
@@ -49,5 +52,6 @@ void	tokenizer(t_lexer *lexer);
 void	expand_variables(t_lexer *lexer);
 void	tokens_traversal(char **tokenizer);
 void	free_struct(t_lexer *lexer);
+void	expand_wildcards(t_lexer *lexer);
 
 #endif
