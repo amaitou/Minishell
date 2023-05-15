@@ -20,6 +20,7 @@ $(SUPERLIB):
 	@$(MAKE) -C $(SUPERLIB_DIR)
 
 $(NAME): $(CFILES)
+	@echo "\033[95m[.] making minishel\033[0m"
 	@$(CC) $(CFLAGS) $(CFILES) $(SUPERLIB) -lreadline -o $@
 
 clean :
@@ -31,5 +32,10 @@ fclean: clean
 	@$(MAKE) fclean -C $(SUPERLIB_DIR)
 
 re : fclean all
+
+git:
+	@git add .
+	@git commit -m "$m"
+	@git push
 
 .PHONY: all clean fclean re
