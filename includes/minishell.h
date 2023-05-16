@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/15 03:00:59 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:25:41 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@
 # include <limits.h>
 # include <dirent.h>
 
-char	*prompt_string(void);
+typedef struct s_prompt
+{
+	char *line;
+} t_prompt;
+
+char	*prompt_string(t_prompt *prompt);
 
 #endif
