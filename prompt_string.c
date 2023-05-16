@@ -3,36 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:51 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 21:43:15 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:55:44 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-char	*get_user(void)
+void	get_user(t_prompt *prompt)
 {
 	char	*user;
-	char	*return_line;
 	char	*cwd;
 
 	user = getenv("USER");
 	cwd = getcwd(NULL, PATH_MAX);
-	return_line = string_join(ft_strdup("[\033[0;32m"), ft_strdup(user));
-	return_line = string_join(return_line,
+	prompt->line = string_join(ft_strdup("[\033[0;32m"), ft_strdup(user));
+	prompt->line = string_join(prompt->line,
 			ft_strdup("\033[0m\033[1;37m@1337\033[0m\033[0;36m "));
-	return_line = string_join(return_line, ft_strdup(ft_strrchr(cwd, '/') + 1));
-	return_line = string_join(return_line, ft_strdup("\033[0m]$ "));
+	prompt->line = string_join(prompt->line, ft_strdup(ft_strrchr(cwd, '/') + 1));
+	prompt->line = string_join(prompt->line, ft_strdup("\033[0m]$ "));
 	free(cwd);
-	return (return_line);
 }
 
-char	*prompt_string(void)
+char	*prompt_string(t_prompt *prompt)
 {
 	if (getenv("USER"))
-		return (readline(get_user()));
+	{
+		get_user(prompt);
+		return (readline(prompt->line));
+	}
 	else
 		return (readline("\033[0;36mminishell\033[0m]$ "));
 }
