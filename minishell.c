@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 18:06:36 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:24:00 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(void)
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
 		lexer->cmd = prompt_string(prompt);
-		add_history(lexer->cmd);
 		if (ft_strlen(lexer->cmd))
 		{
+			add_history(lexer->cmd);
 			tokenizer_value = tokenizer(lexer);
 			if (tokenizer_value == 1)
 				ft_putendl_fd("[!] Error: There is an unclosed quotes", 1);
