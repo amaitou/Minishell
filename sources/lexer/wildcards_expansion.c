@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/16 01:02:17 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 01:17:54 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,31 @@ static void	search_for_match(t_lexer *l)
 	closedir(dir);
 }
 
+static int	should_expand(char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i] != '$' && string[i])
+		i++;
+	return (ft_strlen(string) - i);
+}
+
 void	expand_wildcards(t_lexer *l)
 {
 	l->j = -1;
 	l->wc_is_last = 0;
-	while (l->tokens[l->i][++l->j])
+	if (!should_expand(l->tokens[l->i]))
 	{
-		if (l->tokens[l->i][l->j] == '*')
+		while (l->tokens[l->i][++l->j])
 		{
-			if (!l->tokens[l->i][l->j + 1])
-				l->wc_is_last = 1;
-			search_for_match(l);
-			break ;
+			if (l->tokens[l->i][l->j] == '*')
+			{
+				if (!l->tokens[l->i][l->j + 1])
+					l->wc_is_last = 1;
+				search_for_match(l);
+				break ;
+			}
 		}
 	}
 }

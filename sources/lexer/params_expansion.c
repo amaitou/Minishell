@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/16 00:04:20 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 01:18:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	expand_variables(t_lexer *l)
 	l->i = -1;
 	while (l->tokens[++l->i])
 	{
+		expand_wildcards(l);
 		l->j = -1;
 		l->param_exp = 0;
 		while (l->tokens[l->i][++l->j])
@@ -90,6 +91,5 @@ void	expand_variables(t_lexer *l)
 			else if (l->param_exp && ft_isalpha(l->tokens[l->i][l->j]))
 				expnad_var(l);
 		}
-		expand_wildcards(l);
 	}
 }
