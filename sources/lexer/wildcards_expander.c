@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/16 15:16:43 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:37:31 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	search_for_match(t_lexer *lexer)
 		free(lexer->tokens[lexer->i]);
 		lexer->tokens[lexer->i] = ft_strdup("");
 	}
+	free_array(lexer->req);
 	closedir(dir);
 }
 
