@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 15:12:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:06:36 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 int	main(void)
 {
 	t_lexer	*lexer;
+	t_prompt *prompt;
 	int		tokenizer_value;
 
 	while (1)
 	{
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
-		lexer->cmd = prompt_string();
+		prompt = (t_prompt *)malloc(sizeof(t_prompt));
+		lexer->cmd = prompt_string(prompt);
 		add_history(lexer->cmd);
-		if (!ft_strlen(lexer->cmd))
-			lexer->cmd = prompt_string();
-		else
+		if (ft_strlen(lexer->cmd))
 		{
 			tokenizer_value = tokenizer(lexer);
 			if (tokenizer_value == 1)
@@ -34,9 +34,15 @@ int	main(void)
 			else
 			{
 				tokens_traversal(lexer->tokens);
-				free_struct(lexer);
+				free_array(lexer->tokens);
 			}
+			free(lexer->cmd);
 		}
+		else
+			free(lexer->cmd);
+		free(lexer);
+		free(prompt->line);
+		free(prompt);
 	}
 	return (0);
 }
