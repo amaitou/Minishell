@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 15:17:15 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:37:18 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	variables_expander(t_lexer *lexer);
 void	tokens_traversal(char **tokenizer);
 void	free_struct(t_lexer *lexer);
 void	wildcards_expander(t_lexer *lexer);
+void	free_array(char **arr);
 
 #endif
