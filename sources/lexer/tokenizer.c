@@ -6,16 +6,16 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/14 22:05:24 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:34 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
 
-void	quotes(t_lexer *lexer, char *s)
+int	quotes(t_lexer *lexer, char *s)
 {
 	lexer->j = lexer->i++;
-	while (s[lexer->i] != lexer->c && s[lexer->i])
+	while (s[lexer->i] != lexer->quote && s[lexer->i])
 		lexer->i++;
 	if (s[lexer->i])
 	{
@@ -23,11 +23,19 @@ void	quotes(t_lexer *lexer, char *s)
 					lexer->i - lexer->j + 1));
 		lexer->line = string_join(lexer->line, ft_strdup("\n"));
 	}
+	else
+		return (1);
+	return (0);
 }
 
-void	operators(t_lexer *lexer, char *s)
+int	operators(t_lexer *lexer, char *s)
 {
-	if (!ft_memcmp(s + lexer->i, ">>", 2)
+	if (!ft_memcmp(s + lexer->i, ">>>", 3)
+		|| !ft_memcmp(s + lexer->i, "<<<", 3)
+		|| !ft_memcmp(s + lexer->i, "&&&", 3)
+		|| !ft_memcmp(s + lexer->i, "|||", 3))
+		return (2);
+	else if (!ft_memcmp(s + lexer->i, ">>", 2)
 		|| !ft_memcmp(s + lexer->i, "<<", 2)
 		|| !ft_memcmp(s + lexer->i, "||", 2)
 		|| !ft_memcmp(s + lexer->i, "&&", 2))
@@ -43,36 +51,47 @@ void	operators(t_lexer *lexer, char *s)
 		lexer->line = string_join(lexer->line, ft_substr(s, lexer->i, 1));
 		lexer->line = string_join(lexer->line, ft_strdup("\n"));
 	}
+	return (0);
 }
 
-char	*scanner(char *s, t_lexer *lexer)
+int	scanner(char *s, t_lexer *lexer)
 {
 	while (s[lexer->i])
 	{
 		if (s[lexer->i] == '\"' || s[lexer->i] == '\'')
 		{
-			lexer->c = s[lexer->i];
-			quotes(lexer, s);
+			lexer->quote = s[lexer->i];
+			if (quotes(lexer, s))
+				return (1);
 		}
-		else if (ft_strchr("<>|", s[lexer->i]))
-			operators(lexer, s);
+		else if (ft_strchr("<>|&", s[lexer->i]))
+		{
+			if (operators(lexer, s))
+				return (2);
+		}
 		else if (ft_strchr(" \t\n\v\f\r", s[lexer->i]))
 			lexer->line = string_join(lexer->line, ft_strdup("\n"));
 		else
 			lexer->line = string_join(lexer->line, ft_substr(s, lexer->i, 1));
 		lexer->i++;
 	}
-	return (lexer->line);
+	return (0);
 }
 
-void	tokenizer(t_lexer *lexer)
+int	tokenizer(t_lexer *lexer)
 {
-	char	*tmp;
+	int	scanner_value;
 
 	lexer->i = 0;
 	lexer->line = NULL;
-	tmp = scanner(lexer->cmd, lexer);
-	lexer->tokens = ft_split(tmp, '\n');
-	free(tmp);
-	expand_variables(lexer);
+	scanner_value = scanner(lexer->cmd, lexer);
+	if (scanner_value)
+		return (scanner_value);
+	else
+	{
+		lexer->tokens = ft_split(lexer->line, '\n');
+		free(lexer->line);
+		variables_expander(lexer);
+	}
+	return (0);
 }

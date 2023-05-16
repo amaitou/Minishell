@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 00:55:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:15 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_lexer
 	int		param_exp;
 	int		wc_is_last;
 	char	*line;
-	char	c;
+	char	quote;
 	char	**tokens;
 	char	**req;
 	char	*p_match;
@@ -47,13 +47,13 @@ typedef struct s_info
 	struct s_info	*next;
 }	t_info;
 
-void	quotes(t_lexer *lexer, char *s);
-void	operators(t_lexer *lexer, char *s);
-char	*scanner(char *s, t_lexer *lexer);
-void	tokenizer(t_lexer *lexer);
-void	expand_variables(t_lexer *lexer);
+int		quotes(t_lexer *lexer, char *s);
+int		operators(t_lexer *lexer, char *s);
+int		scanner(char *s, t_lexer *lexer);
+int		tokenizer(t_lexer *lexer);
+void	variables_expander(t_lexer *lexer);
 void	tokens_traversal(char **tokenizer);
 void	free_struct(t_lexer *lexer);
-void	expand_wildcards(t_lexer *lexer);
+void	wildcards_expander(t_lexer *lexer);
 
 #endif

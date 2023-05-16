@@ -6,8 +6,8 @@ CFILES = prompt_string.c \
 		 minishell.c \
 		 sources/lexer/tokenizer.c \
 		 sources/lexer/utils.c \
-		 sources/lexer/params_expansion.c \
-		 sources/lexer/wildcards_expansion.c
+		 sources/lexer/params_expander.c \
+		 sources/lexer/wildcards_expander.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
