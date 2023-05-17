@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 06:21:26 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:14:08 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_lexer		*lexer;
 	t_prompt	*prompt;
+	t_env		*env
 	int			tokenizer_value;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	initialize_environnement(env, envp);
 	while (1)
 	{
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
