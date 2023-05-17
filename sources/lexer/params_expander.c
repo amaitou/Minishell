@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 02:44:34 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 05:55:46 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,14 @@ void	variables_expander(t_lexer *lexer)
 				break ;
 			else if (lexer->tokens[lexer->i][lexer->j] == '$')
 				lexer->param_exp = 1;
-			else if (lexer->param_exp && ft_isdigit(lexer->tokens[lexer->i][lexer->j])
+			else if (lexer->param_exp
+				&& (ft_isdigit(lexer->tokens[lexer->i][lexer->j]
+					&& lexer->tokens[lexer->i][lexer->j] != '0'))
 					&& lexer->tokens[lexer->i][lexer->j - 1] == '$')
 				truncate_digit(lexer);
-			else if (lexer->param_exp && ft_isalpha(lexer->tokens[lexer->i][lexer->j]))
+			else if (lexer->param_exp
+				&& (ft_isalpha(lexer->tokens[lexer->i][lexer->j])
+				|| lexer->tokens[lexer->i][lexer->j] == '0'))
 				expnad_var(lexer);
 		}
 	}
