@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 03:47:30 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 04:30:37 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ char	*find_format(t_lexer *lexer, int i);
 int		should_expand(char *string);
 void	match_found(t_lexer *lexer);
 void	match_not_found(t_lexer *lexer);
+void	search_for_match(t_lexer *lexer);
 
 #endif
