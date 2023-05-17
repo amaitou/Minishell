@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 02:38:43 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:22:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	scanner(char *s, t_lexer *lexer)
 	return (0);
 }
 
-int	tokenizer(t_lexer *lexer)
+int	tokenizer(t_lexer *lexer, t_env *env)
 {
 	int	scanner_value;
 
@@ -91,7 +91,7 @@ int	tokenizer(t_lexer *lexer)
 	{
 		lexer->tokens = ft_split(lexer->line, '\n');
 		free(lexer->line);
-		variables_expander(lexer);
+		variables_expander(lexer, env);
 	}
 	return (0);
 }

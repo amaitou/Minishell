@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 05:55:46 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:25:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	truncate_digit(t_lexer *lexer)
 	free (tmp2);
 }
 
-static void	expnad_var(t_lexer *lexer)
+static void	expnad_var(t_lexer *lexer, t_env *env)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -63,9 +63,10 @@ static void	expnad_var(t_lexer *lexer)
 	while (lexer->tokens[lexer->i][i] && is_valid(lexer->tokens[lexer->i][i]))
 		i++;
 	var = ft_substr(lexer->tokens[lexer->i], lexer->j, i - lexer->j);
-	if (getenv(var))
+	if (ft_getenv(var, env))
 	{
-		lexer->tokens[lexer->i] = string_join(tmp, ft_strdup(getenv(var)));
+		lexer->tokens[lexer->i] = string_join(tmp,
+				ft_strdup(ft_getenv(var, env)));
 		lexer->tokens[lexer->i] = string_join(lexer->tokens[lexer->i],
 				ft_substr(tmp2, i, ft_strlen(tmp2)));
 	}
@@ -78,7 +79,7 @@ static void	expnad_var(t_lexer *lexer)
 	free (tmp2);
 }
 
-void	variables_expander(t_lexer *lexer)
+void	variables_expander(t_lexer *lexer, t_env *env)
 {
 	lexer->i = -1;
 	while (lexer->tokens[++lexer->i])
@@ -99,8 +100,8 @@ void	variables_expander(t_lexer *lexer)
 				truncate_digit(lexer);
 			else if (lexer->param_exp
 				&& (ft_isalpha(lexer->tokens[lexer->i][lexer->j])
-				|| lexer->tokens[lexer->i][lexer->j] == '0'))
-				expnad_var(lexer);
+				|| ft_strchr("0_", lexer->tokens[lexer->i][lexer->j])))
+				expnad_var(lexer, env);
 		}
 	}
 }

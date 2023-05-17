@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:13:28 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:21:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(lexer->cmd))
 		{
 			add_history(lexer->cmd);
-			tokenizer_value = tokenizer(lexer);
+			tokenizer_value = tokenizer(lexer, env);
 			if (tokenizer_value == 1)
 				ft_putendl_fd("[!] Error: There is an unclosed quote", 1);
 			else if (tokenizer_value == 2)

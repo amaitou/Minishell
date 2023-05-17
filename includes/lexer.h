@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 04:30:37 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:22:26 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_info
 int		quotes(t_lexer *lexer, char *s);
 int		operators(t_lexer *lexer, char *s);
 int		scanner(char *s, t_lexer *lexer);
-int		tokenizer(t_lexer *lexer);
-void	variables_expander(t_lexer *lexer);
+int		tokenizer(t_lexer *lexer, t_env *env);
+void	variables_expander(t_lexer *lexer, t_env *env);
 void	tokens_traversal(char **tokenizer);
 void	free_struct(t_lexer *lexer);
 void	wildcards_expander(t_lexer *lexer);
