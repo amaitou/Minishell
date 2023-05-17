@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   superlib.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/01/24 00:18:46 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:56:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@
 typedef unsigned char		t_uc;
 typedef unsigned int		t_ui;
 typedef unsigned long		t_ul;
+
+/**
+ * @brief linked list for the environnement variables
+ * 
+ */
+
+typedef struct s_env
+{
+	char			*var_name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_list
 {
 	void			*content;
@@ -81,15 +94,14 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
-t_list	*ft_lstnew(void *content);
+t_env	*ft_lstnew(void);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+t_env	*ft_lstlast(t_env *lst);
+void	ft_lstadd_back(t_env **lst, t_env *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_charlen(char *s, int c);
 int		ft_strcmp(char *s1, char *s2);
 

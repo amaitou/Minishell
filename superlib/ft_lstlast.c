@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 09:04:32 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/01/24 00:07:10 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 07:53:29 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./superlib.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_env	*ft_lstlast(t_env *lst)
 {
 	if (!lst)
 		return ((void *)0);
