@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:35 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 17:23:44 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 03:47:30 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,16 @@ void	free_struct(t_lexer *lexer);
 void	wildcards_expander(t_lexer *lexer);
 void	free_array(char **arr);
 void	free_line(char *s);
+
+/**
+ * @brief Declarations for wildcards expander utils funcs
+ * 
+ */
+
+int		find_len(t_lexer *lexer, int i);
+char	*find_format(t_lexer *lexer, int i);
+int		should_expand(char *string);
+void	match_found(t_lexer *lexer);
+void	match_not_found(t_lexer *lexer);
 
 #endif

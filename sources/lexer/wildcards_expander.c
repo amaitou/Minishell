@@ -6,27 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 03:02:39 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 03:48:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
-
-static int	find_len(t_lexer *lexer, int i)
-{
-	if (lexer->wc_is_last && lexer->req[0])
-		return (ft_strlen(lexer->req[i]));
-	else
-		return (ft_strlen(lexer->p_match));
-}
-
-static char	*find_format(t_lexer *lexer, int i)
-{
-	if (!lexer->req[0])
-		return (lexer->p_match);
-	else
-		return (lexer->req[i]);
-}
 
 static void	search_for_match(t_lexer *lexer)
 {
@@ -64,29 +48,11 @@ static void	search_for_match(t_lexer *lexer)
 		dir_entry = readdir(dir);
 	}
 	if (lexer->matched)
-	{
-		free(lexer->tokens[lexer->i]);
-		lexer->tokens[lexer->i] = ft_strdup(lexer->matched);
-		free (lexer->matched);
-	}
+		match_found(lexer);
 	else
-	{
-		printf("no matches found: %s\n", lexer->tokens[lexer->i]);
-		free(lexer->tokens[lexer->i]);
-		lexer->tokens[lexer->i] = ft_strdup("");
-	}
+		match_not_found(lexer);
 	free_array(lexer->req);
 	closedir(dir);
-}
-
-static int	should_expand(char *string)
-{
-	int	i;
-
-	i = 0;
-	while (string[i] != '$' && string[i])
-		i++;
-	return (ft_strlen(string) - i);
 }
 
 void	wildcards_expander(t_lexer *lexer)

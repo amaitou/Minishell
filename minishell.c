@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 18:24:00 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 03:32:29 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	main(void)
 {
-	t_lexer	*lexer;
-	t_prompt *prompt;
-	int		tokenizer_value;
+	t_lexer		*lexer;
+	t_prompt	*prompt;
+	int			tokenizer_value;
 
 	while (1)
 	{
@@ -28,7 +28,7 @@ int	main(void)
 			add_history(lexer->cmd);
 			tokenizer_value = tokenizer(lexer);
 			if (tokenizer_value == 1)
-				ft_putendl_fd("[!] Error: There is an unclosed quotes", 1);
+				ft_putendl_fd("[!] Error: There is an unclosed quote", 1);
 			else if (tokenizer_value == 2)
 				ft_putendl_fd("[!] Error : parse error near to a symbol", 1);
 			else
