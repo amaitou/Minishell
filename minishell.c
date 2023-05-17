@@ -6,18 +6,21 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 03:32:29 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/17 06:21:26 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_lexer		*lexer;
 	t_prompt	*prompt;
 	int			tokenizer_value;
 
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	while (1)
 	{
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
@@ -36,10 +39,8 @@ int	main(void)
 				tokens_traversal(lexer->tokens);
 				free_array(lexer->tokens);
 			}
-			free(lexer->cmd);
 		}
-		else
-			free(lexer->cmd);
+		free(lexer->cmd);
 		free(lexer);
 		free(prompt->line);
 		free(prompt);
