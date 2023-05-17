@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/16 18:12:12 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 02:44:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,17 @@ static int	get_index(char *token)
 	int	i;
 
 	i = 0;
-	while (token[i] && token[i] != '$')
+	while (token[i] && !ft_strchr("$\'", token[i]))
 		i++;
 	return (--i);
+}
+
+static int	is_valid(char c)
+{
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
+		return (1);
+	else
+		return (0);
 }
 
 static void	truncate_digit(t_lexer *lexer)
@@ -52,8 +60,7 @@ static void	expnad_var(t_lexer *lexer)
 	tmp2 = lexer->tokens[lexer->i];
 	tmp = ft_substr(lexer->tokens[lexer->i], 0, lexer->j - 1);
 	i = lexer->j;
-	while (lexer->tokens[lexer->i][i] && (ft_isalpha(lexer->tokens[lexer->i][i])
-		|| ft_isdigit(lexer->tokens[lexer->i][i]) || lexer->tokens[lexer->i][i] == '_'))
+	while (lexer->tokens[lexer->i][i] && is_valid(lexer->tokens[lexer->i][i]))
 		i++;
 	var = ft_substr(lexer->tokens[lexer->i], lexer->j, i - lexer->j);
 	if (getenv(var))
