@@ -8,7 +8,8 @@ CFILES = prompt_string.c \
 		 sources/lexer/utils.c \
 		 sources/lexer/params_expander.c \
 		 sources/lexer/wildcards_expander.c \
-		 sources/lexer/wildcards_expander_utils.c
+		 sources/lexer/wildcards_expander_utils.c \
+		 sources/builtins/initializing_environnement.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
