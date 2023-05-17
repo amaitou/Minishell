@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/16 15:37:31 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/17 03:02:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 static int	find_len(t_lexer *lexer, int i)
 {
-	if (lexer->wc_is_last)
+	if (lexer->wc_is_last && lexer->req[0])
 		return (ft_strlen(lexer->req[i]));
 	else
 		return (ft_strlen(lexer->p_match));
+}
+
+static char	*find_format(t_lexer *lexer, int i)
+{
+	if (!lexer->req[0])
+		return (lexer->p_match);
+	else
+		return (lexer->req[i]);
 }
 
 static void	search_for_match(t_lexer *lexer)
@@ -38,7 +46,8 @@ static void	search_for_match(t_lexer *lexer)
 		lexer->p_match = ft_strdup(dir_entry->d_name);
 		i = 0;
 		j = 0;
-		while (ft_strnstr(lexer->p_match + j, lexer->req[i], find_len(lexer, i)))
+		while (ft_strnstr(lexer->p_match + j,
+				find_format(lexer, i), find_len(lexer, i)))
 		{
 			i++;
 			if (!lexer->req[i])
@@ -47,7 +56,8 @@ static void	search_for_match(t_lexer *lexer)
 				lexer->matched = string_join(lexer->matched, ft_strdup(" "));
 				break ;
 			}
-			j = ft_strlen(lexer->req[i]);
+			if (lexer->req[i])
+				j = ft_strlen(lexer->req[i]);
 		}
 		if (lexer->req[i])
 			free (lexer->p_match);
