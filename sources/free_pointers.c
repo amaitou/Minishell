@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   free_pointers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 07:06:21 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:21:01 by bbouagou         ###   ########.fr       */
+/*   Created: 2023/05/18 20:21:05 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/05/18 21:49:35 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include	"../includes/minishell.h"
 
-# include "./minishell.h"
-
-t_env	*initialize_environnement(t_env *env, char **envp);
-char	*ft_getenv(char *string, t_env *env);
-
-#endif
+void	free_pointers(t_lexer *lexer, t_prompt *prompt, t_parser *parser)
+{
+	free(lexer->cmd);
+	free(lexer);
+	free(prompt->line);
+	free(prompt);
+	free(parser);
+}

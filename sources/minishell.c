@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 20:08:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:49:44 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -46,10 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (ft_strlen(lexer->cmd))
 			add_history(lexer->cmd);
-		free(lexer->cmd);
-		free(lexer);
-		free(prompt->line);
-		free(prompt);
+		free_pointers(lexer, prompt, parser);
 	}
 	return (0);
 }

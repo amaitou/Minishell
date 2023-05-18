@@ -6,11 +6,11 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 19:11:32 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:40:18 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/minishell.h"
 
 int	find_len(t_parser *parser, int i)
 {

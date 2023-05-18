@@ -6,11 +6,11 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 20:04:51 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:39:53 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/minishell.h"
 
 int	quotes(t_lexer *lexer, char *s)
 {

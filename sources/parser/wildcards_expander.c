@@ -6,11 +6,11 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 19:44:35 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:40:28 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/minishell.h"
 
 static void	init_search(t_parser *parser)
 {

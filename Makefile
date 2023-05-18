@@ -2,8 +2,9 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFILES = prompt_string.c \
-		 minishell.c \
+CFILES = sources/prompt_string.c \
+		 sources/minishell.c \
+		 sources/free_pointers.c \
 		 sources/lexer/tokenizer.c \
 		 sources/lexer/utils.c \
 		 sources/parser/params_expander.c \

@@ -6,11 +6,11 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:51 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/16 17:55:44 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:49:52 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	get_user(t_prompt *prompt)
 {

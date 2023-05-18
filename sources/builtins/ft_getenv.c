@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:15:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:23:18 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:38:38 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../includes/minishell.h"
 
 char	*ft_getenv(char *string, t_env *env)
 {

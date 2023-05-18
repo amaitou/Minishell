@@ -6,11 +6,11 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 19:05:26 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:40:09 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parser.h"
+#include "../../includes/minishell.h"
 
 static int	get_index(char *token)
 {
