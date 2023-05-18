@@ -3,53 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/17 04:30:48 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:44:35 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../../includes/parser.h"
 
-static void	init_search(t_lexer *lexer)
+static void	init_search(t_parser *parser)
 {
 	struct dirent	*dir_entry;
 	DIR				*dir;
 
-	lexer->req = ft_split(lexer->tokens[lexer->i], '*');
-	lexer->matched = NULL;
+	parser->req = ft_split(parser->tokens[parser->i], '*');
+	parser->matched = (void *)0;
 	dir = opendir(".");
 	if (!dir)
 		printf("No such file or directory");
 	dir_entry = readdir(dir);
 	while (dir_entry)
 	{
-		lexer->p_match = ft_strdup(dir_entry->d_name);
-		search_for_match(lexer);
+		parser->p_match = ft_strdup(dir_entry->d_name);
+		search_for_match(parser);
 		dir_entry = readdir(dir);
 	}
-	if (lexer->matched)
-		match_found(lexer);
+	if (parser->matched)
+		match_found(parser);
 	else
-		match_not_found(lexer);
-	free_array(lexer->req);
+		match_not_found(parser);
+	free_array(parser->req);
 	closedir(dir);
 }
 
-void	wildcards_expander(t_lexer *lexer)
+void	wildcards_expander(t_parser *parser)
 {
-	lexer->j = -1;
-	lexer->wc_is_last = 0;
-	if (!should_expand(lexer->tokens[lexer->i]))
+	parser->j = -1;
+	parser->wc_is_last = 0;
+	if (!should_expand(parser->tokens[parser->i]))
 	{
-		while (lexer->tokens[lexer->i][++lexer->j])
+		while (parser->tokens[parser->i][++parser->j])
 		{
-			if (lexer->tokens[lexer->i][lexer->j] == '*')
+			if (parser->tokens[parser->i][parser->j] == '*')
 			{
-				if (!lexer->tokens[lexer->i][lexer->j + 1])
-					lexer->wc_is_last = 1;
-				init_search(lexer);
+				if (!parser->tokens[parser->i][parser->j + 1])
+					parser->wc_is_last = 1;
+				init_search(parser);
 				break ;
 			}
 		}

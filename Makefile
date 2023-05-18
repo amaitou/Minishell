@@ -6,9 +6,9 @@ CFILES = prompt_string.c \
 		 minishell.c \
 		 sources/lexer/tokenizer.c \
 		 sources/lexer/utils.c \
-		 sources/lexer/params_expander.c \
-		 sources/lexer/wildcards_expander.c \
-		 sources/lexer/wildcards_expander_utils.c \
+		 sources/parser/params_expander.c \
+		 sources/parser/wildcards_expander.c \
+		 sources/parser/wildcards_expander_utils.c \
 		 sources/builtins/initializing_environnement.c \
 		 sources/builtins/ft_getenv.c
 

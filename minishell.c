@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:21:23 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:08:09 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_lexer		*lexer;
+	t_parser	*parser;
 	t_prompt	*prompt;
 	t_env		*env;
-	int			tokenizer_value;
 
 	(void)argc;
 	(void)argv;
@@ -27,21 +27,25 @@ int	main(int argc, char **argv, char **envp)
 	{
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
+		parser = (t_parser *)malloc(sizeof(t_parser));
+
 		lexer->cmd = prompt_string(prompt);
 		if (ft_strlen(lexer->cmd))
 		{
-			add_history(lexer->cmd);
-			tokenizer_value = tokenizer(lexer, env);
-			if (tokenizer_value == 1)
+			parser->tokens = tokenizer(lexer);
+			if (lexer->error == 1)
 				ft_putendl_fd("[!] Error: There is an unclosed quote", 1);
-			else if (tokenizer_value == 2)
+			else if (lexer->error == 2)
 				ft_putendl_fd("[!] Error : parse error near to a symbol", 1);
 			else
 			{
+				variables_expander(parser, env);
 				tokens_traversal(lexer->tokens);
 				free_array(lexer->tokens);
 			}
 		}
+		if (ft_strlen(lexer->cmd))
+			add_history(lexer->cmd);
 		free(lexer->cmd);
 		free(lexer);
 		free(prompt->line);

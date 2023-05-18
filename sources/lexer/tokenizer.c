@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:22:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:04:51 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,17 @@ int	scanner(char *s, t_lexer *lexer)
 	return (0);
 }
 
-int	tokenizer(t_lexer *lexer, t_env *env)
+char	**tokenizer(t_lexer *lexer)
 {
-	int	scanner_value;
-
 	lexer->i = 0;
 	lexer->line = NULL;
-	scanner_value = scanner(lexer->cmd, lexer);
-	if (scanner_value)
-		return (free(lexer->line), scanner_value);
+	lexer->error = scanner(lexer->cmd, lexer);
+	if (lexer->error)
+		return (free(lexer->line), (void *)0);
 	else
 	{
 		lexer->tokens = ft_split(lexer->line, '\n');
 		free(lexer->line);
-		variables_expander(lexer, env);
 	}
-	return (0);
+	return (lexer->tokens);
 }
