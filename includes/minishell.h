@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:46:39 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:05:34 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_info
 	struct s_info	*next;
 }	t_info;
 
-
 /**
  * @brief Declarations for tokens scanner
  **/
@@ -122,7 +121,7 @@ void	tokens_traversal(char **tokenizer);
  * @bried declaration for environment variables
  **/
 
-t_env	*initialize_environnement(t_env *env, char **envp);
+t_env	*init_env(t_env	*env, char **envp);
 char	*ft_getenv(char *string, t_env *env);
 
 void	free_pointers(t_lexer *lexer, t_prompt *prompt, t_parser *parser);

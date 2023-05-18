@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 07:05:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:39:38 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:01:47 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_v(char *string)
 	return (i);
 }
 
-t_env	*initialize_environnement(t_env	*env, char **envp)
+t_env	*init_env(t_env	*env, char **envp)
 {
 	int		i;
 	t_env	*traveser;

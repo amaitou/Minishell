@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:49:44 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:02:00 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	env = initialize_environnement(env, envp);
+	env = init_env(env, envp);
 	while (1)
 	{
 		lexer = (t_lexer *)malloc(sizeof(t_lexer));
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
 		parser = (t_parser *)malloc(sizeof(t_parser));
-
 		lexer->cmd = prompt_string(prompt);
 		if (ft_strlen(lexer->cmd))
 		{

@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:51:54 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:40:00 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:54:06 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,3 @@ void	free_array(char **arr)
 		free(arr[i]);
 	free(arr);
 }
-
-// void	free_struct(t_lexer *lexer)
-// {
-// 	free (lexer->cmd);
-// 	free_array(lexer->tokens);
-// 	free(lexer);
-// }

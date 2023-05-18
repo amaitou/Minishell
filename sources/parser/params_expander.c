@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:40:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:58:59 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	truncate_digit(t_parser *parser)
 	if (i)
 		tmp = ft_substr(parser->tokens[parser->i], 0, i);
 	tmp2 = parser->tokens[parser->i];
-	parser->tokens[parser->i] = ft_substr(parser->tokens[parser->i], parser->j + 1,
+	parser->tokens[parser->i] = ft_substr(parser->tokens[parser->i],
+			parser->j + 1,
 			ft_strlen(parser->tokens[parser->i]));
 	parser->tokens[parser->i] = string_join(tmp, parser->tokens[parser->i]);
 	parser->param_exp = 0;
@@ -60,8 +61,9 @@ static void	expnad_var(t_parser *parser, t_env *env)
 	tmp2 = parser->tokens[parser->i];
 	tmp = ft_substr(parser->tokens[parser->i], 0, parser->j - 1);
 	i = parser->j;
-	while (parser->tokens[parser->i][i] && is_valid(parser->tokens[parser->i][i]))
-		i++;
+	while (parser->tokens[parser->i][i]
+		&& is_valid(parser->tokens[parser->i][i]))
+		++i;
 	var = ft_substr(parser->tokens[parser->i], parser->j, i - parser->j);
 	if (ft_getenv(var, env))
 	{

@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:51 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:49:52 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:01:19 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	get_user(t_prompt *prompt)
 	prompt->line = string_join(ft_strdup("[\033[0;32m"), ft_strdup(user));
 	prompt->line = string_join(prompt->line,
 			ft_strdup("\033[0m\033[1;37m@1337\033[0m\033[0;36m "));
-	prompt->line = string_join(prompt->line, ft_strdup(ft_strrchr(cwd, '/') + 1));
+	prompt->line = string_join(prompt->line,
+			ft_strdup(ft_strrchr(cwd, '/') + 1));
 	prompt->line = string_join(prompt->line, ft_strdup("\033[0m]$ "));
 	free(cwd);
 }

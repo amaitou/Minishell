@@ -10,7 +10,7 @@ CFILES = sources/prompt_string.c \
 		 sources/parser/params_expander.c \
 		 sources/parser/wildcards_expander.c \
 		 sources/parser/wildcards_expander_utils.c \
-		 sources/builtins/initializing_environnement.c \
+		 sources/builtins/init_env.c \
 		 sources/builtins/ft_getenv.c
 
 SUPERLIB_DIR = ./superlib
