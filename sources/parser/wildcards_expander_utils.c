@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:40:18 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:06:26 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	search_for_match(t_parser *parser)
 
 	i = -1;
 	j = 0;
+	if (parser->p_match[0] == '.')
+		return ;
 	while (parser->req[++i] && ft_strnstr(parser->p_match + j,
 			parser->req[i], find_len(parser, i)))
 		j = ft_strlen(parser->req[i]);
