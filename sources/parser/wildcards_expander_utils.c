@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 17:32:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:08:12 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	search(t_parser *parser, int i, int j)
 {
 	if (!i && parser->first && !ft_strnstr(parser->p_match + j,
 			parser->req[i], ft_strlen(parser->req[i])))
-		return (0)
+		return (0);
 	else if (!parser->req[i + 1] && parser->last
 		&& !ft_strlaststr(parser->p_match + j, parser->req[i]))
 		return (0);

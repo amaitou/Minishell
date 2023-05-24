@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:58:59 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:06:59 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ static void	expnad_var(t_parser *parser, t_env *env)
 				ft_substr(tmp2, i, ft_strlen(tmp2)));
 	parser->param_exp = 0;
 	parser->j = get_index(parser->tokens[parser->i]);
-	free (var);
-	free (tmp2);
+	return (free (var), free (tmp2));
 }
 
 void	variables_expander(t_parser *parser, t_env *env)
