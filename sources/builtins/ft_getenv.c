@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:15:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:38:38 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:32:31 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_getenv(char *string, t_env *env)
 	traverser = env;
 	while (traverser)
 	{
-		if (!ft_strcmp(string, traverser->var_name))
+		if (!ft_strcmp(string, traverser->key))
 			return (traverser->value);
 		traverser = traverser->next;
 	}

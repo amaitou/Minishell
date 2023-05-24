@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   superlib.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/24 15:43:19 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:32:15 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef unsigned long		t_ul;
 
 typedef struct s_env
 {
-	char			*var_name;
+	char			*key;
 	char			*value;
 	struct s_env	*next;
 }	t_env;

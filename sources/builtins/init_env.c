@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 07:05:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:29:07 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:31:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	get_v(char *string)
 // 	traveser = env;
 // 	while (envp[i])
 // 	{
-// 		traveser->var_name = ft_substr(envp[i], 0, get_v(envp[i]));
+// 		traveser->key = ft_substr(envp[i], 0, get_v(envp[i]));
 // 		traveser->value = ft_substr(envp[i],
 // 				get_v(envp[i]) + 1, ft_strlen(envp[i]));
 // 		if (envp[i + 1])
@@ -54,7 +54,7 @@ t_env	*init_env(t_env	*env, char **envp)
 	while (envp[i])
 	{
 		node = ft_lstnew();
-		node->var_name = ft_substr(envp[i], 0, get_v(envp[i]));
+		node->key = ft_substr(envp[i], 0, get_v(envp[i]));
 		node->value = ft_substr(envp[i],
 				get_v(envp[i]) + 1, ft_strlen(envp[i]));
 		ft_lstadd_back(&head, node);
