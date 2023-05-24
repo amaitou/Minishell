@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:06:59 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:10:28 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static int	get_index(char *token)
 
 static int	is_valid(char c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
-		return (1);
-	else
-		return (0);
+	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }
 
 static void	truncate_digit(t_parser *parser)
