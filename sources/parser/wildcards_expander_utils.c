@@ -6,19 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 16:19:00 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:32:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// int	find_len(t_parser *parser, int i)
-// {
-// 	if (parser->wc_is_last && parser->req[0])
-// 		return (ft_strlen(parser->req[i]));
-// 	else
-// 		return (ft_strlen(parser->p_match));
-// }
 
 int	should_expand(char *string)
 {
@@ -44,6 +36,20 @@ void	match_not_found(t_parser *parser)
 	parser->tokens[parser->i] = ft_strdup("");
 }
 
+static int	search(t_parser *parser, int i, int j)
+{
+	if (!i && parser->first && !ft_strnstr(parser->p_match + j,
+			parser->req[i], ft_strlen(parser->req[i])))
+		return (0)
+	else if (!parser->req[i + 1] && parser->last
+		&& !ft_strlaststr(parser->p_match + j, parser->req[i]))
+		return (0);
+	else if (!ft_strnstr(parser->p_match + j, parser->req[i],
+			ft_strlen(parser->p_match)))
+		return (0);
+	return (1);
+}
+
 void	search_for_match(t_parser *parser)
 {
 	int	i;
@@ -55,11 +61,7 @@ void	search_for_match(t_parser *parser)
 		return ;
 	while (parser->req[++i])
 	{
-		if (!i && parser->first && !ft_strnstr(parser->p_match + j, parser->req[i], ft_strlen(parser->req[i])))
-			break ;
-		else if (!parser->req[i + 1] && parser->last && !ft_strlaststr(parser->p_match + j, parser->req[i]))
-			break ;
-		else if (!ft_strnstr(parser->p_match + j, parser->req[i], ft_strlen(parser->p_match)))
+		if (!search(parser, i, j))
 			break ;
 		j = ft_strlen(parser->req[i]);
 	}

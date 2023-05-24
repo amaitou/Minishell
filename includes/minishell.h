@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/24 15:27:35 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 17:28:59 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	**tokenizer(t_lexer *lexer);
  * @brief Declarations for wildcards expander utils funcs
  */
 
-int		find_len(t_parser *parser, int i);
 char	*find_format(t_parser *parser, int i);
 int		should_expand(char *string);
 void	match_found(t_parser *parser);
