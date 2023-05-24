@@ -56,7 +56,8 @@ CFILES = ft_isalpha.c \
 		ft_putstr.c \
 		ft_putunsigned.c \
 		ft_charlen.c \
-		ft_strcmp.c
+		ft_strcmp.c \
+		ft_strlaststr.c
 
 SOURCES = $(CFILES:.c=.o)
 

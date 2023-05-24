@@ -6,19 +6,19 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/21 15:06:26 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:19:00 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	find_len(t_parser *parser, int i)
-{
-	if (parser->wc_is_last && parser->req[0])
-		return (ft_strlen(parser->req[i]));
-	else
-		return (ft_strlen(parser->p_match));
-}
+// int	find_len(t_parser *parser, int i)
+// {
+// 	if (parser->wc_is_last && parser->req[0])
+// 		return (ft_strlen(parser->req[i]));
+// 	else
+// 		return (ft_strlen(parser->p_match));
+// }
 
 int	should_expand(char *string)
 {
@@ -53,9 +53,16 @@ void	search_for_match(t_parser *parser)
 	j = 0;
 	if (parser->p_match[0] == '.')
 		return ;
-	while (parser->req[++i] && ft_strnstr(parser->p_match + j,
-			parser->req[i], find_len(parser, i)))
+	while (parser->req[++i])
+	{
+		if (!i && parser->first && !ft_strnstr(parser->p_match + j, parser->req[i], ft_strlen(parser->req[i])))
+			break ;
+		else if (!parser->req[i + 1] && parser->last && !ft_strlaststr(parser->p_match + j, parser->req[i]))
+			break ;
+		else if (!ft_strnstr(parser->p_match + j, parser->req[i], ft_strlen(parser->p_match)))
+			break ;
 		j = ft_strlen(parser->req[i]);
+	}
 	if (!parser->req[i])
 	{
 		parser->matched = string_join(parser->matched, parser->p_match);

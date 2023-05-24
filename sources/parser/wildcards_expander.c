@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:40:28 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:20:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,25 @@ static void	init_search(t_parser *parser)
 void	wildcards_expander(t_parser *parser)
 {
 	parser->j = -1;
-	parser->wc_is_last = 0;
+	parser->first = 0;
+	parser->last = 0;
+	parser->wc_present = 0;
 	if (!should_expand(parser->tokens[parser->i]))
 	{
 		while (parser->tokens[parser->i][++parser->j])
 		{
 			if (parser->tokens[parser->i][parser->j] == '*')
 			{
-				if (!parser->tokens[parser->i][parser->j + 1])
-					parser->wc_is_last = 1;
-				init_search(parser);
-				break ;
+				if (parser->j && !parser->first && !parser->wc_present)
+					parser->first = 1;
+				parser->wc_present = 1;
 			}
+			else if (parser->wc_present && !parser->last)
+				if (!ft_strchr(&parser->tokens[parser->i][parser->j + 1],
+					'*'))
+					parser->last = 1;
 		}
+		if (parser->wc_present)
+			init_search(parser);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 07:56:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:43:19 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_charlen(char *s, int c);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strlaststr(const char *string1, const char *string2);
 
 /* Get next line */
 char	*get_next_line(int fd);

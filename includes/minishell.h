@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 22:05:34 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:27:35 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ typedef struct s_parser
 	char	**req;
 	char	*p_match;
 	char	*matched;
-	int		wc_is_last;
+	int		first;
+	int		last;
+	int		wc_present;
 	int		i;
 	int		j;
 }	t_parser;
