@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/25 16:57:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:15:57 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	should_expand(char *string)
 	int	i;
 
 	i = 0;
-	while (string[i] != '$' && string[i])
+	while (string[i] != '$' && string[i]
+		&& !ft_strchr("'\"", string[i]))
 		i++;
 	return (ft_strlen(string) - i);
 }
