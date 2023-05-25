@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/25 16:58:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:07:08 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,15 @@ typedef struct s_parser
 
 typedef enum e_cntrl_op
 {
-	RED_IN,
-	RED_OUT,
-	RED_OUT_APP,
-	RED_IN_DEL,
-	PIPE,
-	COMMAND
+	__RED_IN,
+	__RED_OUT,
+	__RED_OUT_APP,
+	__HEREDOC,
+	__PIPE,
+	__COMMAND,
+	__OR,
+	__AND,
+	__NONE
 }	t_cntrl_op;
 
 typedef struct s_info
