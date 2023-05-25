@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/25 17:17:13 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:02:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,15 @@ static void	expnad_var(t_parser *parser, t_env *env)
 void	variables_expander(t_parser *parser, t_env *env)
 {
 	parser->i = -1;
-	while (parser->tokens[++parser->i])
+	while (parser->tokens[++parser->i]
+		&& !ft_strnstr(parser->tokens[parser->i], "\'", 1))
 	{
 		wildcards_expander(parser);
 		parser->j = -1;
 		parser->param_exp = 0;
 		while (parser->tokens[parser->i][++parser->j])
 		{
-			if (parser->tokens[parser->i][parser->j] == '\'')
-				while (parser->tokens[parser->i][parser->j + 1]
-					&& parser->tokens[parser->i][parser->j + 1] != '\'')
-					parser->j++;
-			else if (parser->tokens[parser->i][parser->j] == '$')
+			if (parser->tokens[parser->i][parser->j] == '$')
 				parser->param_exp = 1;
 			else if (parser->param_exp
 				&& (ft_isdigit(parser->tokens[parser->i][parser->j]
