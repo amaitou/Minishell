@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/25 17:07:08 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:54:45 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ typedef enum e_cntrl_op
 {
 	__RED_IN,
 	__RED_OUT,
-	__RED_OUT_APP,
+	__RED_APP,
 	__HEREDOC,
 	__PIPE,
 	__COMMAND,
 	__OR,
 	__AND,
+	__SUBSHELL,
 	__NONE
 }	t_cntrl_op;
 
