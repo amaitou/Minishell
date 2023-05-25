@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/24 17:28:59 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:58:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char	**tokenizer(t_lexer *lexer);
 char	*find_format(t_parser *parser, int i);
 int		should_expand(char *string);
 void	match_found(t_parser *parser);
-void	match_not_found(t_parser *parser);
 void	search_for_match(t_parser *parser);
 void	wildcards_expander(t_parser *parser);
 

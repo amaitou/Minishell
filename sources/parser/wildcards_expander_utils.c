@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 03:28:02 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:08:12 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:57:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ void	match_found(t_parser *parser)
 	free(parser->tokens[parser->i]);
 	parser->tokens[parser->i] = ft_strdup(parser->matched);
 	free (parser->matched);
-}
-
-void	match_not_found(t_parser *parser)
-{
-	printf("no matches found: %s\n", parser->tokens[parser->i]);
-	free(parser->tokens[parser->i]);
-	parser->tokens[parser->i] = ft_strdup("");
 }
 
 static int	search(t_parser *parser, int i, int j)

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 03:02:41 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/24 16:20:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:58:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void	init_search(t_parser *parser)
 	}
 	if (parser->matched)
 		match_found(parser);
-	else
-		match_not_found(parser);
 	free_array(parser->req);
 	closedir(dir);
 }
