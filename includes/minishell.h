@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/25 17:54:45 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:58:47 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_parser
 	int		j;
 }	t_parser;
 
-typedef enum e_cntrl_op
+typedef enum e_types
 {
 	__RED_IN,
 	__RED_OUT,
@@ -74,12 +74,12 @@ typedef enum e_cntrl_op
 	__AND,
 	__SUBSHELL,
 	__NONE
-}	t_cntrl_op;
+}	t_types;
 
 typedef struct s_info
 {
 	char			*full_cmd;
-	t_cntrl_op		op;
+	t_types			op;
 	struct s_info	*next;
 }	t_info;
 
