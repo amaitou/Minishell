@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/26 15:54:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:36:20 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ typedef struct s_parser
 	int		wc_present;
 	int		i;
 	int		j;
+	char	*line;
+	char	**tokens2;
+	char	quote;
 }	t_parser;
 
 typedef enum e_types
@@ -138,5 +141,7 @@ char	*ft_getenv(char *string, t_env *env);
 
 void	free_pointers(t_lexer *lexer, t_prompt *prompt, t_parser *parser);
 void	free_array(char **arr);
+
+void	quotes_removal(t_parser *parser);
 
 #endif
