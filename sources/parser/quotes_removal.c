@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 21:41:28 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/26 23:37:15 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:46:35 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	quotes_removal(t_parser *parser)
 	while (parser->tokens[++parser->i])
 		remove_quotes(parser, parser->tokens[parser->i]);
 	parser->tokens2 = ft_split(parser->line, '\n');
+	free(parser->line);
 }
