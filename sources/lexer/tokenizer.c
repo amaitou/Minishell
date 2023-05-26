@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:46:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 21:39:53 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:10:23 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ int	quotes(t_lexer *lexer, char *s)
 	while (s[lexer->i] != lexer->quote && s[lexer->i])
 		lexer->i++;
 	if (s[lexer->i])
-	{
 		lexer->line = string_join(lexer->line, ft_substr(s, lexer->j,
 					lexer->i - lexer->j + 1));
-		lexer->line = string_join(lexer->line, ft_strdup("\n"));
-	}
 	else
 		return (1);
 	return (0);
