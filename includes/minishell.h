@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/25 17:58:47 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:54:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ void	wildcards_expander(t_parser *parser);
  */
 
 void	variables_expander(t_parser *parser, t_env *env);
+
+/**
+ * @brief Declarations of variables expander utils funcs
+ */
+
+int		skip_quotes(char *string);
+int		is_valid(char c);
+int		get_index(char *token);
 
 /**
  * @brief Declarations for prompt string (PS)
