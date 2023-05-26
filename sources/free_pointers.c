@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:21:05 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 22:01:03 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:34:23 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	free_pointers(t_lexer *lexer, t_prompt *prompt, t_parser *parser)
 {
 	free(lexer->cmd);
 	free(lexer);
+	free(parser->line);
+	free(parser);
 	free(prompt->line);
 	free(prompt);
-	free(parser);
 }
