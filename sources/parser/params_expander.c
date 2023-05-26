@@ -6,26 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/25 18:02:34 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:53:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	get_index(char *token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i] && !ft_strchr("$\'", token[i]))
-		i++;
-	return (--i);
-}
-
-static int	is_valid(char c)
-{
-	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
-}
 
 static void	truncate_digit(t_parser *parser)
 {
@@ -80,11 +65,10 @@ static void	expnad_var(t_parser *parser, t_env *env)
 void	variables_expander(t_parser *parser, t_env *env)
 {
 	parser->i = -1;
-	while (parser->tokens[++parser->i]
-		&& !ft_strnstr(parser->tokens[parser->i], "\'", 1))
+	while (parser->tokens[++parser->i])
 	{
 		wildcards_expander(parser);
-		parser->j = -1;
+		parser->j = skip_quotes(parser->tokens[parser->i]);
 		parser->param_exp = 0;
 		while (parser->tokens[parser->i][++parser->j])
 		{
