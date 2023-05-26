@@ -8,6 +8,7 @@ CFILES = sources/prompt_string.c \
 		 sources/lexer/tokenizer.c \
 		 sources/lexer/utils.c \
 		 sources/parser/params_expander.c \
+		 sources/parser/params_expander_utils.c \
 		 sources/parser/wildcards_expander.c \
 		 sources/parser/wildcards_expander_utils.c \
 		 sources/builtins/init_env.c \
