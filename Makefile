@@ -12,7 +12,8 @@ CFILES = sources/prompt_string.c \
 		 sources/parser/wildcards_expander.c \
 		 sources/parser/wildcards_expander_utils.c \
 		 sources/builtins/init_env.c \
-		 sources/builtins/ft_getenv.c
+		 sources/builtins/ft_getenv.c \
+		 sources/parser/quotes_removal.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a

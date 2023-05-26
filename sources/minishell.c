@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/18 22:02:00 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:33:15 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				variables_expander(parser, env);
-				tokens_traversal(lexer->tokens);
-				free_array(lexer->tokens);
+				quotes_removal(parser);
+				tokens_traversal(parser->tokens2);
+				free_array(parser->tokens);
+				free_array(parser->tokens2);
 			}
 		}
 		if (ft_strlen(lexer->cmd))
