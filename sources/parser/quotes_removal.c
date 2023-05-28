@@ -6,13 +6,36 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 21:41:28 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/28 18:21:26 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:22:18 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	remove_quotes(t_parser *parser)
+static int	handled_heredoc_delimiter(t_parser *parser, char *token)
+{
+	if (!ft_strcmp(parser->tokens[parser->i - 1], "<<"))
+	{
+		parser->line = string_join(parser->line,
+				ft_substr(token, parser->j, ft_strlen(token)));
+		return (1);
+	}
+	return (0);
+}
+
+static	void	remove_quotes(t_parser *parser, char *token)
+{
+	parser->quote = token[parser->j];
+	parser->j++;
+	while (token[parser->j] != parser->quote && token[parser->j])
+	{
+		parser->line = string_join(parser->line,
+				ft_substr(token, parser->j, 1));
+		parser->j++;
+	}
+}
+
+static void	remove_quote_scanner(t_parser *parser)
 {
 	char	*token;
 
@@ -22,14 +45,10 @@ void	remove_quotes(t_parser *parser)
 	{
 		if (token[parser->j] == '\"' || token[parser->j] == '\'')
 		{
-			parser->quote = token[parser->j];
-			parser->j++;
-			while (token[parser->j] != parser->quote && token[parser->j])
-			{
-				parser->line = string_join(parser->line,
-						ft_substr(token, parser->j, 1));
-				parser->j++;
-			}
+			if (handled_heredoc_delimiter(parser, token))
+				break ;
+			else
+				remove_quotes(parser, token);
 		}
 		else
 			parser->line = string_join(parser->line,
@@ -47,6 +66,6 @@ void	quotes_removal(t_parser *parser)
 	while (parser->tokens[++parser->i])
 	{
 		parser->line = NULL;
-		remove_quotes(parser);
+		remove_quote_scanner(parser);
 	}
 }
