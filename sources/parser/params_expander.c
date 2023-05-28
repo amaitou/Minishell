@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 14:56:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/05/26 21:50:39 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/28 22:26:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,37 @@ static void	expnad_var(t_parser *parser, t_env *env)
 	return (free (var), free (tmp2));
 }
 
+static int	indexer(int i)
+{
+	if (i < 0)
+		return (0);
+	return (i);
+}
+
 void	variables_expander(t_parser *parser, t_env *env)
 {
 	parser->i = -1;
 	while (parser->tokens[++parser->i])
 	{
-		wildcards_expander(parser);
-		parser->j = skip_quotes(parser->tokens[parser->i]);
-		parser->param_exp = 0;
-		while (parser->tokens[parser->i][++parser->j])
+		if (ft_strcmp(parser->tokens[indexer(parser->i - 1)], "<<"))
 		{
-			if (parser->tokens[parser->i][parser->j] == '$')
-				parser->param_exp = 1;
-			else if (parser->param_exp
-				&& (ft_isdigit(parser->tokens[parser->i][parser->j]
-					&& parser->tokens[parser->i][parser->j] != '0'))
-					&& parser->tokens[parser->i][parser->j - 1] == '$')
-				truncate_digit(parser);
-			else if (parser->param_exp
-				&& (ft_isalpha(parser->tokens[parser->i][parser->j])
-				|| ft_strchr("0_", parser->tokens[parser->i][parser->j])))
-				expnad_var(parser, env);
+			wildcards_expander(parser);
+			parser->j = skip_quotes(parser->tokens[parser->i]);
+			parser->param_exp = 0;
+			while (parser->tokens[parser->i][++parser->j])
+			{
+				if (parser->tokens[parser->i][parser->j] == '$')
+					parser->param_exp = 1;
+				else if (parser->param_exp
+					&& (ft_isdigit(parser->tokens[parser->i][parser->j]
+						&& parser->tokens[parser->i][parser->j] != '0'))
+						&& parser->tokens[parser->i][parser->j - 1] == '$')
+					truncate_digit(parser);
+				else if (parser->param_exp
+					&& (ft_isalpha(parser->tokens[parser->i][parser->j])
+					|| ft_strchr("0_", parser->tokens[parser->i][parser->j])))
+					expnad_var(parser, env);
+			}
 		}
 	}
 }
