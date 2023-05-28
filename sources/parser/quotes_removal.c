@@ -6,42 +6,47 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 21:41:28 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/26 23:46:35 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:21:26 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	remove_quotes(t_parser *parser, char *s)
+void	remove_quotes(t_parser *parser)
 {
-	int		i;
+	char	*token;
 
-	i = 0;
-	while (s[i])
+	token = parser->tokens[parser->i];
+	parser->j = -1;
+	while (token[++parser->j])
 	{
-		if (s[i] == '\"' || s[i] == '\'')
+		if (token[parser->j] == '\"' || token[parser->j] == '\'')
 		{
-			parser->quote = s[i];
-			++i;
-			while (s[i] != parser->quote && s[i])
+			parser->quote = token[parser->j];
+			parser->j++;
+			while (token[parser->j] != parser->quote && token[parser->j])
 			{
-				parser->line = string_join(parser->line, ft_substr(s, i, 1));
-				++i;
+				parser->line = string_join(parser->line,
+						ft_substr(token, parser->j, 1));
+				parser->j++;
 			}
 		}
 		else
-			parser->line = string_join(parser->line, ft_substr(s, i, 1));
-		++i;
+			parser->line = string_join(parser->line,
+					ft_substr(token, parser->j, 1));
 	}
-	parser->line = string_join(parser->line, ft_strdup("\n"));
+	if (!parser->line)
+		parser->line = ft_strdup("");
+	free(parser->tokens[parser->i]);
+	parser->tokens[parser->i] = parser->line;
 }
 
 void	quotes_removal(t_parser *parser)
 {
-	parser->line = NULL;
 	parser->i = -1;
 	while (parser->tokens[++parser->i])
-		remove_quotes(parser, parser->tokens[parser->i]);
-	parser->tokens2 = ft_split(parser->line, '\n');
-	free(parser->line);
+	{
+		parser->line = NULL;
+		remove_quotes(parser);
+	}
 }

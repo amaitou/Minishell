@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/26 23:36:20 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:31:06 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@
 # include <limits.h>
 # include <dirent.h>
 
-// struct used by the lexer
-typedef struct s_lexer
-{
-	int		i;
-	int		j;
-	int		param_exp;
-	char	*line;
-	int		error;
-	char	quote;
-	char	**tokens;
-	char	*cmd;
-}	t_lexer;
-
 // struct used by the prompt string
 typedef struct s_prompt
 {
@@ -50,18 +37,19 @@ typedef struct s_prompt
 
 typedef struct s_parser
 {
-	int		param_exp;
 	char	**tokens;
 	char	**req;
+	char	*line;
 	char	*p_match;
 	char	*matched;
+	char	*cmd;
 	int		first;
+	int		error;
+	int		param_exp;
 	int		last;
 	int		wc_present;
 	int		i;
 	int		j;
-	char	*line;
-	char	**tokens2;
 	char	quote;
 }	t_parser;
 
@@ -90,10 +78,10 @@ typedef struct s_info
  * @brief Declarations for tokens scanner
  **/
 
-int		quotes(t_lexer *lexer, char *s);
-int		operators(t_lexer *lexer, char *s);
-int		scanner(char *s, t_lexer *lexer);
-char	**tokenizer(t_lexer *lexer);
+int		quotes(t_parser *parser, char *s);
+int		operators(t_parser *parser, char *s);
+int		scanner(char *s, t_parser *parser);
+void	tokenizer(t_parser *parser);
 
 /**
  * @brief Declarations for wildcards expander utils funcs
@@ -139,9 +127,11 @@ void	tokens_traversal(char **tokenizer);
 t_env	*init_env(t_env	*env, char **envp);
 char	*ft_getenv(char *string, t_env *env);
 
-void	free_pointers(t_lexer *lexer, t_prompt *prompt, t_parser *parser);
+void	free_pointers(t_prompt *prompt, t_parser *parser);
 void	free_array(char **arr);
 
 void	quotes_removal(t_parser *parser);
+
+void	final_tokens(t_parser *parser, t_env *env);
 
 #endif
