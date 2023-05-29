@@ -6,19 +6,29 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 21:41:28 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/28 20:22:18 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/05/29 22:05:27 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	indexer(int i)
+{
+	if (i < 0)
+		return (0);
+	return (1);
+}
+
 static int	handled_heredoc_delimiter(t_parser *parser, char *token)
 {
-	if (!ft_strcmp(parser->tokens[parser->i - 1], "<<"))
+	if (indexer(parser->i - 1))
 	{
-		parser->line = string_join(parser->line,
-				ft_substr(token, parser->j, ft_strlen(token)));
-		return (1);
+		if (!ft_strcmp(parser->tokens[parser->i - 1], "<<"))
+		{
+			parser->line = string_join(parser->line,
+					ft_substr(token, parser->j, ft_strlen(token)));
+			return (1);
+		}
 	}
 	return (0);
 }
