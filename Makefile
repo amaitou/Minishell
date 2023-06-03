@@ -1,20 +1,14 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
-		 sources/free_pointers.c \
-		 sources/parser/tokenizer.c \
-		 sources/parser/utils.c \
-		 sources/parser/params_expander.c \
-		 sources/parser/params_expander_utils.c \
-		 sources/parser/wildcards_expander.c \
-		 sources/parser/wildcards_expander_utils.c \
-		 sources/builtins/init_env.c \
-		 sources/builtins/ft_getenv.c \
-		 sources/parser/quotes_removal.c \
-		 sources/parser/final_tokens.c
+		 sources/parsing/scanner.c \
+		 sources/parsing/d_linked_list.c \
+		 sources/parsing/scanner_utils.c \
+		 sources/parsing/lexer.c \
+		 sources/parsing/lexer_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a

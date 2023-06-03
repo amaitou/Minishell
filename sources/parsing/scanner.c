@@ -6,97 +6,74 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 01:28:16 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 02:33:05 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:21:58 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int handle_quotes(t_dlist *head, t_scanner *scanner)
+void	handle_quotes(t_scanner *scanner)
 {
-	t_dlist *node;
-
 	scanner->j = scanner->i++;
 	while (scanner->command[scanner->i] != scanner->t_quote
-		&& scanner->command[scanner->i])
+			&& scanner->command[scanner->i])
 		scanner->i++;
 	if (scanner->command[scanner->i])
-	{
-		node = create_node();
-		node->value = ft_substr(scanner->command, scanner->j,
-			scanner->i - scanner->j + 1);
-		node->type = __NONE;
-		if (scanner->t_quote == '\"')
-			node->state = __d_quotes;
-		else
-			node->state = __s_quotes;
-		append_node(head, node);
-	}
+		scanner->line = string_join(scanner->line,
+			ft_substr(scanner->command, scanner->j,
+				scanner->i - scanner->j + 1));
 	else
-		return (1);
-	return (0);
+		scanner->line = string_join(scanner->line,
+			ft_substr(scanner->command, scanner->j,
+				scanner->i - scanner->j));
 }
 
-int handle_operators(t_dlist *head, t_scanner *scanner)
+void	handle_operators(t_scanner *scanner)
 {
-	t_dlist *node;
-
 	if (!ft_memcmp(scanner->command + scanner->i, ">>", 2)
 		|| !ft_memcmp(scanner->command + scanner->i, "<<", 2))
 	{
-		node->value = ft_substr(scanner->command, scanner->i, 2);
-		if (!ft_memcmp(scanner->command + scanner->i, ">>", 2))
-			node->type = __RED_APP;
-		else
-			node->type = __HEREDOC;
+		scanner->line = string_join(scanner->line, ft_strdup("\n"));
+		scanner->line = string_join(scanner->line,
+				ft_substr(scanner->command, scanner->i, 2));
+		scanner->line = string_join(scanner->line, ft_strdup("\n"));
 		scanner->i++;
 	}
 	else
 	{
-		node->value = ft_substr(scanner->command, scanner->i, 1);
-		if (scanner->command[scanner->i] == '<')
-			node->type = __RED_IN;
-		else
-			node->type = __RED_OUT;
+		scanner->line = string_join(scanner->line, ft_strdup("\n"));
+		scanner->line = string_join(scanner->line,
+			ft_substr(scanner->command, scanner->i, 1));
+		scanner->line = string_join(scanner->line, ft_strdup("\n"));
 	}
-	node->state = __none;
-	return (0);
 }
 
-int command_scanner(t_dlist *head, t_scanner *scanner)
+void	command_splitter(t_scanner *scanner)
 {
-	t_dlist *node;
-
 	while (scanner->command[scanner->i])
 	{
 		if (scanner->command[scanner->i] == '\"'
 			|| scanner->command[scanner->i] == '\'')
 		{
 			scanner->t_quote = scanner->command[scanner->i];
-			if (handle_quotes(head, scanner))
-				return (1);
+			handle_quotes(scanner);
 		}
-		else if (ft_strchr("<>|&", scanner->command[scanner->i]))
-		{
-			if (handle_operators(head, scanner))
-				return (2);
-		}
+		else if (ft_strchr("<>|", scanner->command[scanner->i]))
+			handle_operators(scanner);
 		else if (ft_strchr(" \t\n\v\f\r", scanner->command[scanner->i]))
-			++scanner->i;
+			scanner->line = string_join(scanner->line, ft_strdup("\n"));
 		else
-		{
-			node->value = ft_substr(scanner->command, scanner->i, 1);
-			node->type = __NONE;
-			node->state = __none;
-		}
+			scanner->line = string_join(scanner->line,
+					ft_substr(scanner->command, scanner->i, 1));
 		scanner->i++;
 	}
-	return (0);
 }
 
-void tokenizer(t_dlist *head, t_scanner *scanner)
+void	__scanner(t_scanner *scanner)
 {
 	scanner->i = 0;
-	scanner->command = NULL;
-	command_scanner(head, scanner);
+	scanner->line = NULL;
+	command_splitter(scanner);
+	scanner->tokens = ft_split(scanner->line, '\n');
+	free(scanner->line);
 }

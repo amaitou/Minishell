@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:25:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 01:36:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:17:49 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_dlist *create_node(void)
         return (NULL);
     new->next = NULL;
     new->prev = NULL;
+    return (new);
 }
 
 t_dlist *last_node(t_dlist *head)
@@ -59,7 +60,7 @@ void    traverse_list(t_dlist *head)
     while (temp)
     {
         printf("\nvalue ---> %s\n", temp->value);
-        printf("type  ---> %s\n", temp->type);
+        printf("type  ---> %d\n", temp->type);
         printf("state  ---> %c\n", temp->type);
         temp = temp->next;
     }
