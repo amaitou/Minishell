@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/28 18:31:06 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/03 12:08:01 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../superlib/superlib.h"
+#include "../superlib/superlib.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -27,111 +27,68 @@
 # include <limits.h>
 # include <dirent.h>
 
-// struct used by the prompt string
+// struct for prompt string
+
 typedef struct s_prompt
 {
 	char	*line;
 }	t_prompt;
 
-// struct used by the parser
+// struct that goes for the scanner
 
-typedef struct s_parser
+typedef struct s_scanner
 {
-	char	**tokens;
-	char	**req;
-	char	*line;
-	char	*p_match;
-	char	*matched;
-	char	*cmd;
-	int		first;
-	int		error;
-	int		param_exp;
-	int		last;
-	int		wc_present;
-	int		i;
-	int		j;
-	char	quote;
-}	t_parser;
+    char    *command;
+    int     i;
+    int     j;
+    char    t_quote;
+} t_scanner;
+
+// the token types
 
 typedef enum e_types
 {
-	__RED_IN,
-	__RED_OUT,
-	__RED_APP,
+	__NONE = -1,
+	__RED_IN = '<',
+	__RED_OUT = '>',
+	__RED_APP = '>>',
 	__HEREDOC,
-	__PIPE,
-	__COMMAND,
-	__OR,
-	__AND,
-	__SUBSHELL,
-	__NONE
+	__PIPE = '|'
 }	t_types;
 
-typedef struct s_info
+// the token state to check the type of quotes
+
+typedef enum e_state
 {
-	char			*full_cmd;
-	t_types			op;
-	struct s_info	*next;
-}	t_info;
+    __d_quotes = '\"',
+    __s_quotes = '\'',
+    __none = -1
+} t_state;
 
-/**
- * @brief Declarations for tokens scanner
- **/
+// the struct of doubly linked-list in which we'll store our splitted tokens
 
-int		quotes(t_parser *parser, char *s);
-int		operators(t_parser *parser, char *s);
-int		scanner(char *s, t_parser *parser);
-void	tokenizer(t_parser *parser);
+typedef struct s_dlist
+{
+    char            *value;
+    t_types         type;
+    t_state         state;
+    struct s_dlist *next;
+    struct s_dlist *prev;
+} t_dlist;
 
-/**
- * @brief Declarations for wildcards expander utils funcs
- */
 
-char	*find_format(t_parser *parser, int i);
-int		should_expand(char *string);
-void	match_found(t_parser *parser);
-void	search_for_match(t_parser *parser);
-void	wildcards_expander(t_parser *parser);
+// doubly linked list functions
 
-/**
- * @brief Declarations for variables expander
- */
+t_dlist *create_node(void);
+t_dlist *last_node(t_dlist *head);
+void    append_node(t_dlist *head, t_dlist *new);
+void    traverse_list(t_dlist *head);
 
-void	variables_expander(t_parser *parser, t_env *env);
+// tokenizer functions
 
-/**
- * @brief Declarations of variables expander utils funcs
- */
-
-int		skip_quotes(char *string);
-int		is_valid(char c);
-int		get_index(char *token);
-
-/**
- * @brief Declarations for prompt string (PS)
- **/
-
-char	*prompt_string(t_prompt *prompt);
-
-/**
- * @the traversal that travers over all tokens and prints them
- *
- **/
-
-void	tokens_traversal(char **tokenizer);
-
-/**
- * @bried declaration for environment variables
- **/
-
-t_env	*init_env(t_env	*env, char **envp);
-char	*ft_getenv(char *string, t_env *env);
-
-void	free_pointers(t_prompt *prompt, t_parser *parser);
-void	free_array(char **arr);
-
-void	quotes_removal(t_parser *parser);
-
-void	final_tokens(t_parser *parser, t_env *env);
+int handle_quotes(t_dlist *head, t_scanner *scanner);
+int handle_operators(t_dlist *head, t_scanner *scanner);
+int command_scanner(t_dlist *head, t_scanner *scanner);
+void tokenizer(t_dlist *head, t_scanner *scanner);
 
 #endif
