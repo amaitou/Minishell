@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 01:09:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:41:24 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,7 @@ int	main(int argc, char **argv, char **envp)
             __scanner(scanner);
             // scanner_traversal(scanner->tokens);
             __lexer(&head, scanner);
-            while (head)
-            {
-                printf("%s\n", head->value);
-                printf("%d\n", head->type);
-                printf("%d\n", head->state);
-                head = head->next;}
+            lexer_traverse(head);
             add_history(scanner->command);
             // free(prompt->line);
             // free(prompt);

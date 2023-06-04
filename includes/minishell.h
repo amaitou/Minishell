@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 01:01:08 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:39:14 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ t_dlist *node_quotes(char *token, char quote);
 t_dlist	*node_redirection(char *token);
 t_dlist	*node_pipeline(char *token);
 t_dlist *node_word(char *token);
+void	lexer_traverse(t_dlist *head);
 
 #endif
