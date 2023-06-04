@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:25:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 13:17:49 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:00:06 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ t_dlist *last_node(t_dlist *head)
     return (temp);
 }
 
-void    append_node(t_dlist *head, t_dlist *new)
+void    append_node(t_dlist **head, t_dlist *new)
 {
     t_dlist *temp;
 
-    temp = last_node(head);
+    temp = last_node(*head);
     if (temp)
     {
         temp->next = new;
         new->prev = temp;
         return;
     }
-    head = new;
+    *head = new;
 }
 
 void    traverse_list(t_dlist *head)

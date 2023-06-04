@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/parsing/scanner.c \

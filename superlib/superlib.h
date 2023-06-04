@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:32:15 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:18:15 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim(char const *s1, char c);
 char	*ft_itoa(int n);
 t_env	*ft_lstnew(void);
 void	ft_lstadd_front(t_list **lst, t_list *new);

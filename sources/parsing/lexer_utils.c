@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 19:16:01 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:18:37 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_dlist *node_quotes(char *token, char quote)
 	else
 		node->state = __d_quotes;
 	if (token[i] == quote && token[len - 1] == quote)
-		node->value = ft_strtrim(token, "\"\'");
+		node->value = ft_strtrim(token, quote);
 	else
 	{
 		while (token[i])

@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 19:15:45 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 01:01:08 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*prompt_string(t_prompt *prompt);
 
 t_dlist *create_node(void);
 t_dlist *last_node(t_dlist *head);
-void    append_node(t_dlist *head, t_dlist *new);
+void    append_node(t_dlist **head, t_dlist *new);
 void    traverse_list(t_dlist *head);
 
 // scanner functions
@@ -101,8 +101,8 @@ void	scanner_traversal(char **scanner);
 void	free_scanner(char **tokens);
 
 // lexer functions
-void	__lexer(t_dlist *head, t_scanner *scanner);
-void    tokenizer(t_dlist *head, char *token);
+void	__lexer(t_dlist **head, t_scanner *scanner);
+void    tokenizer(t_dlist **head, char *token);
 t_dlist *node_quotes(char *token, char quote);
 t_dlist	*node_redirection(char *token);
 t_dlist	*node_pipeline(char *token);
