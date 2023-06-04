@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 17:03:08 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:34:16 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int	main(int argc, char **argv, char **envp)
             __lexer(&head, scanner);
             lexer_traverse(head);
             add_history(scanner->command);
-            // free(prompt->line);
-            // free(prompt);
-            // free(scanner->command);
-            // free_scanner(scanner->tokens);
-            // free(scanner);
+            free(prompt->line);
+            free(prompt);
+            free(scanner->command);
+            free_scanner(scanner->tokens);
+            free(scanner);
         }
 	}
 	return (0);
