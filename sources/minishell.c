@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 01:41:24 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:03:08 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	main(int argc, char **argv, char **envp)
         else
         {
             __scanner(scanner);
-            // scanner_traversal(scanner->tokens);
             __lexer(&head, scanner);
             lexer_traverse(head);
             add_history(scanner->command);
