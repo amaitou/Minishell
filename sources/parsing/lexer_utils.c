@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 17:07:07 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:27:26 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_dlist *node_quotes(char *token, char quote)
 		++i;
 	}
 	node->value = temp;
-	node->type = __NONE;
+	node->type = __WORD;
 	return (node);
 }
 
@@ -42,7 +42,7 @@ t_dlist	*node_redirection(char *token)
 	
 	node = create_node();
 	node->value = token;
-	node->state = __none;
+	node->state = __without_quotes;
 	if (!ft_strcmp(token, ">"))
 		node->type = __RED_OUT;
 	else if (!ft_strcmp(token, ">>"))
@@ -60,7 +60,7 @@ t_dlist	*node_pipeline(char *token)
 
 	node = create_node();
 	node->value = token;
-	node->state = __none;
+	node->state = __without_quotes;
 	node->type = __PIPE;
 	return (node);
 }
@@ -71,8 +71,8 @@ t_dlist *node_word(char *token)
 
 	node = create_node();
 	node->value = token;
-	node->state = __none;
-	node->type = __NONE;
+	node->state = __without_quotes;
+	node->type = __WORD;
 	return (node);
 }
 
@@ -102,7 +102,7 @@ void	lexer_traverse(t_dlist *head)
 		else if (temp->type == __PIPE)
 			printf("[.] type -> PIPE\n");
 		else
-			printf("[.] type -> NO_TYPE\n");
+			printf("[.] type -> WORD\n");
 		printf("---------------------------------\n");
 		temp = temp->next;
 

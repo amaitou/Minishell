@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 01:39:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:26:19 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_scanner
 
 typedef enum e_types
 {
-	__NONE = 0,
+	__WORD = 0,
 	__RED_IN = '<',
 	__RED_OUT = '>',
 	__RED_APP,
@@ -64,7 +64,7 @@ typedef enum e_state
 {
     __d_quotes = '\"',
     __s_quotes = '\'',
-    __none = 0
+    __without_quotes = 0
 } t_state;
 
 // the struct of doubly linked-list in which we'll store our splitted tokens
