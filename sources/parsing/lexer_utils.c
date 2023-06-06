@@ -6,17 +6,16 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/05 00:27:26 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:55:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_dlist *node_quotes(char *token, char quote)
+t_dlist	*node_quotes(char *token, char quote)
 {
 	t_dlist	*node;
-	char *temp;
-	int	i;
+	int		i;
 
 	node = create_node();
 	if (quote == '\'')
@@ -24,14 +23,7 @@ t_dlist *node_quotes(char *token, char quote)
 	else
 		node->state = __d_quotes;
 	i = 0;
-	temp = NULL;
-	while (token[i])
-	{
-		if (!(token[i] == quote))
-			temp = string_join(temp, ft_substr(token, i, 1));
-		++i;
-	}
-	node->value = temp;
+	node->value = token;
 	node->type = __WORD;
 	return (node);
 }
@@ -39,7 +31,7 @@ t_dlist *node_quotes(char *token, char quote)
 t_dlist	*node_redirection(char *token)
 {
 	t_dlist	*node;
-	
+
 	node = create_node();
 	node->value = token;
 	node->state = __without_quotes;
@@ -56,7 +48,7 @@ t_dlist	*node_redirection(char *token)
 
 t_dlist	*node_pipeline(char *token)
 {
-	t_dlist *node;
+	t_dlist	*node;
 
 	node = create_node();
 	node->value = token;
@@ -65,9 +57,9 @@ t_dlist	*node_pipeline(char *token)
 	return (node);
 }
 
-t_dlist *node_word(char *token)
+t_dlist	*node_word(char *token)
 {
-	t_dlist *node;
+	t_dlist	*node;
 
 	node = create_node();
 	node->value = token;
@@ -78,7 +70,7 @@ t_dlist *node_word(char *token)
 
 void	lexer_traverse(t_dlist *head)
 {
-	t_dlist *temp;
+	t_dlist	*temp;
 
 	temp = head;
 	while (temp)
@@ -105,6 +97,5 @@ void	lexer_traverse(t_dlist *head)
 			printf("[.] type -> WORD\n");
 		printf("---------------------------------\n");
 		temp = temp->next;
-
 	}
 }
