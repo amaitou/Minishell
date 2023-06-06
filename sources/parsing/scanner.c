@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 01:28:16 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/03 17:21:58 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:58:06 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	handle_quotes(t_scanner *scanner)
 {
 	scanner->j = scanner->i++;
 	while (scanner->command[scanner->i] != scanner->t_quote
-			&& scanner->command[scanner->i])
+		&& scanner->command[scanner->i])
 		scanner->i++;
 	if (scanner->command[scanner->i])
 		scanner->line = string_join(scanner->line,
-			ft_substr(scanner->command, scanner->j,
-				scanner->i - scanner->j + 1));
+				ft_substr(scanner->command, scanner->j,
+					scanner->i - scanner->j + 1));
 	else
 		scanner->line = string_join(scanner->line,
-			ft_substr(scanner->command, scanner->j,
-				scanner->i - scanner->j));
+				ft_substr(scanner->command, scanner->j,
+					scanner->i - scanner->j));
 }
 
 void	handle_operators(t_scanner *scanner)
@@ -43,7 +43,7 @@ void	handle_operators(t_scanner *scanner)
 	{
 		scanner->line = string_join(scanner->line, ft_strdup("\n"));
 		scanner->line = string_join(scanner->line,
-			ft_substr(scanner->command, scanner->i, 1));
+				ft_substr(scanner->command, scanner->i, 1));
 		scanner->line = string_join(scanner->line, ft_strdup("\n"));
 	}
 }
@@ -69,7 +69,7 @@ void	command_splitter(t_scanner *scanner)
 	}
 }
 
-void	__scanner(t_scanner *scanner)
+void	__scanner__(t_scanner *scanner)
 {
 	scanner->i = 0;
 	scanner->line = NULL;
