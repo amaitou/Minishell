@@ -6,14 +6,14 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/05 13:19:47 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:53:35 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../superlib/superlib.h"
+# include "../superlib/superlib.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -34,32 +34,34 @@ typedef struct s_prompt
 	char	*line;
 }	t_prompt;
 
-
 typedef enum e_error
 {
-    no_error,
-    error_of_single_quotes,
-    error_of_double_quotes,
-    error_of_pipeline,
-    error_of_redirection_in,
-    error_of_redirection_out
-} t_error_types;
+	no_error,
+	error_of_single_quotes,
+	error_of_double_quotes,
+	error_of_pipeline,
+	error_of_redirection_in,
+	error_of_redirection_out,
+	error_of_redirection_append,
+	error_of_redirection_heredoc
+}	t_error_types;
 
 typedef struct s_error
 {
-    t_error_types error;
-} t_errors;
+	t_error_types	error_type;
+	int				exit_staus;
+}	t_errors;
 // struct that goes for the scanner
 
 typedef struct s_scanner
 {
-    char    *command;
-    char    *line;
-    char    **tokens;
-    int     i;
-    int     j;
-    char    t_quote;
-} t_scanner;
+	char	*command;
+	char	*line;
+	char	**tokens;
+	int		i;
+	int		j;
+	char	t_quote;
+}	t_scanner;
 
 // the token types
 
@@ -77,22 +79,21 @@ typedef enum e_types
 
 typedef enum e_state
 {
-    __d_quotes = '\"',
-    __s_quotes = '\'',
-    __without_quotes = 0
-} t_state;
+	__d_quotes = '\"',
+	__s_quotes = '\'',
+	__without_quotes = 0
+}	t_state;
 
 // the struct of doubly linked-list in which we'll store our splitted tokens
 
 typedef struct s_dlist
 {
-    char            *value;
-    t_types         type;
-    t_state         state;
-    struct s_dlist *next;
-    struct s_dlist *prev;
-} t_dlist;
-
+	char			*value;
+	t_types			type;
+	t_state			state;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}	t_dlist;
 
 // prompt functions
 
@@ -101,27 +102,32 @@ char	*prompt_string(t_prompt *prompt);
 
 // doubly linked list functions
 
-t_dlist *create_node(void);
-t_dlist *last_node(t_dlist *head);
-void    append_node(t_dlist **head, t_dlist *new);
-void    traverse_list(t_dlist *head);
+t_dlist	*create_node(void);
+t_dlist	*last_node(t_dlist *head);
+void	append_node(t_dlist **head, t_dlist *new);
+void	traverse_list(t_dlist *head);
 
 // scanner functions
 
+void	__scanner__(t_scanner *scanner);
 void	handle_quotes(t_scanner *scanner);
 void	handle_operators(t_scanner *scanner);
 void	command_splitter(t_scanner *scanner);
-void	__scanner(t_scanner *scanner);
 void	scanner_traversal(char **scanner);
 void	free_scanner(char **tokens);
 
 // lexer functions
-void	__lexer(t_dlist **head, t_scanner *scanner);
-void    tokenizer(t_dlist **head, char *token);
-t_dlist *node_quotes(char *token, char quote);
+void	__lexer__(t_dlist **head, t_scanner *scanner);
+void	tokenizer(t_dlist **head, char *token);
+t_dlist	*node_quotes(char *token, char quote);
 t_dlist	*node_redirection(char *token);
 t_dlist	*node_pipeline(char *token);
-t_dlist *node_word(char *token);
+t_dlist	*node_word(char *token);
 void	lexer_traverse(t_dlist *head);
+
+// error fucntions
+
+void	__error__(t_dlist *head, t_errors *error);
+void	display_error(t_errors *error);
 
 #endif
