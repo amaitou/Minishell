@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/05 00:26:19 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:19:47 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ typedef struct s_prompt
 	char	*line;
 }	t_prompt;
 
+
+typedef enum e_error
+{
+    no_error,
+    error_of_single_quotes,
+    error_of_double_quotes,
+    error_of_pipeline,
+    error_of_redirection_in,
+    error_of_redirection_out
+} t_error_types;
+
+typedef struct s_error
+{
+    t_error_types error;
+} t_errors;
 // struct that goes for the scanner
 
 typedef struct s_scanner
