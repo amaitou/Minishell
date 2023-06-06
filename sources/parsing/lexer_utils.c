@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/06 19:55:57 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:18:41 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 t_dlist	*node_quotes(char *token, char quote)
 {
 	t_dlist	*node;
-	int		i;
 
 	node = create_node();
 	if (quote == '\'')
 		node->state = __s_quotes;
 	else
 		node->state = __d_quotes;
-	i = 0;
 	node->value = token;
 	node->type = __WORD;
 	return (node);
