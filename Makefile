@@ -8,7 +8,8 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/d_linked_list.c \
 		 sources/parsing/scanner_utils.c \
 		 sources/parsing/lexer.c \
-		 sources/parsing/lexer_utils.c
+		 sources/parsing/lexer_utils.c \
+		 sources/parsing/error_handling.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
