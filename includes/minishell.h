@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/28 18:31:06 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:10:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <readline/history.h>
 # include <limits.h>
 # include <dirent.h>
+# include <errno.h>
+# include <stddef.h>
+
+char	**g_env;
 
 // struct used by the prompt string
 typedef struct s_prompt
@@ -55,16 +59,12 @@ typedef struct s_parser
 
 typedef enum e_types
 {
-	__RED_IN,
-	__RED_OUT,
+	__NONE = 0,
+	__RED_IN = '<',
+	__RED_OUT = '>',
 	__RED_APP,
 	__HEREDOC,
-	__PIPE,
-	__COMMAND,
-	__OR,
-	__AND,
-	__SUBSHELL,
-	__NONE
+	__PIPE = '|'
 }	t_types;
 
 typedef struct s_info
@@ -74,64 +74,52 @@ typedef struct s_info
 	struct s_info	*next;
 }	t_info;
 
-/**
- * @brief Declarations for tokens scanner
- **/
+typedef enum e_state
+{
+	__D_QUOTES = '\"',
+	__S_QUOTES = '\'',
+	NONE = 0
+}	t_state;
 
-int		quotes(t_parser *parser, char *s);
-int		operators(t_parser *parser, char *s);
-int		scanner(char *s, t_parser *parser);
-void	tokenizer(t_parser *parser);
+typedef enum e_builtin
+{
+	__ECHO = 0,
+	__CD,
+	__PWD,
+	__EXPORT,
+	__UNSET,
+	__ENV,
+	__EXIT,
+	_NONE
+}	t_builtin;
 
-/**
- * @brief Declarations for wildcards expander utils funcs
- */
+typedef struct s_dlist
+{
+	char			*cmd;
+	char			**args;
+	t_types			type;
+	t_builtin		builtin;
+	t_state			state;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}	t_dlist;
 
-char	*find_format(t_parser *parser, int i);
-int		should_expand(char *string);
-void	match_found(t_parser *parser);
-void	search_for_match(t_parser *parser);
-void	wildcards_expander(t_parser *parser);
+// EXECUTION FUNCTIONS
 
-/**
- * @brief Declarations for variables expander
- */
+t_dlist	*create_node(void);
+t_dlist	*last_node(t_dlist *head);
+void	append_node(t_dlist **head, t_dlist *new);
+void	traverse_list(t_dlist *head);
+void	free_nodes(t_dlist *head, int boolean);
 
-void	variables_expander(t_parser *parser, t_env *env);
+void	executor(t_dlist *list, int *status, char *env[]);
 
-/**
- * @brief Declarations of variables expander utils funcs
- */
-
-int		skip_quotes(char *string);
-int		is_valid(char c);
-int		get_index(char *token);
-
-/**
- * @brief Declarations for prompt string (PS)
- **/
-
-char	*prompt_string(t_prompt *prompt);
-
-/**
- * @the traversal that travers over all tokens and prints them
- *
- **/
-
-void	tokens_traversal(char **tokenizer);
-
-/**
- * @bried declaration for environment variables
- **/
-
-t_env	*init_env(t_env	*env, char **envp);
-char	*ft_getenv(char *string, t_env *env);
-
-void	free_pointers(t_prompt *prompt, t_parser *parser);
-void	free_array(char **arr);
-
-void	quotes_removal(t_parser *parser);
-
-void	final_tokens(t_parser *parser, t_env *env);
+int		ft_cd(char **args, char *const env[]);
+int		ft_echo(char **args);
+int		ft_env(char *const env[]);
+int		ft_exit(char **args);
+int		ft_export(char **args, char *const env[]);
+int		ft_pwd(void);
+int		ft_unset(char **args, char **env[]);
 
 #endif
