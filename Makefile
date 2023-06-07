@@ -10,7 +10,8 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/lexer.c \
 		 sources/parsing/lexer_utils.c \
 		 sources/parsing/error_handling.c \
-		 sources/minishell_utils.c
+		 sources/minishell_utils.c \
+		 sources/parsing/traversing.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
