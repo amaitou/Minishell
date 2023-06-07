@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:25:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 17:56:31 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:20:37 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,18 @@ void	traverse_list(t_dlist *head)
 	}
 }
 
-void	free_nodes(t_dlist *head)
+void	free_nodes(t_dlist *head, int boolean)
 {
 	t_dlist	*temp;
 
 	while (head)
 	{
 		temp = head;
+		if (boolean)
+		{
+			if (temp->state == __s_quotes || temp->state == __d_quotes)
+				free(temp->value);
+		}
 		free(temp);
 		head = head->next;
 	}

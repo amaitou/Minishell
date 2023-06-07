@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:01:54 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:22:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_dlist	*create_node(void);
 t_dlist	*last_node(t_dlist *head);
 void	append_node(t_dlist **head, t_dlist *new);
 void	traverse_list(t_dlist *head);
-void	free_nodes(t_dlist *head);
+void	free_nodes(t_dlist *head, int boolean);
 
 // scanner functions
 
@@ -123,6 +123,8 @@ t_dlist	*node_quotes(char *token, char quote);
 t_dlist	*node_redirection(char *token);
 t_dlist	*node_pipeline(char *token);
 t_dlist	*node_word(char *token);
+void	remove_quotes(t_dlist *head, char quote);
+void	quotes_removal(t_dlist *head);
 
 // error fucntions
 
@@ -132,8 +134,7 @@ void	display_error(t_errors *error);
 // minishell functions
 
 int		check_spaces(char *s);
-void	free_pointers(t_prompt *prompt, t_scanner *scanner,
-			t_errors *error, t_dlist *head);
+void	free_pointers(t_prompt *prompt, t_scanner *scanner, t_errors *error);
 int		__check__(t_scanner *scanner, t_prompt *prompt);
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 			t_prompt *prompt);

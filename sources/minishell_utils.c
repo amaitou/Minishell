@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 17:59:09 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:23:37 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_spaces(char *s)
 }
 
 void	free_pointers(t_prompt *prompt, t_scanner *scanner,
-	t_errors *error, t_dlist *head)
+	t_errors *error)
 {
 	free(prompt->line);
 	free(prompt);
@@ -30,7 +30,6 @@ void	free_pointers(t_prompt *prompt, t_scanner *scanner,
 	free_scanner(scanner->tokens);
 	free(scanner);
 	free(error);
-	free_nodes(head);
 }
 
 int	__check__(t_scanner *scanner, t_prompt *prompt)
@@ -59,9 +58,16 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	__lexer__(&head, scanner);
 	__error__(head, error);
 	if (error->error_type != no_error)
+	{
 		display_error(error);
+		free_nodes(head, 0);
+	}
 	else
+	{
+		quotes_removal(head);
 		lexer_traverse(head);
+		free_nodes(head, 1);
+	}
 	add_history(scanner->command);
-	free_pointers(prompt, scanner, error, head);
+	free_pointers(prompt, scanner, error);
 }

@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:00:28 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:14:52 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,20 @@ t_dlist	*node_word(char *token)
 	node->state = __without_quotes;
 	node->type = __WORD;
 	return (node);
+}
+
+void	remove_quotes(t_dlist *head, char quote)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = NULL;
+	while (head->value[i])
+	{
+		if (!(head->value[i] == quote))
+			temp = string_join(temp, ft_substr(head->value, i, 1));
+		++i;
+	}
+	head->value = temp;
 }

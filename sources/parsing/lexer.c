@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:57:38 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/06 19:56:49 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:15:55 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@ void	tokenizer(t_dlist **head, char *token)
 		append_node(head, node_pipeline(token));
 	else
 		append_node(head, node_word(token));
+}
+
+void	quotes_removal(t_dlist *head)
+{
+	char	*temp;
+	int		i;
+
+	temp = NULL;
+	i = 0;
+	while (head)
+	{
+		if (head->state == __s_quotes)
+			remove_quotes(head, '\'');
+		else if (head->state == __d_quotes)
+			remove_quotes(head, '\"');
+		head = head->next;
+	}
 }
 
 void	__lexer__(t_dlist **head, t_scanner *scanner)
