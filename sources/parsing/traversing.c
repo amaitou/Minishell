@@ -6,11 +6,29 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:01:16 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:59:52 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	traverse_helper(t_dlist *head)
+{
+	t_dlist	*temp;
+
+	temp = head;
+	printf("[.] value -> %s\n", temp->value);
+	if (temp->state == __s_quotes)
+		printf("[.] state -> IN_SINGLE_QUOTES\n");
+	else if (temp->state == __d_quotes)
+		printf("[.] state -> IN_DOUBLE_QUOTES\n");
+	else
+		printf("[.] state -> WITHOUT_QUOTES\n");
+	if (temp->type == __RED_IN)
+		printf("[.] type -> REDIRECTION_IN\n");
+	else if (temp->type == __RED_OUT)
+		printf("[.] type -> REDIRECTION_OUT\n");
+}
 
 void	lexer_traverse(t_dlist *head)
 {
@@ -20,18 +38,8 @@ void	lexer_traverse(t_dlist *head)
 	while (temp)
 	{
 		printf("---------------------------------\n");
-		printf("[.] value -> %s\n", temp->value);
-		if (temp->state == __s_quotes)
-			printf("[.] state -> IN_SINGLE_QUOTES\n");
-		else if (temp->state == __d_quotes)
-			printf("[.] state -> IN_DOUBLE_QUOTES\n");
-		else
-			printf("[.] state -> WITHOUT_QUOTES\n");
-		if (temp->type == __RED_IN)
-			printf("[.] type -> REDIRECTION_IN\n");
-		else if (temp->type == __RED_OUT)
-			printf("[.] type -> REDIRECTION_OUT\n");
-		else if (temp->type == __RED_APP)
+		traverse_helper(temp);
+		if (temp->type == __RED_APP)
 			printf("[.] type -> REDIRECTION_APPEND\n");
 		else if (temp->type == __HEREDOC)
 			printf("[.] type -> HEREDOC\n");
