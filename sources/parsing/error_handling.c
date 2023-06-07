@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:54:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 15:54:06 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:27:36 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,26 @@ int	error_for_quotes(t_dlist *node)
 	return (c % 2 == 0);
 }
 
-void	check_errors(t_dlist *head, t_errors *error)
+int	check_errors(t_dlist *temp, t_errors *error)
+{
+	if ((temp->type != __WORD && temp->next && temp->next->type != __WORD)
+		|| (temp->type != __WORD && !temp->next))
+	{
+		assign_error_type(temp, error);
+		return (1);
+	}
+	else
+	{
+		if (!error_for_quotes(temp))
+		{
+			assign_error_type(temp, error);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	__error__(t_dlist	*head, t_errors *error)
 {
 	t_dlist	*temp;
 
@@ -66,28 +85,11 @@ void	check_errors(t_dlist *head, t_errors *error)
 	}
 	while (temp)
 	{
-		if ((temp->type != __WORD && temp->next && temp->next->type != __WORD)
-			|| (temp->type != __WORD && !temp->next))
-		{
-			assign_error_type(temp, error);
+		if (check_errors(temp, error))
 			return ;
-		}
-		else
-		{
-			if (!error_for_quotes(temp))
-			{
-				assign_error_type(temp, error);
-				return ;
-			}
-		}
 		temp = temp->next;
 	}
 	error->error_type = no_error;
-}
-
-void	__error__(t_dlist	*head, t_errors *error)
-{
-	check_errors(head, error);
 }
 
 void	display_error(t_errors *error)

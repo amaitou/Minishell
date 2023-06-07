@@ -6,34 +6,23 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/06 19:59:07 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:50:13 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int  check_spaces(char *s)
-{
-	while (*s && (*s == '\t' || *s == ' '))
-		++s;
-	if (*s)
-		return (0);
-	return (1);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_scanner	*scanner;
 	t_prompt	*prompt;
-	t_dlist     *head;
-	t_errors    *error;
-	// t_env		*env;
+	t_dlist		*head;
+	t_errors	*error;
+	int			return_value;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	// env = NULL;
-	// env = init_env(env, envp);
 	while (1)
 	{
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
@@ -41,36 +30,11 @@ int	main(int argc, char **argv, char **envp)
 		error = (t_errors *)malloc(sizeof(t_errors));
 		scanner->command = prompt_string(prompt);
 		head = NULL;
-		if(!scanner->command)
-		{
-			free(prompt);
-			free(scanner);
+		return_value = __check__(scanner, prompt);
+		if (return_value == 1)
 			exit(1);
-		}
-		if (check_spaces(scanner->command))
-		{
-			free(prompt->line);
-			free(prompt);
-			free(scanner->command);
-			free(scanner);
-		}
-		else
-		{
-			__scanner__(scanner);
-			__lexer__(&head, scanner);
-			__error__(head, error);
-			if (error->error_type != no_error)
-				display_error(error);
-			else
-				lexer_traverse(head);
-			add_history(scanner->command);
-			free(prompt->line);
-			free(prompt);
-			free(scanner->command);
-			free_scanner(scanner->tokens);
-			free(scanner);
-			free(error);
-		}
+		if (!(return_value == 2))
+			__parse__(scanner, head, error, prompt);
 	}
 	return (0);
 }

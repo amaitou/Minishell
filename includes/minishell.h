@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/06 19:53:35 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:49:00 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,13 @@ void	lexer_traverse(t_dlist *head);
 
 void	__error__(t_dlist *head, t_errors *error);
 void	display_error(t_errors *error);
+
+// minishell functions
+
+int		check_spaces(char *s);
+void	free_pointers(t_prompt *prompt, t_scanner *scanner, t_errors *error);
+int		__check__(t_scanner *scanner, t_prompt *prompt);
+void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
+			t_prompt *prompt);
 
 #endif
