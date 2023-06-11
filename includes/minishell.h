@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:22:57 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:31:31 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,34 @@ typedef enum e_state
 	__s_quotes = '\'',
 	__without_quotes = 0
 }	t_state;
+
+// enum to determine the type of command
+
+typedef enum e_command
+{
+	COMMAND_NOT_FOUND,
+	BUILT_IN,
+	PRE_DEFINED
+}	t_command;
+
+// struct of files
+
+typedef struct s_files
+{
+	char	*file;
+	t_types	type;
+}	t_files;
+
+// struct of the parser
+
+typedef struct s_parser
+{
+	char			**args;
+	t_command		type;
+	t_files			*file;
+	struct	s_dlist	*next;
+	struct	s_dlist	*prev;
+}	t_parser;
 
 // the struct of doubly linked-list in which we'll store our splitted tokens
 
