@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:01:11 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/09 22:59:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/11 22:56:59 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_dlist	*create_node(void)
 
 	new = (t_dlist *)malloc(sizeof(t_dlist));
 	if (!new)
-		return (NULL);
-	new->next = NULL;
-	new->prev = NULL;
+		return ((void *)0);
+	new->next = (void *)0;
+	new->prev = (void *)0;
 	return (new);
 }
 
@@ -30,7 +30,7 @@ t_dlist	*last_node(t_dlist *head)
 
 	temp = head;
 	if (!temp)
-		return (NULL);
+		return ((void *)0);
 	while (temp->next)
 		temp = temp->next;
 	return (temp);

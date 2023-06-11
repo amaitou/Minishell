@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/09 23:57:18 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:55:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,52 +22,89 @@ static int	exec_builtins(t_dlist *list, char *env[])
 		return (0);
 }
 
-static int	ft_pipe(t_dlist *list, char *env[], int pipefd[2])
+static int	ft_pipe(t_dlist *list, char *env[])
 {
 	pid_t	pid;
+	int		pipefd[2];
+	int		old_fd;
 
-	pid = fork();
-	if (!pid)
+	old_fd = 0;
+	pipe(pipefd);
+	while (list)
 	{
-		close(pipefd[0]);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		if (execve(list->cmd, list->args, env) == -1)
+		if (list->prev == NULL)
 		{
-			perror("ft_pipe : ");
-			exit(EXIT_FAILURE);
+			pid = fork();
+			if (pid == 0)
+			{
+				close(pipefd[0]);
+				dup2(pipefd[1], STDOUT_FILENO);
+				close(pipefd[1]);
+				if (execve(list->cmd, list->args, env))
+				{
+					perror("execve first : ");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+				close(pipefd[1]);
 		}
-	}
-	list = list->next;
-	pid = fork();
-	if (!pid)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		if (execve(list->cmd, list->args, env) == -1)
+		else if (list->type == __PIPE)
 		{
-			perror("ft_pipe : ");
-			exit(EXIT_FAILURE);
+			old_fd = pipefd[0];
+			pipe(pipefd);
+			pid = fork();
+			if (pid == 0)
+			{
+				close(pipefd[0]);
+				dup2(pipefd[1], STDOUT_FILENO);
+				close(pipefd[1]);
+				dup2(old_fd, STDIN_FILENO);
+				close(old_fd);
+				if (execve(list->cmd, list->args, env))
+				{
+					perror("execve mid : ");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				close(pipefd[1]);
+				close(old_fd);
+			}
 		}
+		else
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				dup2(pipefd[0], STDIN_FILENO);
+				close(pipefd[0]);
+				if (execve(list->cmd, list->args, env))
+				{
+					perror("execve last : ");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+				close(pipefd[0]);
+		}
+		list = list->next;
 	}
-	close(pipefd[0]);
-	close(pipefd[1]);
+	wait(&pid);
 	return (0);
 }
 
 void	executor(t_dlist *list, int *status, char *env[])
 {
 	t_dlist	*tmp;
-	int		pipefd[2];
 
 	tmp = list;
 	while (tmp)
 	{
 		if (tmp->type == __PIPE)
 		{
-			pipe(pipefd);
-			*status = ft_pipe(tmp, env, pipefd);
+			*status = ft_pipe(tmp, env);
 		}
 		// else if (tmp->builtin != _NONE)
 		// 	*status = exec_builtins(tmp, env);
