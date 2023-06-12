@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/10 18:31:31 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:29:04 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,11 @@ typedef enum e_state
 	__without_quotes = 0
 }	t_state;
 
-// enum to determine the type of command
-
-typedef enum e_command
-{
-	COMMAND_NOT_FOUND,
-	BUILT_IN,
-	PRE_DEFINED
-}	t_command;
-
 // struct of files
 
 typedef struct s_files
 {
-	char	*file;
+	char	*name;
 	t_types	type;
 }	t_files;
 
@@ -106,10 +97,9 @@ typedef struct s_files
 typedef struct s_parser
 {
 	char			**args;
-	t_command		type;
 	t_files			*file;
-	struct	s_dlist	*next;
-	struct	s_dlist	*prev;
+	struct s_parser	*next;
+	struct s_parser	*prev;
 }	t_parser;
 
 // the struct of doubly linked-list in which we'll store our splitted tokens
@@ -128,7 +118,7 @@ typedef struct s_dlist
 void	get_user(t_prompt *prompt);
 char	*prompt_string(t_prompt *prompt);
 
-// doubly linked list functions
+// doubly linked list functions for lexer
 
 t_dlist	*create_node(void);
 t_dlist	*last_node(t_dlist *head);
@@ -167,9 +157,24 @@ int		__check__(t_scanner *scanner, t_prompt *prompt);
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 			t_prompt *prompt);
 
+// doubly linked list functions for parser
+
+t_parser	*__create_node(void);
+t_parser	*__last_node(t_parser *head);
+void	__append_node(t_parser **head, t_parser *new);
+
+// parser function
+
+void	__parser__(t_parser *parser, t_dlist *head);
+int		count_files(t_dlist	*head);
+int		count_arguments(t_dlist *head);
+void	assign_file(t_dlist *head, t_parser *node, int i);
+void	assign_args(t_dlist *head, t_parser *node, char *args);
+
 // traversing
 
 void	lexer_traverse(t_dlist *head);
 void	scanner_traversal(char **scanner);
+void	parser_traversal(t_parser *head);
 
 #endif

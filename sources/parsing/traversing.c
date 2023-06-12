@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:59:52 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:22:59 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,20 @@ void	scanner_traversal(char **scanner)
 	i = -1;
 	while (scanner[++i])
 		printf(" [.] %s\n", scanner[i]);
+}
+
+void	parser_traversal(t_parser *head)
+{
+	int	i;
+
+	while (head)
+	{
+		i = -1;
+		printf("----------------------\n");
+		while (++head->args[i])
+			printf("%s ", head->args[i]);
+		printf("\n");
+		printf("----------------------\n");
+		head = head->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:23:37 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:44:16 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int	__check__(t_scanner *scanner, t_prompt *prompt)
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	t_prompt *prompt)
 {
+	t_parser	*parser;
+
+	parser = NULL;
 	__scanner__(scanner);
 	__lexer__(&head, scanner);
 	__error__(head, error);
@@ -65,7 +68,7 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	else
 	{
 		quotes_removal(head);
-		lexer_traverse(head);
+		__parser__(parser, head);
 		free_nodes(head, 1);
 	}
 	add_history(scanner->command);

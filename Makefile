@@ -5,13 +5,16 @@ CFLAGS = -Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/parsing/scanner.c \
-		 sources/parsing/d_linked_list.c \
+		 sources/parsing/lexer_list_utils.c \
 		 sources/parsing/scanner_utils.c \
 		 sources/parsing/lexer.c \
 		 sources/parsing/lexer_utils.c \
 		 sources/parsing/error_handling.c \
 		 sources/minishell_utils.c \
-		 sources/parsing/traversing.c
+		 sources/parsing/traversing.c \
+		 sources/parsing/parser_utils.c \
+		 sources/parsing/parser.c \
+		 sources/parsing/parser_list_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
