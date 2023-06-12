@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/12 00:55:53 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/12 23:46:40 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	ft_pipe(t_dlist *list, char *env[])
 	pid_t	pid;
 	int		pipefd[2];
 	int		old_fd;
+	int		status;
 
 	old_fd = 0;
 	pipe(pipefd);
@@ -34,6 +35,8 @@ static int	ft_pipe(t_dlist *list, char *env[])
 	{
 		if (list->prev == NULL)
 		{
+			printf("executing the first command : %s\n", list->cmd);
+			printf("write end : %d | read end : %d\n", pipefd[1], pipefd[0]);
 			pid = fork();
 			if (pid == 0)
 			{
@@ -53,6 +56,8 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		{
 			old_fd = pipefd[0];
 			pipe(pipefd);
+			printf("executing the second command : %s\n", list->cmd);
+			printf("write end : %d | read end : %d\n", pipefd[1], old_fd);
 			pid = fork();
 			if (pid == 0)
 			{
@@ -75,6 +80,8 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		}
 		else
 		{
+			printf("executing the third command : %s\n", list->cmd);
+			printf("write end : %d | read end : %d\n", pipefd[1], pipefd[0]);
 			pid = fork();
 			if (pid == 0)
 			{
@@ -91,7 +98,7 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		}
 		list = list->next;
 	}
-	wait(&pid);
+	waitpid(pid, &status, 0);
 	return (0);
 }
 
@@ -105,6 +112,7 @@ void	executor(t_dlist *list, int *status, char *env[])
 		if (tmp->type == __PIPE)
 		{
 			*status = ft_pipe(tmp, env);
+			break ; // temporary, must be removed
 		}
 		// else if (tmp->builtin != _NONE)
 		// 	*status = exec_builtins(tmp, env);
