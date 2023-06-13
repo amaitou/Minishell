@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/12 23:46:40 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:46:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ static int	exec_builtins(t_dlist *list, char *env[])
 		return (0);
 }
 
-static int	ft_pipe(t_dlist *list, char *env[])
+static int	ft_pipe(t_dlist *lst, char *env[])
 {
-	pid_t	pid;
+	t_dlist	*list;
+	pid_t	pid[2];
 	int		pipefd[2];
 	int		old_fd;
-	int		status;
+	int		status[2];
 
 	old_fd = 0;
 	pipe(pipefd);
+	list = lst;
 	while (list)
 	{
 		if (list->prev == NULL)
 		{
-			printf("executing the first command : %s\n", list->cmd);
-			printf("write end : %d | read end : %d\n", pipefd[1], pipefd[0]);
-			pid = fork();
+			pid[0] = fork();
 			if (pid == 0)
 			{
 				close(pipefd[0]);
@@ -56,16 +56,14 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		{
 			old_fd = pipefd[0];
 			pipe(pipefd);
-			printf("executing the second command : %s\n", list->cmd);
-			printf("write end : %d | read end : %d\n", pipefd[1], old_fd);
-			pid = fork();
+			pid[0] = fork();
 			if (pid == 0)
 			{
 				close(pipefd[0]);
-				dup2(pipefd[1], STDOUT_FILENO);
-				close(pipefd[1]);
 				dup2(old_fd, STDIN_FILENO);
 				close(old_fd);
+				dup2(pipefd[1], STDOUT_FILENO);
+				close(pipefd[1]);
 				if (execve(list->cmd, list->args, env))
 				{
 					perror("execve mid : ");
@@ -80,9 +78,7 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		}
 		else
 		{
-			printf("executing the third command : %s\n", list->cmd);
-			printf("write end : %d | read end : %d\n", pipefd[1], pipefd[0]);
-			pid = fork();
+			pid[0] = fork();
 			if (pid == 0)
 			{
 				dup2(pipefd[0], STDIN_FILENO);
@@ -98,7 +94,16 @@ static int	ft_pipe(t_dlist *list, char *env[])
 		}
 		list = list->next;
 	}
-	waitpid(pid, &status, 0);
+	while (lst)
+	{
+		pid[1] = waitpid(-1, &status[1], 0);
+		if (pid[1] == pid[0])
+		{
+			status[0] = status[1] >> 8;
+			printf("%d\n", status[0]);
+		}
+		lst = lst->next;
+	}
 	return (0);
 }
 
@@ -112,7 +117,7 @@ void	executor(t_dlist *list, int *status, char *env[])
 		if (tmp->type == __PIPE)
 		{
 			*status = ft_pipe(tmp, env);
-			break ; // temporary, must be removed
+			break ;
 		}
 		// else if (tmp->builtin != _NONE)
 		// 	*status = exec_builtins(tmp, env);
