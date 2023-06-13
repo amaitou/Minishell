@@ -6,18 +6,18 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/04 01:18:15 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:53:29 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 
-  You might see some of additional functions (static functions particularly) 
-  within some of my c files and those functions are defined as static to not 
-  be read by any external files as well as they were made to help have my code
-  done.
+	You might see some of additional functions (static functions particularly) 
+	within some of my c files and those functions are defined as static to not 
+	be read by any external files as well as they were made to help have my code
+	done.
 
-  Note: I hate using the keyword NULL so you might see (void *)0 alot in my codes
+	Note: I hate using the keyword NULL so you might see (void *)0 alot in my codes
 
  */
 
@@ -41,23 +41,21 @@ typedef unsigned char		t_uc;
 typedef unsigned int		t_ui;
 typedef unsigned long		t_ul;
 
-/**
- * @brief linked list for the environnement variables
- * 
- */
-
-typedef struct s_env
+typedef enum e_file_type
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
+	__NONE,
+	__HEREDOC,
+	__APPEND,
+	__OUT,
+	__IN
+}	t_file_type;
 typedef struct s_list
 {
-	void			*content;
+	char			*name;
+	t_file_type		*type;
 	struct s_list	*next;
 }	t_list;
+
 /* Libft */
 
 int		ft_isalpha(int c);
@@ -92,19 +90,19 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-char	*ft_strtrim(char const *s1, char c);
+char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
-t_env	*ft_lstnew(void);
+t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
-t_env	*ft_lstlast(t_env *lst);
-void	ft_lstadd_back(t_env **lst, t_env *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_charlen(char *s, int c);
 int		ft_strcmp(char *s1, char *s2);
-int		ft_strlaststr(const char *string1, const char *string2);
 
 /* Get next line */
 char	*get_next_line(int fd);

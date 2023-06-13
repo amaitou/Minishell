@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/12 20:44:16 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:32:37 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	free_pointers(t_prompt *prompt, t_scanner *scanner,
 	free(error);
 }
 
-int	__check__(t_scanner *scanner, t_prompt *prompt)
+int	__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error)
 {
+	// (void)error;
 	if (!scanner->command)
 	{
 		free(prompt);
@@ -46,6 +47,7 @@ int	__check__(t_scanner *scanner, t_prompt *prompt)
 		free(prompt);
 		free(scanner->command);
 		free(scanner);
+		free(error);
 		return (2);
 	}
 	return (0);
@@ -57,6 +59,7 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	t_parser	*parser;
 
 	parser = NULL;
+	(void)prompt;
 	__scanner__(scanner);
 	__lexer__(&head, scanner);
 	__error__(head, error);
@@ -68,9 +71,10 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	else
 	{
 		quotes_removal(head);
-		__parser__(parser, head);
-		free_nodes(head, 1);
+		__parser__(&parser, head);
+		parser_traversal(parser);
+		// free_nodes(head, 1);
 	}
 	add_history(scanner->command);
-	free_pointers(prompt, scanner, error);
+	// free_pointers(prompt, scanner, error);
 }

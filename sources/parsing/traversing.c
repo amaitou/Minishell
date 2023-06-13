@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/12 20:22:59 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:30:48 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,25 @@ void	parser_traversal(t_parser *head)
 	{
 		i = -1;
 		printf("----------------------\n");
-		while (++head->args[i])
+		printf("[.] ARGS : \n\t");
+		while (head->args[++i])
 			printf("%s ", head->args[i]);
+		printf("\n");
+		printf("[.] FILES :\n\t");
+		i = -1;
+		
+		while (head->file[++i].name)
+		{
+			printf("Name : %s\n\t", head->file[i].name);
+			if (head->file[i].type == __HEREDOC)
+				printf("Type : HEREDOC\n\n\t");
+			else if (head->file[i].type == __RED_APP)
+				printf("Type : RED_APPEND\n\n\t");
+			else if (head->file[i].type == __RED_IN)
+				printf("Type : RED_IN\n\n\t");
+			else if (head->file[i].type == __RED_OUT)
+				printf("Type : RED_OUT\n\n\t");
+		}
 		printf("\n");
 		printf("----------------------\n");
 		head = head->next;

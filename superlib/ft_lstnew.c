@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:25:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 07:52:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/01/24 00:07:19 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 
 #include "./superlib.h"
 
-t_env	*ft_lstnew(void)
+t_list	*ft_lstnew(void *content)
 {
-	t_env	*node;
+	t_list	*node;
 
-	node = (t_env *)malloc(sizeof(t_env));
+	node = (t_list *)malloc(sizeof(t_list));
 	if (!node)
 		return ((void *)0);
+	node->content = content;
 	node->next = (void *)0;
 	return (node);
 }

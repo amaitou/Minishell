@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:55:25 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/17 07:52:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/01/24 00:06:50 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 #include "./superlib.h"
 
-void	ft_lstadd_back(t_env **lst, t_env *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_env	*lastnode;
+	t_list	*lastnode;
 
 	lastnode = ft_lstlast(*lst);
 	if (*lst)

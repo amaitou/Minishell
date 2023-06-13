@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/12 19:29:04 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:55:20 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,18 @@ typedef enum e_state
 
 // struct of files
 
-typedef struct s_files
-{
-	char	*name;
-	t_types	type;
-}	t_files;
+// typedef struct s_files
+// {
+// 	char	*name;
+// 	t_types	type;
+// }	t_files;
 
 // struct of the parser
 
 typedef struct s_parser
 {
 	char			**args;
-	t_files			*file;
+	t_list			*file;
 	struct s_parser	*next;
 	struct s_parser	*prev;
 }	t_parser;
@@ -153,7 +153,7 @@ void	display_error(t_errors *error);
 
 int		check_spaces(char *s);
 void	free_pointers(t_prompt *prompt, t_scanner *scanner, t_errors *error);
-int		__check__(t_scanner *scanner, t_prompt *prompt);
+int		__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error);
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 			t_prompt *prompt);
 
@@ -165,7 +165,7 @@ void	__append_node(t_parser **head, t_parser *new);
 
 // parser function
 
-void	__parser__(t_parser *parser, t_dlist *head);
+void	__parser__(t_parser **parser, t_dlist *head);
 int		count_files(t_dlist	*head);
 int		count_arguments(t_dlist *head);
 void	assign_file(t_dlist *head, t_parser *node, int i);

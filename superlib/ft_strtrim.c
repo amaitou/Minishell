@@ -12,7 +12,21 @@
 
 #include "./superlib.h"
 
-char	*ft_strtrim(char const *s1, char c)
+static int	isin(char c, char const *s)
+{
+	char	*p;
+
+	p = (char *)s;
+	while (*p)
+	{
+		if (*p == c)
+			return (1);
+		++p;
+	}
+	return (0);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		begin;
 	int		last;
@@ -23,9 +37,9 @@ char	*ft_strtrim(char const *s1, char c)
 	last = ft_strlen(s1) - 1;
 	begin = 0;
 	p = (char *)s1;
-	while (p[begin] && p[begin] == c)
+	while (p[begin] && isin(p[begin], set))
 		++begin;
-	while (last > 0 && p[last] == c)
+	while (last > 0 && isin(p[last], set))
 		last--;
 	if (last < begin)
 		return (ft_substr(p, begin, 0));

@@ -41,6 +41,7 @@ CFILES = ft_isalpha.c \
 		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstadd_back.c \
+		ft_lstmap.c \
 		ft_lstiter.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -56,8 +57,7 @@ CFILES = ft_isalpha.c \
 		ft_putstr.c \
 		ft_putunsigned.c \
 		ft_charlen.c \
-		ft_strcmp.c \
-		ft_strlaststr.c
+		ft_strcmp.c
 
 SOURCES = $(CFILES:.c=.o)
 
