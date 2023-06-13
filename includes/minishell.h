@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 22:55:20 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:19:46 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,6 @@ typedef enum e_state
 	__without_quotes = 0
 }	t_state;
 
-// struct of files
-
-// typedef struct s_files
-// {
-// 	char	*name;
-// 	t_types	type;
-// }	t_files;
-
 // struct of the parser
 
 typedef struct s_parser
@@ -166,9 +158,9 @@ void	__append_node(t_parser **head, t_parser *new);
 // parser function
 
 void	__parser__(t_parser **parser, t_dlist *head);
-int		count_files(t_dlist	*head);
+// int		count_files(t_dlist	*head);
 int		count_arguments(t_dlist *head);
-void	assign_file(t_dlist *head, t_parser *node, int i);
+// void	assign_file(t_dlist *head, t_parser *node, int i);
 void	assign_args(t_dlist *head, t_parser *node, char *args);
 
 // traversing

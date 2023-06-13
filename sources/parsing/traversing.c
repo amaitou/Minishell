@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 20:30:48 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:03:56 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,39 @@ void	parser_traversal(t_parser *head)
 {
 	int	i;
 
+	printf("----------------------\n");
 	while (head)
 	{
-		i = -1;
-		printf("----------------------\n");
 		printf("[.] ARGS : \n\t");
-		while (head->args[++i])
-			printf("%s ", head->args[i]);
-		printf("\n");
-		printf("[.] FILES :\n\t");
-		i = -1;
-		
-		while (head->file[++i].name)
+		if (head->args)
 		{
-			printf("Name : %s\n\t", head->file[i].name);
-			if (head->file[i].type == __HEREDOC)
-				printf("Type : HEREDOC\n\n\t");
-			else if (head->file[i].type == __RED_APP)
-				printf("Type : RED_APPEND\n\n\t");
-			else if (head->file[i].type == __RED_IN)
-				printf("Type : RED_IN\n\n\t");
-			else if (head->file[i].type == __RED_OUT)
-				printf("Type : RED_OUT\n\n\t");
+			i = -1;
+			while (head->args[++i])
+				printf("%s ", head->args[i]);
+			
 		}
+		else
+			printf("No Args\n");
 		printf("\n");
+		printf("[.] FILES :\n");
+		if (head->file)
+		{
+			while (head->file)
+			{
+				printf("\tName : %s\n", head->file->name);
+				if (head->file->type == HEREDOC)
+					printf("\tType : HEREDOC\n");
+				else if (head->file->type == APPEND)
+					printf("\tType : RED_APPEND\n");
+				else if (head->file->type == IN)
+					printf("\tType : RED_IN\n");
+				else if (head->file->type == OUT)
+					printf("\tType : RED_OUT\n");
+				head->file = head->file->next;
+			}
+		}
+		else
+			printf("\tNo Files\n");
 		printf("----------------------\n");
 		head = head->next;
 	}

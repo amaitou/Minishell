@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 22:53:29 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:18:55 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ typedef unsigned long		t_ul;
 
 typedef enum e_file_type
 {
-	__NONE,
-	__HEREDOC,
-	__APPEND,
-	__OUT,
-	__IN
+	NONE,
+	HEREDOC,
+	APPEND,
+	OUT,
+	IN
 }	t_file_type;
 typedef struct s_list
 {
 	char			*name;
-	t_file_type		*type;
+	t_file_type		type;
 	struct s_list	*next;
 }	t_list;
 
@@ -92,7 +92,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(void);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
@@ -100,7 +100,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_charlen(char *s, int c);
 int		ft_strcmp(char *s1, char *s2);
 

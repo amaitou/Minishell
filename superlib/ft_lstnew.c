@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:25:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/01/24 00:07:19 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:09:08 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@
 
 #include "./superlib.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(void)
 {
 	t_list	*node;
 
 	node = (t_list *)malloc(sizeof(t_list));
 	if (!node)
 		return ((void *)0);
-	node->content = content;
 	node->next = (void *)0;
 	return (node);
 }

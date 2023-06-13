@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 15:00:09 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 22:56:50 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 23:43:26 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	__parser__(t_parser **parser, t_dlist *head)
 	while (head)
 	{
 		node = __create_node();
+		node->file = NULL;
 		file = NULL;
 		args = NULL;
 		while (head && head->type != __PIPE)
@@ -36,11 +37,25 @@ void	__parser__(t_parser **parser, t_dlist *head)
 					|| head->type == __HEREDOC || head->type == __RED_OUT))
 			{
 				file = ft_lstnew();
+				file->name = head->next->value;
+				if (head->type == __RED_IN)
+					file->type = IN;
+				else if (head->type == __RED_OUT)
+					file->type = OUT;
+				else if (head->type == __RED_APP)
+					file->type = APPEND;
+				else if (head->type == __HEREDOC)
+					file->type = HEREDOC;
+				else
+					file->type = NONE;
+				ft_lstadd_back(&node->file, file);
 			}
 			head = head->next;
 		}
-		node->args = ft_split(args, '\n');
-		node->file[i].name = NULL;
+		if (args)
+			node->args = ft_split(args, '\n');
+		else
+			node->args = NULL;
 		__append_node(parser, node);
 		if (head)
 			head = head->next;
