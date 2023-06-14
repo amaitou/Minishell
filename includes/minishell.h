@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 11:48:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:30:10 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ typedef struct s_parser
 
 typedef struct s_dlist
 {
+	// variables needed in expansion;
+	int				param_exp;
+	int				i;
+	// endl
 	char			*value;
 	t_types			type;
 	t_state			state;
@@ -148,7 +152,7 @@ int		check_spaces(char *s);
 void	free_pointers(t_prompt *prompt, t_scanner *scanner, t_errors *error);
 int		__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error);
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
-			t_prompt *prompt);
+			t_prompt *prompt, char *env[]);
 
 // doubly linked list functions for parser
 
@@ -172,5 +176,8 @@ void	parser_traversal(t_parser *head);
 
 // env fetching
 char 	*ft_getenv(char *nam, char *env[]);
+
+// parameters expansion
+void	params_expander(t_dlist *list, char *env[]);
 
 #endif

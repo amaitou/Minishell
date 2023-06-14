@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:45:42 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 11:55:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:39:00 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	clean_resources(char **var)
 char *ft_getenv(char *name, char *env[])
 {
 	char	**var;
-	char	**value;
+	char	*value;
 	int		i;
 
 	var = NULL;

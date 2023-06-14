@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 23:41:45 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:26:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error)
 }
 
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
-	t_prompt *prompt)
+	t_prompt *prompt, char *env[])
 {
 	t_parser	*parser;
 
@@ -70,6 +70,8 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	}
 	else
 	{
+		head->prev = head;
+		params_expander(head, env);
 		quotes_removal(head);
 		__parser__(&parser, head);
 		parser_traversal(parser);

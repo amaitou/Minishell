@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 01:57:31 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:39:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static char **set_env(char **envp)
 	while (envp[++i]) // copying contents of envp to our own env
 		env[i] = ft_strdup(envp[i]);
 	env[i] = NULL;
+	return (env);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -52,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (return_value == 1)
 			exit(1);
 		if (!(return_value == 2))
-			__parse__(scanner, head, error, prompt);
+			__parse__(scanner, head, error, prompt, env);
 	}
 	return (0);
 }
