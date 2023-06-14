@@ -12,6 +12,23 @@
 
 #include "../includes/minishell.h"
 
+static char **set_env(char **envp)
+{
+	char **env;
+	int	size;
+	int	i;
+
+	i = -1;
+	size = 0;
+	while (envp[++i]) // calculating size of envp
+		size++;
+	i = -1;
+	env = (char **)malloc((size + 1) * sizeof(char *));
+	while (envp[++i]) // copying contents of envp to our own env
+		env[i] = ft_strdup(envp[i]);
+	env[i] = NULL;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_scanner	*scanner;
@@ -19,10 +36,11 @@ int	main(int argc, char **argv, char **envp)
 	t_dlist		*head;
 	t_errors	*error;
 	int			return_value;
+	char		**env;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	env = set_env(envp);
 	while (1)
 	{
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
