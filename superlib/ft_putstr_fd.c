@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 17:35:34 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/01/24 00:08:24 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:15:44 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./superlib.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
+	if (s)
+		if (write(fd, s, ft_strlen(s)) == -1)
+			return (-1);
+	return (0);
 }

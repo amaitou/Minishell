@@ -6,33 +6,34 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:46:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 16:53:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:38:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	ft_echo(char **args)
+void	ft_echo(char **args)
 {
+	int	new_line;
 	int	i;
-	int	n;
 
+	new_line = 0;
 	i = 0;
-	n = 0;
-	if (args[i] && !ft_strcmp(args[i], "-n"))
+	while (args[++i])
 	{
-		n = 1;
-		i++;
+		if (i == 1 && !ft_strcmp(args[i], "-n"))
+			new_line = 1;
+		else
+		{
+			if (ft_putstr_fd(args[i], STDOUT_FILENO) == -1)
+				exit(ft_perror("echo: "));
+			if (args[i + 1])
+				if (ft_putstr_fd(" ", STDOUT_FILENO) == -1)
+					exit(ft_perror("echo: "));
+		}
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			ft_putchar_fd(' ', 1);
-		i++;
-	}
-	if (!n)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	if (!new_line)
+		if (ft_putstr_fd("\n", STDOUT_FILENO) == -1)
+			exit(ft_perror("echo: "));
+	exit(EXIT_SUCCESS);
 }
-// Path: execution/builtins/env.c

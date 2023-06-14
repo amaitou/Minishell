@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 17:01:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:02:58 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,16 +194,18 @@ void		search_for_match(t_dlist *list);
 void		match_found(t_dlist *list);
 int			should_expand(char *string);
 
-// EXECUTION UNIT FUNCTIONS DECLARATION
-
+// execution unit functions declarations
 void		executor(t_parser *list, char *env[]);
+
+// builtins
 int			ft_cd(char **args, char *const env[]);
-int			ft_echo(char **args);
+void		ft_echo(char **args);
 int			ft_env(char *const env[]);
 int			ft_exit(char **args);
 int			ft_export(char **args, char *const env[]);
 int			ft_pwd(void);
 int			ft_unset(char **args, char **env[]);
+
 
 // global variable to hold the exit status of the last command
 
