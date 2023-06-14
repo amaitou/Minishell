@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:05:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:18:28 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	else
 	{
 		head->prev = head;
-		head = params_expander(head, env);
+		params_expander(head, env);
 		quotes_removal(head);
 		__parser__(&parser, head);
 		parser_traversal(parser);

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 12:57:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:19:06 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	parser_traversal(t_parser *head);
 char 	*ft_getenv(char *nam, char *env[]);
 
 // parameters expansion
-t_dlist	*params_expander(t_dlist *list, char *env[]);
+void	params_expander(t_dlist *list, char *env[]);
 int		get_index(char *token);
 int		is_valid(char c);
 int		skip_quotes(char *string);
