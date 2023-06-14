@@ -6,135 +6,109 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/13 19:46:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:52:30 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	exec_builtins(t_dlist *list, char *env[])
+static int	is_a_builtin(t_dlist *list, char *env[])
 {
-	if (list->builtin == __ECHO)
-		return (ft_echo(list->args));
-	else if (list->builtin == __PWD)
-		return (ft_pwd());
+	if (!ft_strcmp(list->cmd, "echo"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "pwd"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "cd"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "export"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "unset"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "env"))
+	{
+	}
+	else if (!ft_strcmp(list->cmd, "exit"))
+	{
+	}
 	else
 		return (0);
 }
 
-static int	ft_pipe(t_dlist *lst, char *env[])
+static void	determine_cmd(t_dlist *list, char *env[])
 {
-	t_dlist	*list;
-	pid_t	pid[2];
-	int		pipefd[2];
-	int		old_fd;
-	int		status[2];
+	char	**path;
 
-	old_fd = 0;
-	pipe(pipefd);
-	list = lst;
-	while (list)
+	path = NULL;
+	if (access(list->cmd, X_OK))
 	{
-		if (list->prev == NULL)
+		if (is_a_builtin(list, env) == 0)
 		{
-			pid[0] = fork();
-			if (pid == 0)
-			{
-				close(pipefd[0]);
-				dup2(pipefd[1], STDOUT_FILENO);
-				close(pipefd[1]);
-				if (execve(list->cmd, list->args, env))
-				{
-					perror("execve first : ");
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-				close(pipefd[1]);
 		}
-		else if (list->type == __PIPE)
-		{
-			old_fd = pipefd[0];
-			pipe(pipefd);
-			pid[0] = fork();
-			if (pid == 0)
-			{
-				close(pipefd[0]);
-				dup2(old_fd, STDIN_FILENO);
-				close(old_fd);
-				dup2(pipefd[1], STDOUT_FILENO);
-				close(pipefd[1]);
-				if (execve(list->cmd, list->args, env))
-				{
-					perror("execve mid : ");
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-			{
-				close(pipefd[1]);
-				close(old_fd);
-			}
-		}
-		else
-		{
-			pid[0] = fork();
-			if (pid == 0)
-			{
-				dup2(pipefd[0], STDIN_FILENO);
-				close(pipefd[0]);
-				if (execve(list->cmd, list->args, env))
-				{
-					perror("execve last : ");
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-				close(pipefd[0]);
-		}
-		list = list->next;
 	}
+	else
+		if (execve(list->cmd, list->args, env))
+			exit(ft_perror("execve : "));
+}
+
+static int	wait_on_all_children(pid_t pid, t_dlist	*lst)
+{
+	pid_t	tmp;
+	int		tmpsts;
+	int		status;
+
+	tmp = 0;
+	tmpsts = 0;
+	status = 0;
 	while (lst)
 	{
-		pid[1] = waitpid(-1, &status[1], 0);
-		if (pid[1] == pid[0])
-		{
-			status[0] = status[1] >> 8;
-			printf("%d\n", status[0]);
-		}
+		tmp = waitpid(-1, &tmpsts, 0);
+		if (tmp == pid)
+			status = tmpsts >> 8;
 		lst = lst->next;
 	}
-	return (0);
+	return (status);
 }
 
 void	executor(t_dlist *list, int *status, char *env[])
 {
-	t_dlist	*tmp;
+	t_dlist	*lst;
+	pid_t	pid;
+	int		pipefd[2];
+	int		old_fd;
 
-	tmp = list;
-	while (tmp)
+	old_fd = 0;
+	pid = 0;
+	lst = list;
+	while (list)
 	{
-		if (tmp->type == __PIPE)
+		pipe(pipefd);
+		pid = fork(); 
+		if (pid < 0)
+			exit(ft_perror("fork : "));
+		if (pid == 0)
 		{
-			*status = ft_pipe(tmp, env);
-			break ;
+			dup2(old_fd, STDIN_FILENO);
+			if (old_fd)
+				close(old_fd);
+			if (list->type == __PIPE)
+			{
+				close(pipefd[0]);
+				dup2(pipefd[1], STDOUT_FILENO);
+				close(pipefd[1]);
+			}
+			determine_cmd(list, env);
 		}
-		// else if (tmp->builtin != _NONE)
-		// 	*status = exec_builtins(tmp, env);
-		// else
-		// 	*status = exec_cmd(tmp, env);
-		tmp = tmp->next;
+		close(pipefd[1]);
+		if (old_fd)
+			close(old_fd);
+		old_fd = pipefd[0];
+		list = list->next;
 	}
+	close(old_fd);
+	*status = wait_on_all_children(pid, lst);
 }
-
-/*
-
-fd[1] -> fd[0]
-
-parent : fd[2]
-child1: fd[2] -> close fd[0] | dup2 fd[1], stdout | close fd[1];
-close(fd[1])
-child2 : fd[2] > close fd[1] | dup2 fd[0], stdin | close fd[0];
-close(fd[0])
-
-*/

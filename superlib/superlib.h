@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   superlib.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/05/24 19:32:15 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:11:45 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 /* Libraries */
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
 # include <limits.h>
@@ -121,5 +122,9 @@ int		ft_putstr(char *s);
 int		ft_printhex(t_ul address, char *s);
 int		ft_putsigned(int nb);
 int		ft_putunsigned(t_ui nb);
+
+/* COSTUME FUNCTIONS */
+
+int		ft_perror(const char *string);
 
 #endif

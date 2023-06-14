@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 09:27:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 22:10:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:23:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,32 +74,11 @@ typedef struct s_info
 	struct s_info	*next;
 }	t_info;
 
-typedef enum e_state
-{
-	__D_QUOTES = '\"',
-	__S_QUOTES = '\'',
-	NONE = 0
-}	t_state;
-
-typedef enum e_builtin
-{
-	__ECHO = 0,
-	__CD,
-	__PWD,
-	__EXPORT,
-	__UNSET,
-	__ENV,
-	__EXIT,
-	_NONE
-}	t_builtin;
-
 typedef struct s_dlist
 {
 	char			*cmd;
 	char			**args;
 	t_types			type;
-	t_builtin		builtin;
-	t_state			state;
 	struct s_dlist	*next;
 	struct s_dlist	*prev;
 }	t_dlist;
