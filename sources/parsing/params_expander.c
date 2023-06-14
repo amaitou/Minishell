@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:18:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:35:16 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	params_expander(t_dlist *list, char *env[])
 	{
 		if (ft_strcmp(list->prev->value, "<<"))
 		{
-			// wildcards_expander(list);
+			wildcards_expander(list);
 			list->i = skip_quotes(list->value);
 			list->param_exp = 0;
 			while (list->value[++list->i])

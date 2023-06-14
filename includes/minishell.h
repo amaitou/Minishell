@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:19:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:33:45 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ typedef struct s_dlist
 	// variables needed in expansion;
 	int				param_exp;
 	int				i;
+	int				first;
+	int				last;
+	int				wc_present;
+	char			**req;
+	char			*matched;
+	char			*p_match;
 	// endl
 	char			*value;
 	t_types			type;
@@ -182,5 +188,11 @@ void	params_expander(t_dlist *list, char *env[]);
 int		get_index(char *token);
 int		is_valid(char c);
 int		skip_quotes(char *string);
+
+// wildcards expansion
+void	wildcards_expander(t_dlist *list);
+void	search_for_match(t_dlist *list);
+void	match_found(t_dlist *list);
+int		should_expand(char *string);
 
 #endif

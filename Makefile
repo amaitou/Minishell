@@ -17,7 +17,9 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/parser.c \
 		 sources/parsing/parser_list_utils.c \
 		 sources/parsing/params_expander.c \
-		 sources/parsing/params_expander_utils.c 
+		 sources/parsing/params_expander_utils.c \
+		 sources/parsing/wilcards_expander.c \
+		 sources/parsing/wilcards_expander_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
