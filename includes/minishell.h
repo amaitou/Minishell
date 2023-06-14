@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:33:45 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:43:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_parser
 
 typedef struct s_dlist
 {
-	// variables needed in expansion;
 	int				param_exp;
 	int				i;
 	int				first;
@@ -108,7 +107,6 @@ typedef struct s_dlist
 	char			**req;
 	char			*matched;
 	char			*p_match;
-	// endl
 	char			*value;
 	t_types			type;
 	t_state			state;
@@ -118,81 +116,82 @@ typedef struct s_dlist
 
 // prompt functions
 
-void	get_user(t_prompt *prompt);
-char	*prompt_string(t_prompt *prompt);
+void		get_user(t_prompt *prompt);
+char		*prompt_string(t_prompt *prompt);
 
 // doubly linked list functions for lexer
 
-t_dlist	*create_node(void);
-t_dlist	*last_node(t_dlist *head);
-void	append_node(t_dlist **head, t_dlist *new);
-void	traverse_list(t_dlist *head);
-void	free_nodes(t_dlist *head, int boolean);
+t_dlist		*create_node(void);
+t_dlist		*last_node(t_dlist *head);
+void		append_node(t_dlist **head, t_dlist *new);
+void		traverse_list(t_dlist *head);
+void		free_nodes(t_dlist *head, int boolean);
 
 // scanner functions
 
-void	__scanner__(t_scanner *scanner);
-void	handle_quotes(t_scanner *scanner);
-void	handle_operators(t_scanner *scanner);
-void	command_splitter(t_scanner *scanner);
-void	free_scanner(char **tokens);
+void		__scanner__(t_scanner *scanner);
+void		handle_quotes(t_scanner *scanner);
+void		handle_operators(t_scanner *scanner);
+void		command_splitter(t_scanner *scanner);
+void		free_scanner(char **tokens);
 
 // lexer functions
-void	__lexer__(t_dlist **head, t_scanner *scanner);
-void	tokenizer(t_dlist **head, char *token);
-t_dlist	*node_quotes(char *token, char quote);
-t_dlist	*node_redirection(char *token);
-t_dlist	*node_pipeline(char *token);
-t_dlist	*node_word(char *token);
-void	remove_quotes(t_dlist *head, char quote);
-void	quotes_removal(t_dlist *head);
+void		__lexer__(t_dlist **head, t_scanner *scanner);
+void		tokenizer(t_dlist **head, char *token);
+t_dlist		*node_quotes(char *token, char quote);
+t_dlist		*node_redirection(char *token);
+t_dlist		*node_pipeline(char *token);
+t_dlist		*node_word(char *token);
+void		remove_quotes(t_dlist *head, char quote);
+void		quotes_removal(t_dlist *head);
 
 // error fucntions
 
-void	__error__(t_dlist *head, t_errors *error);
-void	display_error(t_errors *error);
+void		__error__(t_dlist *head, t_errors *error);
+void		display_error(t_errors *error);
 
 // minishell functions
 
-int		check_spaces(char *s);
-void	free_pointers(t_prompt *prompt, t_scanner *scanner, t_errors *error);
-int		__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error);
-void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
-			t_prompt *prompt, char *env[]);
+int			check_spaces(char *s);
+void		free_pointers(t_prompt *prompt, t_scanner *scanner,
+				t_errors *error);
+int			__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error);
+void		__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
+				t_prompt *prompt, char *env[]);
 
 // doubly linked list functions for parser
 
 t_parser	*__create_node(void);
 t_parser	*__last_node(t_parser *head);
-void	__append_node(t_parser **head, t_parser *new);
+void		__append_node(t_parser **head, t_parser *new);
 
 // parser function
 
-void	__parser__(t_parser **parser, t_dlist *head);
+void		__parser__(t_parser **parser, t_dlist *head);
 // int		count_files(t_dlist	*head);
-int		count_arguments(t_dlist *head);
+int			count_arguments(t_dlist *head);
 // void	assign_file(t_dlist *head, t_parser *node, int i);
-void	assign_args(t_dlist *head, t_parser *node, char *args);
+void		assign_args(t_dlist *head, t_parser *node, char *args);
 
 // traversing
 
-void	lexer_traverse(t_dlist *head);
-void	scanner_traversal(char **scanner);
-void	parser_traversal(t_parser *head);
+void		lexer_traverse(t_dlist *head);
+void		scanner_traversal(char **scanner);
+void		parser_traversal(t_parser *head);
 
 // env fetching
-char 	*ft_getenv(char *nam, char *env[]);
+char		*ft_getenv(char *nam, char *env[]);
 
 // parameters expansion
-void	params_expander(t_dlist *list, char *env[]);
-int		get_index(char *token);
-int		is_valid(char c);
-int		skip_quotes(char *string);
+void		params_expander(t_dlist *list, char *env[]);
+int			get_index(char *token);
+int			is_valid(char c);
+int			skip_quotes(char *string);
 
 // wildcards expansion
-void	wildcards_expander(t_dlist *list);
-void	search_for_match(t_dlist *list);
-void	match_found(t_dlist *list);
-int		should_expand(char *string);
+void		wildcards_expander(t_dlist *list);
+void		search_for_match(t_dlist *list);
+void		match_found(t_dlist *list);
+int			should_expand(char *string);
 
 #endif
