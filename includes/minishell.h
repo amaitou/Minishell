@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 02:11:05 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:48:42 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,8 @@ void	assign_args(t_dlist *head, t_parser *node, char *args);
 void	lexer_traverse(t_dlist *head);
 void	scanner_traversal(char **scanner);
 void	parser_traversal(t_parser *head);
+
+// env fetching
+char 	*ft_getenv(char *nam, char *env[]);
 
 #endif

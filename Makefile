@@ -4,6 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
+		 sources/ft_getenv.c \
 		 sources/parsing/scanner.c \
 		 sources/parsing/lexer_list_utils.c \
 		 sources/parsing/scanner_utils.c \
