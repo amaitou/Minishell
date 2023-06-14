@@ -6,25 +6,25 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 12:39:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:53:56 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char **set_env(char **envp)
+static char	**set_env(char **envp)
 {
-	char **env;
-	int	size;
-	int	i;
+	char	**env;
+	int		size;
+	int		i;
 
 	i = -1;
 	size = 0;
-	while (envp[++i]) // calculating size of envp
+	while (envp[++i])
 		size++;
 	i = -1;
 	env = (char **)malloc((size + 1) * sizeof(char *));
-	while (envp[++i]) // copying contents of envp to our own env
+	while (envp[++i])
 		env[i] = ft_strdup(envp[i]);
 	env[i] = NULL;
 	return (env);

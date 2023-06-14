@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 16:47:05 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:03:31 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 /* Libraries */
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
 # include <limits.h>
