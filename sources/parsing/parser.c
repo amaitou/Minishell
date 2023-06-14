@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 15:00:09 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 23:43:26 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:19:34 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ void	__parser__(t_parser **parser, t_dlist *head)
 			node->args = ft_split(args, '\n');
 		else
 			node->args = NULL;
-		__append_node(parser, node);
 		if (head)
+		{
+			node->type = __PIPE;
 			head = head->next;
+		}
+		__append_node(parser, node);
 	}
 }

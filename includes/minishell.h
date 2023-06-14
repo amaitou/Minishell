@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 23:19:46 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:11:05 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_parser
 {
 	char			**args;
 	t_list			*file;
+	t_types			type;
 	struct s_parser	*next;
 	struct s_parser	*prev;
 }	t_parser;

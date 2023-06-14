@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 00:03:56 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 02:15:14 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ void	parser_traversal(t_parser *head)
 		}
 		else
 			printf("\tNo Files\n");
+		printf("[.] PIPE :\n");
+		if (head->type == __PIPE)
+			printf("\tyes\n");
+		else
+			printf("\tNo\n");
 		printf("----------------------\n");
 		head = head->next;
 	}
