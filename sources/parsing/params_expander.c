@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:35:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:38:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void	truncate_digit(t_dlist *list)
 			ft_strlen(list->value));
 	list->value = string_join(tmp, list->value);
 	list->param_exp = 0;
-	free (tmp2);
+	free(tmp2);
 }
 
-static void	expnad_var(t_dlist *list, char *env[])
+static void	expand_var(t_dlist *list, char *env[])
 {
 	char	*tmp;
 	char	*tmp2;
@@ -57,7 +57,7 @@ static void	expnad_var(t_dlist *list, char *env[])
 				ft_substr(tmp2, i, ft_strlen(tmp2)));
 	list->param_exp = 0;
 	list->i = get_index(list->value);
-	return (free (var), free (tmp2));
+	return (free(var), free(tmp2));
 }
 
 void	params_expander(t_dlist *list, char *env[])
@@ -74,14 +74,14 @@ void	params_expander(t_dlist *list, char *env[])
 				if (list->value[list->i] == '$')
 					list->param_exp = 1;
 				else if (list->param_exp
-						&& (ft_isdigit(list->value
-						&& list->value[list->i] != '0'))
-						&& list->value[list->i - 1] == '$')
+					&& ft_isdigit(list->value[list->i])
+					&& list->value[list->i] != '0'
+					&& list->value[list->i - 1] == '$')
 					truncate_digit(list);
 				else if (list->param_exp
 					&& (ft_isalpha(list->value[list->i])
-					|| ft_strchr("0_", list->value[list->i])))
-					expnad_var(list, env);
+						|| ft_strchr("0_", list->value[list->i])))
+					expand_var(list, env);
 			}
 		}
 		list = list->next;
