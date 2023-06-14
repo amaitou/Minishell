@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 18:02:58 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:18:37 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,9 +203,14 @@ void		ft_echo(char **args);
 int			ft_env(char *const env[]);
 int			ft_exit(char **args);
 int			ft_export(char **args, char *const env[]);
-int			ft_pwd(void);
+void		ft_pwd(void);
 int			ft_unset(char **args, char **env[]);
 
+
+// redirections
+void		redirect_output(t_list *list);
+void		redirect_input(t_list *list);
+void		append_output(t_list *list);
 
 // global variable to hold the exit status of the last command
 

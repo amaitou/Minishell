@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:12:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 17:59:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:40:50 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_file_type
 	OUT,
 	IN
 }	t_file_type;
+
 typedef struct s_list
 {
 	char			*name;

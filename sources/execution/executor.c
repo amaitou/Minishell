@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 18:37:14 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/14 22:50:51 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static int	is_a_builtin(t_parser *list)
 	if (!ft_strcmp(list->args[0], "echo"))
 		ft_echo(list->args);
 	else if (!ft_strcmp(list->args[0], "pwd"))
-	{
-	}
+		ft_pwd();
 	else if (!ft_strcmp(list->args[0], "cd"))
 	{
 	}
@@ -105,6 +104,44 @@ static void	wait_on_all_children(pid_t pid, t_parser *lst)
 	}
 }
 
+static void	redirections_handle(t_list *files)
+{
+	while (files)
+	{
+		if (files->type == IN)
+			redirect_input(files);
+		else if (files->type == OUT)
+			redirect_output(files);
+		else if (files->type == APPEND)
+			append_output(files);
+		files = files->next;
+	}
+}
+
+static void	heredoc_handle(t_list *list, int pipefd[2])
+{
+	char	*string;
+
+	string = "string literal";
+	if (list->type == HEREDOC)
+	{
+		while (string)
+		{
+			string = readline(NULL);
+			if (!strcmp(string, list->name))
+			{
+				// if (string)
+				// 	free (string);
+				break ;
+			}
+			ft_putstr_fd(string, pipefd[1]);
+			ft_putstr_fd("\n", pipefd[1]);
+			// if (string)
+			// 	free (string);
+		}
+	}
+}
+
 void	executor(t_parser *list, char *env[])
 {
 	t_parser	*lst;
@@ -118,11 +155,13 @@ void	executor(t_parser *list, char *env[])
 	while (list)
 	{
 		pipe(pipefd);
+		heredoc_handle(list->file, pipefd);
 		pid = fork();
 		if (pid < 0)
 			exit(ft_perror("fork : "));
-		else if (pid == 0)
+		if (pid == 0)
 		{
+			redirections_handle(list->file);
 			dup2(old_fd, STDIN_FILENO);
 			if (old_fd)
 				close(old_fd);
@@ -131,6 +170,12 @@ void	executor(t_parser *list, char *env[])
 				close(pipefd[0]);
 				dup2(pipefd[1], STDOUT_FILENO);
 				close(pipefd[1]);
+			}
+			else if (list->file->type == HEREDOC)
+			{
+				close(pipefd[1]);
+				dup2(pipefd[0], STDIN_FILENO);
+				close(pipefd[0]);
 			}
 			exec_cmd(list, env);
 		}

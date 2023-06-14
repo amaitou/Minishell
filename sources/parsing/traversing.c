@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traversing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 18:00:36 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 02:15:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:24:35 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	parser_traversal(t_parser *head)
 			i = -1;
 			while (head->args[++i])
 				printf("%s ", head->args[i]);
-			
 		}
 		else
 			printf("No Args\n");
