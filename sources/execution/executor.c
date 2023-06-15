@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/15 12:06:08 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:22:44 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static void	heredoc_handle(t_list *list, int *heredoc)
 {
 	char	*string;
 
-	if (list && list->type == HEREDOC)
+	while (list)
 	{
 		pipe(heredoc);
 		string = readline("> ");
@@ -140,7 +140,46 @@ static void	heredoc_handle(t_list *list, int *heredoc)
 				free (string);
 			string = readline("> ");
 		}
+		if (list->next && list->next->type == HEREDOC)
+		{
+			close(heredoc[1]);
+			close(heredoc[0]);
+		}
+		list = list->next;
 	}
+}
+
+static t_list	*mount_heredoc(t_list *files)
+{
+	t_list	*file;
+	t_list	*heredoc;
+	t_list	*traverser;
+
+	file = files;
+	heredoc = NULL;
+	traverser = NULL;
+	while (file)
+	{
+		if (file->type == HEREDOC)
+		{
+			if (heredoc == NULL)
+			{
+				heredoc = ft_lstnew();
+				heredoc->name = ft_strdup(file->name);
+				heredoc->type = HEREDOC;
+				traverser = heredoc;
+			}
+			else
+			{
+				ft_lstadd_back(&heredoc, ft_lstnew());
+				traverser = ft_lstlast(heredoc);
+				traverser->name = ft_strdup(file->name);
+				traverser->type = HEREDOC;
+			}
+		}
+		file = file->next;
+	}
+	return (heredoc);
 }
 
 void	executor(t_parser *list, char *env[])
@@ -154,10 +193,11 @@ void	executor(t_parser *list, char *env[])
 	old_fd = 0;
 	pid = 0;
 	lst = list;
+	list->heredoc = mount_heredoc(list->file);
 	while (list)
 	{
 		pipe(pipefd);
-		heredoc_handle(list->file, heredoc);
+		heredoc_handle(list->heredoc, heredoc);
 		pid = fork();
 		if (pid < 0)
 			exit(ft_perror("fork : "));

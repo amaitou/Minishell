@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 22:18:37 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:10:06 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_parser
 {
 	char			**args;
 	t_list			*file;
+	t_list			*heredoc;
 	t_types			type;
 	struct s_parser	*next;
 	struct s_parser	*prev;
