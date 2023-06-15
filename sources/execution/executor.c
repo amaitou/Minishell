@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 22:50:51 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:06:08 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,26 +118,27 @@ static void	redirections_handle(t_list *files)
 	}
 }
 
-static void	heredoc_handle(t_list *list, int pipefd[2])
+static void	heredoc_handle(t_list *list, int *heredoc)
 {
 	char	*string;
 
-	string = "string literal";
-	if (list->type == HEREDOC)
+	if (list && list->type == HEREDOC)
 	{
+		pipe(heredoc);
+		string = readline("> ");
 		while (string)
 		{
-			string = readline(NULL);
 			if (!strcmp(string, list->name))
 			{
-				// if (string)
-				// 	free (string);
+				if (string)
+					free (string);
 				break ;
 			}
-			ft_putstr_fd(string, pipefd[1]);
-			ft_putstr_fd("\n", pipefd[1]);
-			// if (string)
-			// 	free (string);
+			ft_putstr_fd(string, *(heredoc + 1));
+			ft_putstr_fd("\n", *(heredoc + 1));
+			if (string)
+				free (string);
+			string = readline("> ");
 		}
 	}
 }
@@ -147,6 +148,7 @@ void	executor(t_parser *list, char *env[])
 	t_parser	*lst;
 	pid_t		pid;
 	int			pipefd[2];
+	int			heredoc[2];
 	int			old_fd;
 
 	old_fd = 0;
@@ -155,7 +157,7 @@ void	executor(t_parser *list, char *env[])
 	while (list)
 	{
 		pipe(pipefd);
-		heredoc_handle(list->file, pipefd);
+		heredoc_handle(list->file, heredoc);
 		pid = fork();
 		if (pid < 0)
 			exit(ft_perror("fork : "));
@@ -171,20 +173,28 @@ void	executor(t_parser *list, char *env[])
 				dup2(pipefd[1], STDOUT_FILENO);
 				close(pipefd[1]);
 			}
-			else if (list->file->type == HEREDOC)
+			if (list->file && list->file->type == HEREDOC)
 			{
-				close(pipefd[1]);
-				dup2(pipefd[0], STDIN_FILENO);
-				close(pipefd[0]);
+				close(heredoc[1]);
+				dup2(heredoc[0], STDIN_FILENO);
+				close(heredoc[0]);
 			}
 			exec_cmd(list, env);
+		}
+		if (heredoc[0])
+		{
+			close(heredoc[0]);
+			close(heredoc[1]);
+			ft_memset(heredoc, 0, 2);
 		}
 		close(pipefd[1]);
 		if (old_fd)
 			close(old_fd);
-		old_fd = pipefd[0];
+		if (list->type == __PIPE)
+			old_fd = pipefd[0];
+		else
+			close (pipefd[0]);
 		list = list->next;
 	}
-	close(old_fd);
 	wait_on_all_children(pid, lst);
 }
