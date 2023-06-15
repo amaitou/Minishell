@@ -6,13 +6,13 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:45:42 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 12:39:00 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:19:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	clean_resources(char **var)
+void	clean(char **var)
 {
 	int	i;
 
@@ -37,10 +37,10 @@ char *ft_getenv(char *name, char *env[])
 		if (!strcmp(name, var[0]))
 		{
 			value = ft_strdup(var[1]);
-			clean_resources(var);
+			clean(var);
 			return (value);
 		}
-		clean_resources(var);
+		clean(var);
 	}
 	return (NULL);
 }

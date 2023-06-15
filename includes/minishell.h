@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/15 13:10:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:22:14 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,21 @@ typedef struct s_dlist
 	struct s_dlist	*prev;
 }	t_dlist;
 
+// execution unit struct
+
+typedef struct s_exec
+{
+	t_parser	*lst;
+	pid_t		pid;
+	int			pipefd[2];
+	int			heredoc[2];
+	int			old_fd;
+}	t_exec;
+
+// global variable to hold the exit status of the last command
+
+int			g_status;
+
 // prompt functions
 
 void		get_user(t_prompt *prompt);
@@ -197,6 +212,12 @@ int			should_expand(char *string);
 
 // execution unit functions declarations
 void		executor(t_parser *list, char *env[]);
+void		pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc);
+void		wait_on_all_children(pid_t pid, t_parser *lst);
+void		clean(char **var);
+void		close_fds(t_exec *es, t_parser *list);
+t_list		*mount_heredoc(t_list *files);
+t_exec		*init_struct(t_parser *list);
 
 // builtins
 int			ft_cd(char **args, char *const env[]);
@@ -207,14 +228,11 @@ int			ft_export(char **args, char *const env[]);
 void		ft_pwd(void);
 int			ft_unset(char **args, char **env[]);
 
-
 // redirections
 void		redirect_output(t_list *list);
 void		redirect_input(t_list *list);
 void		append_output(t_list *list);
-
-// global variable to hold the exit status of the last command
-
-int			status;
+void		heredoc_handle(t_list *list, int *heredoc);
+void		redirections_handle(t_list *files);
 
 #endif

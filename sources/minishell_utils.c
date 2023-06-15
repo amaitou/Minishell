@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/15 11:50:46 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:13:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 		quotes_removal(head);
 		__parser__(&parser, head);
 		executor(parser, env);
-		// parser_traversal(parser);
-		// free_nodes(head, 1);
 	}
 	add_history(scanner->command);
-	// free_pointers(prompt, scanner, error);
 }

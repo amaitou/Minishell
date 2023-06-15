@@ -22,6 +22,7 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/wilcards_expander_utils.c \
 		 sources/execution/executor.c \
 		 sources/execution/redirections.c \
+		 sources/execution/utils.c \
 		 sources/execution/builtins/echo.c \
 		 sources/execution/builtins/pwd.c \
 

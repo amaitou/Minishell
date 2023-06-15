@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/15 13:22:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:22:24 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ static int	is_a_builtin(t_parser *list)
 	{
 	}
 	return (0);
-}
-
-static void	clean_resources(char **var)
-{
-	int	i;
-
-	i = -1;
-	while (var[++i])
-		free(var[i]);
-	free(var);
 }
 
 static char	*search_for_cmd(char *cmd, char **path)
@@ -76,7 +66,7 @@ static void	exec_cmd(t_parser *list, char *env[])
 		{
 			path = ft_split(ft_getenv("PATH", env), ':');
 			cmd = search_for_cmd(list->args[0], path);
-			clean_resources(path);
+			clean(path);
 			if (cmd)
 				if (execve(cmd, list->args, env))
 					exit(ft_perror("execve : "));
@@ -88,153 +78,27 @@ static void	exec_cmd(t_parser *list, char *env[])
 			exit(ft_perror("execve : "));
 }
 
-static void	wait_on_all_children(pid_t pid, t_parser *lst)
-{
-	pid_t	tmp;
-	int		tmpsts;
-
-	tmp = 0;
-	tmpsts = 0;
-	while (lst)
-	{
-		tmp = waitpid(-1, &tmpsts, 0);
-		if (tmp == pid)
-			status = tmpsts >> 8;
-		lst = lst->next;
-	}
-}
-
-static void	redirections_handle(t_list *files)
-{
-	while (files)
-	{
-		if (files->type == IN)
-			redirect_input(files);
-		else if (files->type == OUT)
-			redirect_output(files);
-		else if (files->type == APPEND)
-			append_output(files);
-		files = files->next;
-	}
-}
-
-static void	heredoc_handle(t_list *list, int *heredoc)
-{
-	char	*string;
-
-	while (list)
-	{
-		pipe(heredoc);
-		string = readline("> ");
-		while (string)
-		{
-			if (!strcmp(string, list->name))
-			{
-				if (string)
-					free (string);
-				break ;
-			}
-			ft_putstr_fd(string, *(heredoc + 1));
-			ft_putstr_fd("\n", *(heredoc + 1));
-			if (string)
-				free (string);
-			string = readline("> ");
-		}
-		if (list->next && list->next->type == HEREDOC)
-		{
-			close(heredoc[1]);
-			close(heredoc[0]);
-		}
-		list = list->next;
-	}
-}
-
-static t_list	*mount_heredoc(t_list *files)
-{
-	t_list	*file;
-	t_list	*heredoc;
-	t_list	*traverser;
-
-	file = files;
-	heredoc = NULL;
-	traverser = NULL;
-	while (file)
-	{
-		if (file->type == HEREDOC)
-		{
-			if (heredoc == NULL)
-			{
-				heredoc = ft_lstnew();
-				heredoc->name = ft_strdup(file->name);
-				heredoc->type = HEREDOC;
-				traverser = heredoc;
-			}
-			else
-			{
-				ft_lstadd_back(&heredoc, ft_lstnew());
-				traverser = ft_lstlast(heredoc);
-				traverser->name = ft_strdup(file->name);
-				traverser->type = HEREDOC;
-			}
-		}
-		file = file->next;
-	}
-	return (heredoc);
-}
-
 void	executor(t_parser *list, char *env[])
 {
-	t_parser	*lst;
-	pid_t		pid;
-	int			pipefd[2];
-	int			heredoc[2];
-	int			old_fd;
+	t_exec	*es;
 
-	old_fd = 0;
-	pid = 0;
-	lst = list;
-	list->heredoc = mount_heredoc(list->file);
+	es = init_struct(list);
 	while (list)
 	{
-		pipe(pipefd);
-		heredoc_handle(list->heredoc, heredoc);
-		pid = fork();
-		if (pid < 0)
+		pipe(es->pipefd);
+		heredoc_handle(list->heredoc, es->heredoc);
+		es->pid = fork();
+		if (es->pid < 0)
 			exit(ft_perror("fork : "));
-		if (pid == 0)
+		if (es->pid == 0)
 		{
-			redirections_handle(list->file);
-			dup2(old_fd, STDIN_FILENO);
-			if (old_fd)
-				close(old_fd);
-			if (list->type == __PIPE)
-			{
-				close(pipefd[0]);
-				dup2(pipefd[1], STDOUT_FILENO);
-				close(pipefd[1]);
-			}
-			if (list->file && list->file->type == HEREDOC)
-			{
-				close(heredoc[1]);
-				dup2(heredoc[0], STDIN_FILENO);
-				close(heredoc[0]);
-			}
+			pipes_handle(list, es->old_fd, es->pipefd, es->heredoc);
 			exec_cmd(list, env);
 		}
-		if (heredoc[0])
-		{
-			close(heredoc[0]);
-			close(heredoc[1]);
-			ft_memset(heredoc, 0, 2);
-		}
-		close(pipefd[1]);
-		if (old_fd)
-			close(old_fd);
-		if (list->type == __PIPE)
-			old_fd = pipefd[0];
-		else
-			close (pipefd[0]);
+		close_fds(es, list);
 		list = list->next;
 	}
-	wait_on_all_children(pid, lst);
+	close(es->pipefd[0]);
+	wait_on_all_children(es->pid, es->lst);
+	free (es);
 }
