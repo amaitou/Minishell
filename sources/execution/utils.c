@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 12:52:40 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:17:54 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,6 @@ void	close_fds(t_exec *es, t_parser *list)
 		es->old_fd = es->pipefd[0];
 }
 
-t_list	*mount_heredoc(t_list *files)
-{
-	t_list	*file;
-	t_list	*heredoc;
-	t_list	*traverser;
-
-	file = files;
-	heredoc = NULL;
-	while (file)
-	{
-		if (file->type == HEREDOC)
-		{
-			ft_lstadd_back(&heredoc, ft_lstnew());
-			traverser = ft_lstlast(heredoc);
-			traverser->name = ft_strdup(file->name);
-			traverser->type = HEREDOC;
-		}
-		file = file->next;
-	}
-	return (heredoc);
-}
-
 void	pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc)
 {
 	dup2(old_fd, STDIN_FILENO);
@@ -86,6 +64,12 @@ void	pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc)
 		exit (EXIT_FAILURE);
 }
 
+void	restore_io_streams(t_exec *es)
+{
+	dup2(es->saved_stdin, STDIN_FILENO);
+	dup2(es->saved_stdout, STDOUT_FILENO);
+}
+
 t_exec	*init_struct(t_parser *list)
 {
 	t_exec	*head;
@@ -95,7 +79,6 @@ t_exec	*init_struct(t_parser *list)
 	head->pid = 0;
 	head->old_fd = 0;
 	head->nb_commands = 0;
-	list->heredoc = mount_heredoc(list->file);
 	ft_memset(head->pipefd, 0, 2);
 	ft_memset(head->heredoc, 0, 2);
 	head->saved_stdin = dup(STDIN_FILENO);

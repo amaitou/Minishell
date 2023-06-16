@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/16 13:47:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:16:32 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,28 @@ int	__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error)
 	return (0);
 }
 
+t_list	*mount_heredoc(t_list *files)
+{
+	t_list	*file;
+	t_list	*heredoc;
+	t_list	*traverser;
+
+	file = files;
+	heredoc = NULL;
+	while (file)
+	{
+		if (file->type == HEREDOC)
+		{
+			ft_lstadd_back(&heredoc, ft_lstnew());
+			traverser = ft_lstlast(heredoc);
+			traverser->name = ft_strdup(file->name);
+			traverser->type = HEREDOC;
+		}
+		file = file->next;
+	}
+	return (heredoc);
+}
+
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	t_prompt *prompt, char *env[])
 {
@@ -74,6 +96,7 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 		params_expander(head, env);
 		quotes_removal(head);
 		__parser__(&parser, head);
+		parser->heredoc = mount_heredoc(parser->file);
 		executor(parser, env);
 	}
 	add_history(scanner->command);

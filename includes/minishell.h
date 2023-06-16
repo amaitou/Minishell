@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/16 13:30:12 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:18:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void		pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc);
 void		get_exit_status(pid_t pid, t_exec *lst);
 void		clean(char **var);
 void		close_fds(t_exec *es, t_parser *list);
+void		restore_io_streams(t_exec *es);
 t_list		*mount_heredoc(t_list *files);
 t_exec		*init_struct(t_parser *list);
 
