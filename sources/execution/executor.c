@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 12:45:17 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:24:31 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,11 @@ static char	*search_for_cmd(char *cmd, char **path)
 	return (NULL);
 }
 
-static void	exec_cmd(t_parser *list, char *env[])
+static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 {
 	char	**path;
 	char	*cmd;
 
-	path = NULL;
-	cmd = NULL;
 	if (access(list->args[0], X_OK) == -1)
 	{
 		if (exec_builtin(list) == 0)
@@ -87,6 +85,7 @@ static void	exec_cmd(t_parser *list, char *env[])
 				if (execve(cmd, list->args, env))
 					exit(ft_perror("execve : "));
 			printf("minishell: %s: command not found\n", list->args[0]);
+			exit(127);
 		}
 		else if (list->type == __PIPE)
 			exit(g_status);
@@ -94,6 +93,8 @@ static void	exec_cmd(t_parser *list, char *env[])
 	else
 		if (execve(list->args[0], list->args, env))
 			exit(ft_perror("execve : "));
+	dup2(es->saved_stdin, STDIN_FILENO);
+	dup2(es->saved_stdout, STDOUT_FILENO);
 }
 
 void	executor(t_parser *list, char *env[])
@@ -109,23 +110,18 @@ void	executor(t_parser *list, char *env[])
 			pipe(es->pipefd);
 			es->nb_commands++;
 			es->pid = fork();
-			if (es->pid < 0)
-				exit(ft_perror("fork : "));
 			if (es->pid == 0)
 			{
 				pipes_handle(list, es->old_fd, es->pipefd, es->heredoc);
-				exec_cmd(list, env);
+				exec_cmd(list, env, es);
 			}
 			close_fds(es, list);
 		}
 		else
-			exec_cmd(list, env);
-		dup2(es->saved_stdin, STDIN_FILENO);
-		dup2(es->saved_stdout, STDOUT_FILENO);
+			exec_cmd(list, env, es);
 		list = list->next;
 	}
 	if (es->pipefd[0])
 		close(es->pipefd[0]);
 	get_exit_status(es->pid, es);
-	free (es);
 }

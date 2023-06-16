@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 12:22:04 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:52:40 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	get_exit_status(pid_t pid, t_exec *es)
 			g_status = tmpsts >> 8;
 		es->nb_commands--;
 	}
+	free (es);
 }
 
 void	close_fds(t_exec *es, t_parser *list)
