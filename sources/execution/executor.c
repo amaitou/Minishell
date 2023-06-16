@@ -6,18 +6,18 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/15 15:22:24 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:45:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_a_builtin(t_parser *list)
+static int	exec_builtin(t_parser *list)
 {
 	if (!ft_strcmp(list->args[0], "echo"))
-		ft_echo(list->args);
+		g_status = ft_echo(list->args, list);
 	else if (!ft_strcmp(list->args[0], "pwd"))
-		ft_pwd();
+		g_status = ft_pwd(list);
 	else if (!ft_strcmp(list->args[0], "cd"))
 	{
 	}
@@ -33,7 +33,23 @@ static int	is_a_builtin(t_parser *list)
 	else if (!ft_strcmp(list->args[0], "exit"))
 	{
 	}
-	return (0);
+	else
+		return (0);
+	return (1);
+}
+
+static int	is_a_builtin(t_parser *list)
+{
+	if (!ft_strcmp(list->args[0], "echo")
+		|| !ft_strcmp(list->args[0], "pwd")
+		|| !ft_strcmp(list->args[0], "cd")
+		|| !ft_strcmp(list->args[0], "export")
+		|| !ft_strcmp(list->args[0], "unset")
+		|| !ft_strcmp(list->args[0], "env")
+		|| !ft_strcmp(list->args[0], "exit"))
+		return (1);
+	else
+		return (0);
 }
 
 static char	*search_for_cmd(char *cmd, char **path)
@@ -62,7 +78,7 @@ static void	exec_cmd(t_parser *list, char *env[])
 	cmd = NULL;
 	if (access(list->args[0], X_OK) == -1)
 	{
-		if (is_a_builtin(list) == 0)
+		if (exec_builtin(list) == 0)
 		{
 			path = ft_split(ft_getenv("PATH", env), ':');
 			cmd = search_for_cmd(list->args[0], path);
@@ -72,6 +88,8 @@ static void	exec_cmd(t_parser *list, char *env[])
 					exit(ft_perror("execve : "));
 			printf("minishell: %s: command not found\n", list->args[0]);
 		}
+		else if (list->type == __PIPE)
+			exit(g_status);
 	}
 	else
 		if (execve(list->args[0], list->args, env))
@@ -85,20 +103,29 @@ void	executor(t_parser *list, char *env[])
 	es = init_struct(list);
 	while (list)
 	{
-		pipe(es->pipefd);
 		heredoc_handle(list->heredoc, es->heredoc);
-		es->pid = fork();
-		if (es->pid < 0)
-			exit(ft_perror("fork : "));
-		if (es->pid == 0)
+		if (!is_a_builtin(list) || (is_a_builtin(list) && list->type == __PIPE))
 		{
-			pipes_handle(list, es->old_fd, es->pipefd, es->heredoc);
-			exec_cmd(list, env);
+			pipe(es->pipefd);
+			es->nb_commands++;
+			es->pid = fork();
+			if (es->pid < 0)
+				exit(ft_perror("fork : "));
+			if (es->pid == 0)
+			{
+				pipes_handle(list, es->old_fd, es->pipefd, es->heredoc);
+				exec_cmd(list, env);
+			}
+			close_fds(es, list);
 		}
-		close_fds(es, list);
+		else
+			exec_cmd(list, env);
+		dup2(es->saved_stdin, STDIN_FILENO);
+		dup2(es->saved_stdout, STDOUT_FILENO);
 		list = list->next;
 	}
-	close(es->pipefd[0]);
-	wait_on_all_children(es->pid, es->lst);
+	if (es->pipefd[0])
+		close(es->pipefd[0]);
+	get_exit_status(es->pid, es);
 	free (es);
 }

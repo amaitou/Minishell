@@ -6,13 +6,13 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/15 14:55:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:23:20 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	redirect_output(t_list *list)
+int	redirect_output(t_list *list)
 {
 	int	fd;
 
@@ -20,14 +20,15 @@ void	redirect_output(t_list *list)
 	{
 		ft_putstr_fd("minishell: cannot overwrite existing file\n",
 			STDOUT_FILENO);
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	fd = open(list->name, O_CREAT | O_WRONLY, 0644);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (EXIT_SUCCESS);
 }
 
-void	redirect_input(t_list *list)
+int	redirect_input(t_list *list)
 {
 	int	fd;
 
@@ -35,11 +36,12 @@ void	redirect_input(t_list *list)
 	{
 		ft_putstr_fd("minishell: No such file or directory\n",
 			STDOUT_FILENO);
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	fd = open(list->name, O_RDONLY);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	return (EXIT_SUCCESS);
 }
 
 void	append_output(t_list *list)
@@ -83,16 +85,23 @@ void	heredoc_handle(t_list *list, int *heredoc)
 	}
 }
 
-void	redirections_handle(t_list *files)
+int	redirections_handle(t_list *files)
 {
 	while (files)
 	{
 		if (files->type == IN)
-			redirect_input(files);
+		{
+			if (redirect_input(files) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
 		else if (files->type == OUT)
-			redirect_output(files);
+		{
+			if (redirect_output(files) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
 		else if (files->type == APPEND)
 			append_output(files);
 		files = files->next;
 	}
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/15 15:22:14 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:23:15 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ typedef struct s_exec
 	int			pipefd[2];
 	int			heredoc[2];
 	int			old_fd;
+	int			saved_stdout;
+	int			saved_stdin;
+	int			nb_commands;
 }	t_exec;
 
 // global variable to hold the exit status of the last command
@@ -213,26 +216,26 @@ int			should_expand(char *string);
 // execution unit functions declarations
 void		executor(t_parser *list, char *env[]);
 void		pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc);
-void		wait_on_all_children(pid_t pid, t_parser *lst);
+void		get_exit_status(pid_t pid, t_exec *lst);
 void		clean(char **var);
 void		close_fds(t_exec *es, t_parser *list);
 t_list		*mount_heredoc(t_list *files);
 t_exec		*init_struct(t_parser *list);
 
 // builtins
-int			ft_cd(char **args, char *const env[]);
-void		ft_echo(char **args);
-int			ft_env(char *const env[]);
-int			ft_exit(char **args);
-int			ft_export(char **args, char *const env[]);
-void		ft_pwd(void);
-int			ft_unset(char **args, char **env[]);
+int			ft_cd(char **args, char *const env[], t_parser *list);
+int			ft_echo(char **args, t_parser *list);
+int			ft_env(char *const env[], t_parser *list);
+int			ft_exit(char **args, t_parser *list);
+int			ft_export(char **args, char *const env[], t_parser *list);
+int			ft_pwd(t_parser *list);
+int			ft_unset(char **args, char **env[], t_parser *list);
 
 // redirections
-void		redirect_output(t_list *list);
-void		redirect_input(t_list *list);
+int			redirect_output(t_list *list);
+int			redirect_input(t_list *list);
+int			redirections_handle(t_list *files);
 void		append_output(t_list *list);
 void		heredoc_handle(t_list *list, int *heredoc);
-void		redirections_handle(t_list *files);
 
 #endif
