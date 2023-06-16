@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/16 12:23:15 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:30:12 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int			ft_echo(char **args, t_parser *list);
 int			ft_env(char *const env[], t_parser *list);
 int			ft_exit(char **args, t_parser *list);
 int			ft_export(char **args, char *const env[], t_parser *list);
-int			ft_pwd(t_parser *list);
+int			ft_pwd(char **args, t_parser *list);
 int			ft_unset(char **args, char **env[], t_parser *list);
 
 // redirections

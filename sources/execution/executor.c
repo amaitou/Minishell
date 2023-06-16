@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 13:24:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:56:08 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,39 @@
 
 static int	exec_builtin(t_parser *list)
 {
-	if (!ft_strcmp(list->args[0], "echo"))
+	if (list->args && !ft_strcmp(list->args[0], "echo"))
 		g_status = ft_echo(list->args, list);
-	else if (!ft_strcmp(list->args[0], "pwd"))
-		g_status = ft_pwd(list);
-	else if (!ft_strcmp(list->args[0], "cd"))
+	else if (list->args && !ft_strcmp(list->args[0], "pwd"))
+		g_status = ft_pwd(list->args, list);
+	else if (list->args && !ft_strcmp(list->args[0], "cd"))
 	{
 	}
-	else if (!ft_strcmp(list->args[0], "export"))
+	else if (list->args && !ft_strcmp(list->args[0], "export"))
 	{
 	}
-	else if (!ft_strcmp(list->args[0], "unset"))
+	else if (list->args && !ft_strcmp(list->args[0], "unset"))
 	{
 	}
-	else if (!ft_strcmp(list->args[0], "env"))
+	else if (list->args && !ft_strcmp(list->args[0], "env"))
 	{
 	}
-	else if (!ft_strcmp(list->args[0], "exit"))
+	else if (list->args && !ft_strcmp(list->args[0], "exit"))
 	{
 	}
-	else
+	else if (list->args)
 		return (0);
 	return (1);
 }
 
 static int	is_a_builtin(t_parser *list)
 {
-	if (!ft_strcmp(list->args[0], "echo")
-		|| !ft_strcmp(list->args[0], "pwd")
-		|| !ft_strcmp(list->args[0], "cd")
-		|| !ft_strcmp(list->args[0], "export")
-		|| !ft_strcmp(list->args[0], "unset")
-		|| !ft_strcmp(list->args[0], "env")
-		|| !ft_strcmp(list->args[0], "exit"))
+	if (list->args && (!ft_strcmp(list->args[0], "echo")
+			|| !ft_strcmp(list->args[0], "pwd")
+			|| !ft_strcmp(list->args[0], "cd")
+			|| !ft_strcmp(list->args[0], "export")
+			|| !ft_strcmp(list->args[0], "unset")
+			|| !ft_strcmp(list->args[0], "env")
+			|| !ft_strcmp(list->args[0], "exit")))
 		return (1);
 	else
 		return (0);
@@ -59,7 +59,7 @@ static char	*search_for_cmd(char *cmd, char **path)
 
 	i = -1;
 	tmp = NULL;
-	while (path[++i])
+	while (cmd && path[++i])
 	{
 		tmp = string_join(ft_strdup(path[i]), ft_strdup("/"));
 		tmp = string_join(tmp, ft_strdup(cmd));
@@ -74,7 +74,7 @@ static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 	char	**path;
 	char	*cmd;
 
-	if (access(list->args[0], X_OK) == -1)
+	if (list->args && access(list->args[0], X_OK) == -1)
 	{
 		if (exec_builtin(list) == 0)
 		{
@@ -85,12 +85,14 @@ static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 				if (execve(cmd, list->args, env))
 					exit(ft_perror("execve : "));
 			printf("minishell: %s: command not found\n", list->args[0]);
+			if (cmd)
+				exit(0);
 			exit(127);
 		}
 		else if (list->type == __PIPE)
 			exit(g_status);
 	}
-	else
+	else if (list->args)
 		if (execve(list->args[0], list->args, env))
 			exit(ft_perror("execve : "));
 	dup2(es->saved_stdin, STDIN_FILENO);

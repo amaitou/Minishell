@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:46:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 12:43:50 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:41:06 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_echo(char **args, t_parser *list)
 			return (EXIT_FAILURE);
 	while (args[++i])
 	{
-		if (i == 1 && !ft_strcmp(args[i], "-n"))
+		if (i == 1 && !ft_strncmp(args[i], "-n", ft_strlen("-n")))
 			new_line = 1;
 		else
 		{
