@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:40:29 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:18:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static int	exec_builtin(t_parser *list, t_vars *vars)
 	else if (list->args && !ft_strcmp(list->args[0], "export"))
 		vars->exit_status = ft_export(list->args, list, vars);
 	else if (list->args && !ft_strcmp(list->args[0], "unset"))
-	{
-	}
+		vars->exit_status = ft_unset(list->args, vars, list);
 	else if (list->args && !ft_strcmp(list->args[0], "env"))
 		vars->exit_status = ft_env(vars->env, list);
 	else if (list->args && !ft_strcmp(list->args[0], "exit"))
