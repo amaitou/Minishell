@@ -6,77 +6,107 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 16:52:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:14:02 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	ft_cd_home(char *home, char *pwd, char *oldpwd)
+static int	print_usage(char **args)
 {
-	if (!home)
-	{
-		ft_putendl_fd("minishell: cd: HOME not set", 2);
-		return (1);
-	}
-	if (chdir(home) == -1)
-	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (1);
-	}
-	ft_setenv("OLDPWD", oldpwd, 1);
-	ft_setenv("PWD", home, 1);
-	free(pwd);
-	return (0);
+	printf("minishell: pwd: %c%c: invalid option\n", args[1][0], args[1][1]);
+	printf("pwd: usage: pwd\n");
+	return (EXIT_FAILURE);
 }
 
-static int	ft_cd_oldpwd(char *home, char *pwd, char *oldpwd)
+static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_pwd)
 {
-	if (!oldpwd)
+	char	*path;
+
+	if (!new_wd)
 	{
-		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
-		return (1);
+		ft_free_pointers(old_wd, c_old_pwd, NULL);
+		printf ("minishell: cd: HOME not set\n");
+		return (EXIT_SUCCESS);
 	}
-	if (chdir(oldpwd) == -1)
+	else if (chdir(new_wd) == -1)
 	{
-		ft_putendl_fd(strerror(errno), 2);
-		return (1);
+		ft_free_pointers(new_wd, old_wd, c_old_pwd);
+		return (ft_perror("minishell: cd:"));
 	}
-	ft_setenv("OLDPWD", pwd, 1);
-	ft_setenv("PWD", oldpwd, 1);
-	free(pwd);
-	return (0);
+	ft_setenv("PWD", new_wd, env);
+	ft_setenv("OLDPWD", old_wd, env);
+	path = ft_getenv("PWD", env);
+	printf("%s\n", path);
+	ft_free_pointers(path, c_old_pwd, NULL);
+	return (EXIT_SUCCESS);
 }
 
-static int	ft_cd_path(char *path, char *home, char *pwd, char *oldpwd)
+static int	change_wd_oldpwd(char *new_wd, char *old_wd, char *env[], char *home)
 {
-	if (chdir(path) == -1)
+	char	*path;
+
+	if (!new_wd)
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		return (1);
+		ft_free_pointers(old_wd, home, NULL);
+		printf ("\n");
+		ft_setenv("OLDPWD", getcwd(NULL, 0), env);
+		return (EXIT_SUCCESS);
 	}
-	ft_setenv("OLDPWD", oldpwd, 1);
-	ft_setenv("PWD", getcwd(NULL, 0), 1);
-	free(pwd);
-	free(home);
-	return (0);
+	else if (chdir(new_wd) == -1)
+	{
+		ft_free_pointers(new_wd, old_wd, home);
+		return (ft_perror("minishell: cd:"));
+	}
+	ft_setenv("PWD", new_wd, env);
+	ft_setenv("OLDPWD", old_wd, env);
+	path = ft_getenv("PWD", env);
+	printf("%s\n", path);
+	ft_free_pointers(path, home, NULL);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_cd(char **args, char *env[])
+static int	change_wd(char *new_wd, char *old_wd, char *env[])
+{
+	char	*path;
+
+	if (chdir(new_wd) == -1)
+	{
+		ft_free_pointers(new_wd, old_wd, NULL);
+		return (ft_perror("minishell: cd: "));
+	}
+	ft_setenv("PWD", getcwd(NULL, 0), env);
+	ft_setenv("OLDPWD", old_wd, env);
+	path = ft_getenv("PWD", env);
+	printf("%s\n", path);
+	ft_free_pointers(path, NULL, NULL);
+	return (EXIT_SUCCESS);
+}
+
+int	ft_cd(char **args, char *env[], t_parser *list)
 {
 	char	*home;
-	char	*pwd;
-	char	*oldpwd;
-
-	home = get_env("HOME", env);
-	pwd = getcwd(NULL, 0);
-	oldpwd = get_env("OLDPWD", env);
+	char	*old_wd;
+	char	*wd;
+	
+	if (list->type != __PIPE)
+		if (redirections_handle(list->file) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	if (args[1] && args[1][0] == '-' && args[1][1])
+		return (print_usage(args));
+	home = ft_getenv("HOME", env);
+	old_wd = ft_getenv("OLDPWD", env);
+	wd = getcwd(NULL, 0);
+	if (!wd)
+	{
+		ft_free_pointers(home, old_wd, NULL);
+		return (ft_perror("getcwd: "));
+	}
 	if (!args[1])
-		return (ft_cd_home(home, pwd, oldpwd));
-	else if (args[1][0] == '-' && !args[1][1])
-		return (ft_cd_oldpwd(home, pwd, oldpwd));
-	else
-		return (ft_cd_path(args[1], home, pwd, oldpwd));
+		return (change_wd_home(home, wd, env, old_wd));
+	else if (args[1][0] == '-')
+		return (change_wd_oldpwd(old_wd, wd, env, home));
+	ft_free_pointers(home, old_wd, NULL);
+	return(change_wd(args[1], wd, env));
 }
+  

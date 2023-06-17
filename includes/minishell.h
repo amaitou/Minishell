@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/16 15:18:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:13:51 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,8 @@ void		scanner_traversal(char **scanner);
 void		parser_traversal(t_parser *head);
 
 // env fetching
-char		*ft_getenv(char *nam, char *env[]);
+char		*ft_getenv(char *name, char *env[]);
+void		ft_setenv(char *name, char *newval, char *env[]);
 
 // parameters expansion
 void		params_expander(t_dlist *list, char *env[]);
@@ -224,13 +225,14 @@ t_list		*mount_heredoc(t_list *files);
 t_exec		*init_struct(t_parser *list);
 
 // builtins
-int			ft_cd(char **args, char *const env[], t_parser *list);
+int			ft_cd(char **args, char *env[], t_parser *list);
 int			ft_echo(char **args, t_parser *list);
 int			ft_env(char *const env[], t_parser *list);
 int			ft_exit(char **args, t_parser *list);
-int			ft_export(char **args, char *const env[], t_parser *list);
+int			ft_export(char **args, char *env[], t_parser *list);
 int			ft_pwd(char **args, t_parser *list);
-int			ft_unset(char **args, char **env[], t_parser *list);
+int			ft_unset(char **args, char *env[], t_parser *list);
+void		ft_free_pointers(char *ptr1, char *ptr2, char *ptr3);
 
 // redirections
 int			redirect_output(t_list *list);

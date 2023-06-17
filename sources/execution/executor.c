@@ -6,21 +6,20 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 15:18:41 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 10:15:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	exec_builtin(t_parser *list)
+static int	exec_builtin(t_parser *list, char *env[])
 {
 	if (list->args && !ft_strcmp(list->args[0], "echo"))
 		g_status = ft_echo(list->args, list);
 	else if (list->args && !ft_strcmp(list->args[0], "pwd"))
 		g_status = ft_pwd(list->args, list);
 	else if (list->args && !ft_strcmp(list->args[0], "cd"))
-	{
-	}
+		g_status = ft_cd(list->args, env, list);
 	else if (list->args && !ft_strcmp(list->args[0], "export"))
 	{
 	}
@@ -76,7 +75,7 @@ static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 
 	if (list->args && access(list->args[0], X_OK) == -1)
 	{
-		if (exec_builtin(list) == 0)
+		if (exec_builtin(list, env) == 0)
 		{
 			path = ft_split(ft_getenv("PATH", env), ':');
 			cmd = search_for_cmd(list->args[0], path);
@@ -85,7 +84,7 @@ static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 				if (execve(cmd, list->args, env))
 					exit(ft_perror("execve : "));
 			printf("minishell: %s: command not found\n", list->args[0]);
-			if (cmd)
+			if (list->args)
 				exit(127);
 			exit(0);
 		}

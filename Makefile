@@ -1,10 +1,11 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \
+		 sources/ft_setenv.c \
 		 sources/parsing/scanner.c \
 		 sources/parsing/lexer_list_utils.c \
 		 sources/parsing/scanner_utils.c \
@@ -23,8 +24,10 @@ CFILES = sources/prompt_string.c \
 		 sources/execution/executor.c \
 		 sources/execution/redirections.c \
 		 sources/execution/utils.c \
+		 sources/execution/builtins/utils.c \
 		 sources/execution/builtins/echo.c \
 		 sources/execution/builtins/pwd.c \
+		 sources/execution/builtins/cd.c \
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
