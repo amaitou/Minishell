@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 15:44:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:33:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_cd(char **args, char *env[], t_parser *list)
 	char	*old_wd;
 	char	*wd;
 	
-	if (list->type != __PIPE)
+	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (args[1] && args[1][0] == '-' && args[1][1])

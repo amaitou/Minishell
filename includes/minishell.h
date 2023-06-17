@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/17 11:40:20 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:36:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,11 @@ typedef struct s_exec
 
 // global variable to hold the exit status of the last command
 
-int			g_status;
+typedef struct s_vars
+{
+	int		exit_status;
+	char	**env;
+}	t_vars;
 
 // prompt functions
 
@@ -176,7 +180,7 @@ void		free_pointers(t_prompt *prompt, t_scanner *scanner,
 				t_errors *error);
 int			__check__(t_scanner *scanner, t_prompt *prompt, t_errors *error);
 void		__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
-				t_prompt *prompt, char *env[]);
+				t_prompt *prompt, t_vars *vars);
 
 // doubly linked list functions for parser
 
@@ -215,9 +219,9 @@ void		match_found(t_dlist *list);
 int			should_expand(char *string);
 
 // execution unit functions declarations
-void		executor(t_parser *list, char *env[]);
+void		executor(t_parser *list, t_vars *vars);
 void		pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc);
-void		get_exit_status(pid_t pid, t_exec *lst);
+void		get_exit_status(pid_t pid, t_exec *lst, t_vars *vars);
 void		clean(char **var);
 void		close_fds(t_exec *es, t_parser *list);
 void		restore_io_streams(t_exec *es);
@@ -227,9 +231,9 @@ t_exec		*init_struct(t_parser *list);
 // builtins
 int			ft_cd(char **args, char *env[], t_parser *list);
 int			ft_echo(char **args, t_parser *list);
-int			ft_env(char *const env[], t_parser *list);
+int			ft_env(char **env, t_parser *list);
 int			ft_exit(char **args, t_parser *list);
-int			ft_export(char **args, char *env[], t_parser *list);
+int			ft_export(char **args, t_parser *list, t_vars *vars);
 int			ft_pwd(char **args, t_parser *list);
 int			ft_unset(char **args, char *env[], t_parser *list);
 void		ft_free_pointers(char *ptr1, char *ptr2, char *ptr3);

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/17 11:25:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:23:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_list	*mount_heredoc(t_list *files)
 }
 
 void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
-	t_prompt *prompt, char *env[])
+	t_prompt *prompt, t_vars *vars)
 {
 	t_parser	*parser;
 
@@ -93,11 +93,11 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	else
 	{
 		head->prev = head;
-		params_expander(head, env);
+		params_expander(head, vars->env);
 		quotes_removal(head);
 		__parser__(&parser, head);
 		parser->prev = parser;
-		executor(parser, env);
+		executor(parser, vars);
 		// parser_traversal(parser);
 	}
 	add_history(scanner->command);

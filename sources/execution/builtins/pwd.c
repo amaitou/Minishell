@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:30:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 13:38:58 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:32:49 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_pwd(char **args, t_parser *list)
 {
 	char	*pwd;
 
-	if (list->type != __PIPE)
+	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (args[1] && args[1][0] == '-' && args[1][1])

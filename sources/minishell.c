@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/14 16:53:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:23:05 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt	*prompt;
 	t_dlist		*head;
 	t_errors	*error;
+	t_vars		*vars;
 	int			return_value;
-	char		**env;
 
 	(void)argc;
 	(void)argv;
-	env = set_env(envp);
+	vars = (t_vars *)malloc(sizeof(t_vars));
+	vars->env = set_env(envp);
 	while (1)
 	{
 		prompt = (t_prompt *)malloc(sizeof(t_prompt));
@@ -53,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		if (return_value == 1)
 			exit(1);
 		if (!(return_value == 2))
-			__parse__(scanner, head, error, prompt, env);
+			__parse__(scanner, head, error, prompt, vars);
 	}
 	return (0);
 }

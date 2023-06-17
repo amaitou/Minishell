@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:46:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/16 13:41:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:33:12 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_echo(char **args, t_parser *list)
 
 	new_line = 0;
 	i = 0;
-	if (list->type != __PIPE)
+	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	while (args[++i])
