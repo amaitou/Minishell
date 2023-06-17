@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 11:14:02 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:44:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	print_usage(char **args)
 {
-	printf("minishell: pwd: %c%c: invalid option\n", args[1][0], args[1][1]);
-	printf("pwd: usage: pwd\n");
+	printf("minishell: cd: %c%c: invalid option\n", args[1][0], args[1][1]);
+	printf("cd: usage: cd\n");
 	return (EXIT_FAILURE);
 }
 
