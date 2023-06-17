@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 10:15:17 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:44:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	exec_cmd(t_parser *list, char *env[], t_exec *es)
 				exit(127);
 			exit(0);
 		}
-		else if (list->type == __PIPE)
+		else if (list->prev->type == __PIPE)
 			exit(g_status);
 	}
 	else if (list->args)
@@ -104,8 +104,9 @@ void	executor(t_parser *list, char *env[])
 	es = init_struct(list);
 	while (list)
 	{
+		list->heredoc = mount_heredoc(list->file);
 		heredoc_handle(list->heredoc, es->heredoc);
-		if (!is_a_builtin(list) || (is_a_builtin(list) && list->type == __PIPE))
+		if (!is_a_builtin(list) || (is_a_builtin(list) && list->prev->type == __PIPE))
 		{
 			pipe(es->pipefd);
 			es->nb_commands++;
