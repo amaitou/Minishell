@@ -30,7 +30,8 @@ CFILES = sources/prompt_string.c \
 		 sources/execution/builtins/cd.c \
 		 sources/execution/builtins/env.c \
 		 sources/execution/builtins/export.c \
-		 sources/execution/builtins/unset.c
+		 sources/execution/builtins/unset.c \
+		 sources/execution/builtins/exit.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a

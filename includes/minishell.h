@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:58:23 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 09:52:14 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ t_exec		*init_struct(t_parser *list);
 int			ft_cd(char **args, char *env[], t_parser *list);
 int			ft_echo(char **args, t_parser *list);
 int			ft_env(char **env, t_parser *list);
-int			ft_exit(char **args, t_parser *list);
+int			ft_exit(char **args, t_parser *list, t_vars *vars);
 int			ft_export(char **args, t_parser *list, t_vars *vars);
 int			ft_pwd(char **args, t_parser *list);
 int			ft_unset(char **args, t_vars *vars, t_parser *list);
