@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:56:13 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 10:23:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ static int	add_variable(char *string, t_vars *vars)
 
 int	ft_export(char **args, t_parser *list, t_vars *vars)
 {
-	int	i;
+	int		i;
+	char	**tmp;
+	char	*tmp2;
 
 	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
@@ -68,7 +70,19 @@ int	ft_export(char **args, t_parser *list, t_vars *vars)
 		return (print_usage(args));
 	i = 0;
 	while (args[++i])
-		if (add_variable(args[i], vars) == EXIT_FAILURE)
+	{
+		tmp = ft_split(args[i], '=');
+		tmp2 = ft_getenv(tmp[0], vars->env);
+		if (tmp2)
+			ft_setenv(tmp[0], ft_strdup(tmp[1]), vars->env);
+		else if (add_variable(args[i], vars) == EXIT_FAILURE)
+		{
+			clean(tmp);
 			return (EXIT_FAILURE);
+		}
+		clean(tmp);
+		if (tmp2)
+			free(tmp2);
+	}
 	return (EXIT_SUCCESS);
 }
