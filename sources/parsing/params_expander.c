@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 10:56:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:18:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	truncate_digit(t_dlist *list)
 			ft_strlen(list->value));
 	list->value = string_join(tmp, list->value);
 	list->param_exp = 0;
+	list->i -= 1;
 	free(tmp2);
 }
 
@@ -48,7 +49,7 @@ static void	expand_var(t_dlist *list, char *env[])
 	var = ft_substr(list->value, list->i, i - list->i);
 	if (ft_getenv(var, env))
 	{
-		list->value = string_join(tmp, ft_strdup(ft_getenv(var, env)));
+		list->value = string_join(tmp, ft_getenv(var, env));
 		list->value = string_join(list->value,
 				ft_substr(tmp2, i, ft_strlen(tmp2)));
 	}
@@ -56,7 +57,7 @@ static void	expand_var(t_dlist *list, char *env[])
 		list->value = string_join(tmp,
 				ft_substr(tmp2, i, ft_strlen(tmp2)));
 	list->param_exp = 0;
-	list->i = get_index(list->value);
+	list->i -= 1;
 	return (free(var), free(tmp2));
 }
 
@@ -75,7 +76,7 @@ static void	expand_exit_status(t_dlist *list, int exit_status)
 	list->value = string_join(list->value,
 			ft_substr(tmp2, i, ft_strlen(tmp2)));
 	list->param_exp = 0;
-	list->i = get_index(list->value);
+	list->i -= 1;
 	return (free(var), free(tmp2));
 }
 
@@ -86,12 +87,13 @@ static void	check_character(t_dlist *list, char *env[], t_vars *vars)
 	else if (list->param_exp && ft_isdigit(list->value[list->i])
 		&& list->value[list->i - 1] == '$')
 		truncate_digit(list);
-	else if (list->param_exp && (ft_isalpha(list->value[list->i])
-			|| list->value[list->i] == '_'))
-		expand_var(list, env);
 	else if (list->param_exp && list->value[list->i - 1] == '$'
 		&& list->value[list->i] == '?')
 		expand_exit_status(list, vars->exit_status);
+	else if (list->param_exp && is_valid(list->value[list->i]))
+		expand_var(list, env);
+	else if (list->param_exp)
+		list->param_exp = 0;
 }
 
 void	params_expander(t_dlist *list, char *env[], t_vars *vars)

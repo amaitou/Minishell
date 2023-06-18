@@ -6,21 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:42:37 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/14 13:12:35 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:24:19 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	get_index(char *token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i] && !ft_strchr("$\'", token[i]))
-		i++;
-	return (--i);
-}
 
 int	is_valid(char c)
 {

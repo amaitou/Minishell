@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/18 10:41:28 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:24:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ void		ft_setenv(char *name, char *newval, char *env[]);
 
 // parameters expansion
 void		params_expander(t_dlist *list, char *env[], t_vars *vars);
-int			get_index(char *token);
 int			is_valid(char c);
 int			skip_quotes(char *string);
 
