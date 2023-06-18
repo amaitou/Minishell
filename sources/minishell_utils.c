@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:29:11 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/18 10:26:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 10:56:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void	__parse__(t_scanner *scanner, t_dlist *head, t_errors *error,
 	else
 	{
 		head->prev = head;
-		params_expander(head, vars->env);
+		params_expander(head, vars->env, vars);
 		quotes_removal(head);
 		__parser__(&parser, head);
 		parser->prev = parser;
 		executor(parser, vars);
-		parser_traversal(parser);
+		// parser_traversal(parser);
 	}
 	add_history(scanner->command);
 }
