@@ -6,24 +6,21 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 20:03:40 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:25:42 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	get_exit_status(pid_t pid, t_exec *es, t_vars *vars)
+void	get_exit_status(pid_t pid, t_exec *es)
 {
-	pid_t	tmp;
 	int		tmpsts;
 
-	tmp = 0;
 	tmpsts = 0;
 	while (es->nb_commands)
 	{
-		tmp = waitpid(-1, &tmpsts, 0);
-		if (tmp == pid)
-			vars->exit_status = tmpsts << 8;
+		if (pid == waitpid(-1, &tmpsts, 0))
+			g_vars->exit_status = tmpsts >> 8;
 		es->nb_commands--;
 	}
 	free (es);

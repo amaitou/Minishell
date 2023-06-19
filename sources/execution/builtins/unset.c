@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:52:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 20:19:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:20:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,24 @@ static void	copy_env(char **env, char **newenv, int len)
 	}
 }
 
-static void	remove_variable(t_vars *vars, char *string)
+static void	remove_variable(char *string)
 {
 	char	**newenv;
 	char	**tmp;
 	int		i;
 
 	i = -1;
-	while (vars->env[++i])
+	while (g_vars->env[++i])
 	{
-		tmp = ft_split(vars->env[i], '=');
+		tmp = ft_split(g_vars->env[i], '=');
 		if (!ft_strcmp(tmp[0], string))
 		{
-			newenv = (char **)ft_calloc(get_env_nb(vars->env), sizeof(char *));
-			copy_env(vars->env, newenv, i);
-			copy_env(vars->env + i + 1, newenv + i, get_env_nb(vars->env));
-			free (vars->env);
-			vars->env = newenv;
+			newenv = (char **)ft_calloc(get_env_nb(g_vars->env),
+					sizeof(char *));
+			copy_env(g_vars->env, newenv, i);
+			copy_env(g_vars->env + i + 1, newenv + i, get_env_nb(g_vars->env));
+			free (g_vars->env);
+			g_vars->env = newenv;
 			free(tmp);
 			break ;
 		}
@@ -66,7 +67,7 @@ static void	remove_variable(t_vars *vars, char *string)
 	}
 }
 
-int	ft_unset(char **args, t_vars *vars, t_parser *list)
+int	ft_unset(char **args, t_parser *list)
 {
 	int	i;
 
@@ -77,6 +78,6 @@ int	ft_unset(char **args, t_vars *vars, t_parser *list)
 		return (print_usage(args));
 	i = 0;
 	while (args[++i])
-		remove_variable(vars, args[i]);
+		remove_variable(args[i]);
 	return (EXIT_SUCCESS);
 }

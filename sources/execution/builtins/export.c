@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 10:23:39 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:19:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_env_nb(char **env)
 	return (i + 2);
 }
 
-static int	add_variable(char *string, t_vars *vars)
+static int	add_variable(char *string)
 {
 	char	**newenv;
 	int		i;
@@ -40,14 +40,14 @@ static int	add_variable(char *string, t_vars *vars)
 		i++;
 	if (i != 0 && string[i] == '=')
 	{
-		newenv = (char **)malloc(get_env_nb(vars->env) * sizeof(char *));
+		newenv = (char **)malloc(get_env_nb(g_vars->env) * sizeof(char *));
 		i = -1;
-		while (vars->env[++i])
-			newenv[i] = ft_strdup(vars->env[i]);
+		while (g_vars->env[++i])
+			newenv[i] = ft_strdup(g_vars->env[i]);
 		newenv[i++] = ft_strdup(string);
 		newenv[i] = NULL;
-		free(vars->env);
-		vars->env = newenv;
+		free(g_vars->env);
+		g_vars->env = newenv;
 		return (EXIT_SUCCESS);
 	}
 	else
@@ -57,7 +57,7 @@ static int	add_variable(char *string, t_vars *vars)
 	}
 }
 
-int	ft_export(char **args, t_parser *list, t_vars *vars)
+int	ft_export(char **args, t_parser *list)
 {
 	int		i;
 	char	**tmp;
@@ -72,10 +72,10 @@ int	ft_export(char **args, t_parser *list, t_vars *vars)
 	while (args[++i])
 	{
 		tmp = ft_split(args[i], '=');
-		tmp2 = ft_getenv(tmp[0], vars->env);
+		tmp2 = ft_getenv(tmp[0], g_vars->env);
 		if (tmp2)
-			ft_setenv(tmp[0], ft_strdup(tmp[1]), vars->env);
-		else if (add_variable(args[i], vars) == EXIT_FAILURE)
+			ft_setenv(tmp[0], ft_strdup(tmp[1]), g_vars->env);
+		else if (add_variable(args[i]) == EXIT_FAILURE)
 		{
 			clean(tmp);
 			return (EXIT_FAILURE);

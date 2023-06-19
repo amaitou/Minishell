@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 12:26:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:08:28 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	expand_exit_status(t_dlist *list, int exit_status)
 	return (free(var), free(tmp2));
 }
 
-static void	check_character(t_dlist *list, char *env[], t_vars *vars)
+static void	check_character(t_dlist *list, char *env[])
 {
 	if (list->value[list->i] == '$')
 		list->param_exp = 1;
@@ -89,12 +89,12 @@ static void	check_character(t_dlist *list, char *env[], t_vars *vars)
 		truncate_digit(list);
 	else if (list->param_exp && list->value[list->i - 1] == '$'
 		&& list->value[list->i] == '?')
-		expand_exit_status(list, vars->exit_status);
+		expand_exit_status(list, g_vars->exit_status);
 	else if (list->param_exp)
 		expand_var(list, env);
 }
 
-void	params_expander(t_dlist *list, char *env[], t_vars *vars)
+void	params_expander(t_dlist *list, char *env[])
 {
 	while (list)
 	{
@@ -104,7 +104,7 @@ void	params_expander(t_dlist *list, char *env[], t_vars *vars)
 			list->i = skip_quotes(list->value);
 			list->param_exp = 0;
 			while (list->value[++list->i])
-				check_character(list, env, vars);
+				check_character(list, env);
 		}
 		list = list->next;
 	}
