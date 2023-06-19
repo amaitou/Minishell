@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:56:05 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:29:57 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,19 @@ void	pipes_handle(t_parser *list, int old_fd, int *pipefd, int *heredoc)
 		exit (EXIT_FAILURE);
 }
 
-void	restore_io_streams(t_exec *es)
+void	multi_purpose_func(t_exec *es, char *string, int flag)
 {
-	dup2(es->saved_stdin, STDIN_FILENO);
-	dup2(es->saved_stdout, STDOUT_FILENO);
+	if (!flag)
+	{
+		dup2(es->saved_stdin, STDIN_FILENO);
+		dup2(es->saved_stdout, STDOUT_FILENO);
+	}
+	else
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(string, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+	}
 }
 
 t_exec	*init_struct(t_parser *list)

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:56:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:28:18 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	exec_cmd(t_parser *list, t_exec *es)
 			if (cmd)
 				if (execve(cmd, list->args, g_vars->env))
 					exit(ft_perror("execve : "));
-			printf("minishell: %s: command not found\n", list->args[0]);
+			multi_purpose_func(NULL, list->args[0], 1);
 			if (list->args)
 				exit(127);
 			exit(0);
@@ -90,7 +90,7 @@ static void	exec_cmd(t_parser *list, t_exec *es)
 	else if (list->args)
 		if (execve(list->args[0], list->args, g_vars->env))
 			exit(ft_perror("execve : "));
-	restore_io_streams(es);
+	multi_purpose_func(es, NULL, 0);
 }
 
 void	executor(t_parser *list)
