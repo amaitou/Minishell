@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:19:34 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:54:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	ft_export(char **args, t_parser *list)
 			return (EXIT_FAILURE);
 		}
 		clean(tmp);
-		if (tmp2)
-			free(tmp2);
+		ft_free_pointers(tmp2, NULL, NULL);
 	}
 	return (EXIT_SUCCESS);
 }
