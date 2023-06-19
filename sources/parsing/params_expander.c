@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:08:28 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:43:58 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,11 @@ static void	check_character(t_dlist *list, char *env[])
 	else if (list->param_exp && list->value[list->i - 1] == '$'
 		&& list->value[list->i] == '?')
 		expand_exit_status(list, g_vars->exit_status);
-	else if (list->param_exp)
+	else if (list->param_exp && (is_valid(list->value[list->i])
+			|| ft_strchr("\'\"", list->value[list->i])))
 		expand_var(list, env);
+	else
+		list->param_exp = 0;
 }
 
 void	params_expander(t_dlist *list, char *env[])
