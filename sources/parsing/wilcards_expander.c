@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:21:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:50:02 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:14:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ static void	init_search(t_dlist *list)
 	list->matched = NULL;
 	dir = opendir(".");
 	if (!dir)
-		printf("No such file or directory");
+	{
+		clean(list->req);
+		ft_putendl_fd("Can't read current directory.", STDERR_FILENO);
+		return ;
+	}
 	dir_entry = readdir(dir);
 	while (dir_entry)
 	{
