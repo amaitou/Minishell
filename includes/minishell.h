@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/18 11:24:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:20:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <readline/history.h>
 # include <limits.h>
 # include <dirent.h>
+
+# define TRUE 1
+# define FALSE 0
 
 // struct for prompt string
 

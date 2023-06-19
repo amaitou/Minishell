@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 09:56:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 19:15:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	exec_cmd(t_parser *list, t_vars *vars, t_exec *es)
 
 void	executor(t_parser *list, t_vars *vars)
 {
-	t_exec	*es;
+	t_exec				*es;
 
 	es = init_struct(list);
 	while (list)

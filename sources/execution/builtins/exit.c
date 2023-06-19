@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:51:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 09:57:19 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:15:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	numeric_arg_err(char *string)
 {
-	printf("minishell: exit %s: numeric argument required\n", string);
+	ft_putendl_fd("minishell: exit %s: numeric argument required",
+		STDERR_FILENO);
 	return (255);
 }
 
@@ -33,6 +34,6 @@ int	ft_exit(char **args, t_parser *list, t_vars *vars)
 		exit(vars->exit_status);
 	else if (args[1] && !args[2])
 		exit (ft_atoi(args[1]));
-	printf("minishell: exit: too many arguments\n");
+	ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }

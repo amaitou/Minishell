@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:23:05 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:20:22 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,37 @@ static char	**set_env(char **envp)
 	return (env);
 }
 
+static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
+{
+	int	status;
+
+	if (signal == SIGINT)
+	{
+		wait(&status);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		if (WIFSIGNALED(status) == FALSE)
+			rl_redisplay();
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_scanner	*scanner;
-	t_prompt	*prompt;
-	t_dlist		*head;
-	t_errors	*error;
-	t_vars		*vars;
-	int			return_value;
+	t_scanner			*scanner;
+	t_prompt			*prompt;
+	t_dlist				*head;
+	t_errors			*error;
+	t_vars				*vars;
+	struct sigaction	sigact;
+	int					return_value;
 
 	(void)argc;
 	(void)argv;
+	sigact.sa_sigaction = signal_handler;
+	sigact.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sigact, NULL);
+	sigaction(SIGQUIT, &sigact, NULL);
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	vars->env = set_env(envp);
 	while (1)
@@ -49,6 +69,8 @@ int	main(int argc, char **argv, char **envp)
 		scanner = (t_scanner *)malloc(sizeof(t_scanner));
 		error = (t_errors *)malloc(sizeof(t_errors));
 		scanner->command = prompt_string(prompt);
+		if (scanner->command == NULL)
+			return (vars->exit_status);
 		head = NULL;
 		return_value = __check__(scanner, prompt, error);
 		if (return_value == 1)

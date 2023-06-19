@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:27:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/18 20:03:40 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_exit_status(pid_t pid, t_exec *es, t_vars *vars)
 	{
 		tmp = waitpid(-1, &tmpsts, 0);
 		if (tmp == pid)
-			vars->exit_status = tmpsts >> 8;
+			vars->exit_status = tmpsts << 8;
 		es->nb_commands--;
 	}
 	free (es);
