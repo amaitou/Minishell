@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:52:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:10:38 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:33:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	remove_variable(char *string)
 	while (g_vars->env[++i])
 	{
 		tmp = ft_split(g_vars->env[i], '=');
-		if (!ft_strcmp(tmp[0], string))
+		if (tmp && !ft_strcmp(tmp[0], string))
 		{
 			newenv = (char **)ft_calloc(get_env_nb(g_vars->env),
 					sizeof(char *));

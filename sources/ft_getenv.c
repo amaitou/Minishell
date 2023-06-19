@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:45:42 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 15:48:10 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:36:38 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@ char	*ft_getenv(char *name, char *env[])
 	var = NULL;
 	value = NULL;
 	i = -1;
-	while (env && env[++i])
+	while (name && env && env[++i])
 	{
 		var = ft_split(env[i], '=');
 		if (var[0] && !ft_strcmp(name, var[0]))
 		{
-			if (var[1])
-				value = ft_substr(env[i], ft_strlen(var[0]) + 1,
-						ft_strlen(env[i]));
-			else
-				value = NULL;
+			value = ft_substr(env[i], ft_strlen(var[0]) + 1,
+					ft_strlen(env[i]));
 			clean(var);
 			return (value);
 		}
