@@ -6,11 +6,30 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:46:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 09:46:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:37:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static int	should_print_newline(char *string)
+{
+	int	i;
+
+	i = 0;
+	if (string[i] != '-')
+		return (0);
+	i++;
+	while (string[i])
+	{
+		if (string[i] != 'n')
+			return (0);
+		else if (string[i + 1] == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_echo(char **args, t_parser *list)
 {
@@ -24,7 +43,7 @@ int	ft_echo(char **args, t_parser *list)
 			return (EXIT_FAILURE);
 	while (args[++i])
 	{
-		if (i == 1 && !ft_strncmp(args[i], "-n", ft_strlen("-n")))
+		if (i == 1 && should_print_newline(args[i]))
 			new_line = 1;
 		else
 		{
