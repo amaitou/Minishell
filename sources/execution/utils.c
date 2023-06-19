@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:25:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:56:05 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	get_exit_status(pid_t pid, t_exec *es)
 	int		tmpsts;
 
 	tmpsts = 0;
+	if (es->pipefd[0])
+		close(es->pipefd[0]);
 	while (es->nb_commands)
 	{
 		if (pid == waitpid(-1, &tmpsts, 0))

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:22:26 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:56:16 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	executor(t_parser *list)
 	{
 		list->heredoc = mount_heredoc(list->file);
 		heredoc_handle(list->heredoc, es->heredoc);
-		if (!is_a_builtin(list) || (is_a_builtin(list) && list->prev->type == __PIPE))
+		if (!is_a_builtin(list)
+			|| (is_a_builtin(list) && list->prev->type == __PIPE))
 		{
 			pipe(es->pipefd);
 			es->nb_commands++;
@@ -118,7 +119,5 @@ void	executor(t_parser *list)
 			exec_cmd(list, es);
 		list = list->next;
 	}
-	if (es->pipefd[0])
-		close(es->pipefd[0]);
 	get_exit_status(es->pid, es);
 }
