@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 15:55:13 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:43:22 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	add_variable(char *string)
 	while (string[i] && (ft_isdigit(string[i])
 			|| ft_isalpha(string[i]) || string[i] == '_'))
 		i++;
-	if (i != 0 && string[i] == '=')
+	if (i != 0 && (string[i] == '=' || !string[i]))
 	{
 		newenv = (char **)malloc(get_env_nb(g_vars->env) * sizeof(char *));
 		i = -1;

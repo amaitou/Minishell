@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:47:55 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:05:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:41:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	ft_env(char **env, t_parser *list)
 	i = 0;
 	while (env[i])
 	{
-		ft_putendl_fd(env[i], STDOUT_FILENO);
+		if (ft_strchr(env[i], '='))
+			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
 	return (EXIT_SUCCESS);
