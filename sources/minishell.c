@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:24:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:42:54 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ static char	**set_env(char **envp)
 
 	i = -1;
 	size = 0;
-	while (envp[++i])
+	while (envp && envp[++i])
 		size++;
-	i = -1;
+	i = 0;
 	env = (char **)malloc((size + 1) * sizeof(char *));
-	while (envp[++i])
+	while (envp && envp[i])
+	{
 		env[i] = ft_strdup(envp[i]);
+		i++;
+	}
 	env[i] = NULL;
 	return (env);
 }

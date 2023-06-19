@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:10:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:55:13 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	add_variable(char *string)
 int	ft_export(char **args, t_parser *list)
 {
 	int		i;
-	char	**tmp;
+	char	*string;
 	char	*tmp2;
 
 	if (list->prev->type != __PIPE)
@@ -81,17 +81,17 @@ int	ft_export(char **args, t_parser *list)
 	i = 0;
 	while (args[++i])
 	{
-		tmp = ft_split(args[i], '=');
-		tmp2 = ft_getenv(tmp[0], g_vars->env);
+		string = ft_substr(args[i], 0,
+				(size_t)(args[i] - ft_strchr(args[i], '=')));
+		tmp2 = ft_getenv(ft_substr(args[i], 0,
+					(size_t)(args[i] - ft_strchr(args[i], '='))), g_vars->env);
 		if (tmp2)
-			ft_setenv(tmp[0], ft_strdup(tmp[1]), g_vars->env);
+			ft_setenv(string, ft_substr(args[i],
+					(size_t)(args[i] - ft_strchr(args[i], '=')),
+					ft_strlen(args[i])), g_vars->env);
 		else if (add_variable(args[i]) == EXIT_FAILURE)
-		{
-			clean(tmp);
 			return (EXIT_FAILURE);
-		}
-		clean(tmp);
-		ft_free_pointers(tmp2, NULL, NULL);
+		ft_free_pointers(tmp2, string, NULL);
 	}
 	return (EXIT_SUCCESS);
 }
