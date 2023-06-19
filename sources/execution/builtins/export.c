@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 11:54:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:10:42 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 
 static int	print_usage(char **args)
 {
-	printf("minishell: export: %c%c: invalid option\n", args[1][0], args[1][1]);
-	printf("export: usage: export [name[=value]]\n");
+	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
+	ft_putchar_fd(args[1][0], STDERR_FILENO);
+	ft_putchar_fd(args[1][1], STDERR_FILENO);
+	ft_putendl_fd(" invalid option", STDERR_FILENO);
+	ft_putendl_fd("export: usage: export [name[=value]]...", STDERR_FILENO);
 	return (EXIT_FAILURE);
+}
+
+static void	print_err(char *string)
+{
+	ft_putstr_fd("minishell: export: ", STDERR_FILENO);
+	ft_putstr_fd(string, STDERR_FILENO);
+	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 }
 
 static int	get_env_nb(char **env)
@@ -52,7 +62,7 @@ static int	add_variable(char *string)
 	}
 	else
 	{
-		printf("minishell: export: %s: not a valid identifier\n", string);
+		print_err(string);
 		return (EXIT_FAILURE);
 	}
 }

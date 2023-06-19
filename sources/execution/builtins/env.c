@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:47:55 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 18:33:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:05:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static int	print_usage(char **args)
 {
-	printf("minishell: env: %c%c: invalid option\n", args[1][0], args[1][1]);
-	printf("env: usage: env\n");
+	ft_putstr_fd("minishell: env: ", STDERR_FILENO);
+	ft_putchar_fd(args[1][0], STDERR_FILENO);
+	ft_putchar_fd(args[1][1], STDERR_FILENO);
+	ft_putendl_fd(" invalid option", STDERR_FILENO);
+	ft_putendl_fd("env: usage: env", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 

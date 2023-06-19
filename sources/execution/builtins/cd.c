@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 18:49:35 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:04:24 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static int	print_usage(char **args)
 {
-	printf("minishell: cd: %c%c: invalid option\n", args[1][0], args[1][1]);
-	printf("cd: usage: cd\n");
+	ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+	ft_putchar_fd(args[1][0], STDERR_FILENO);
+	ft_putchar_fd(args[1][1], STDERR_FILENO);
+	ft_putendl_fd(" invalid option", STDERR_FILENO);
+	ft_putendl_fd("cd: usage: cd", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 

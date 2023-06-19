@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 11:41:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:58:56 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	redirect_output(t_list *list)
 	if (access(list->name, F_OK) == 0)
 	{
 		ft_putstr_fd("minishell: cannot overwrite existing file\n",
-			STDOUT_FILENO);
+			STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	fd = open(list->name, O_CREAT | O_WRONLY, 0644);
@@ -35,7 +35,7 @@ int	redirect_input(t_list *list)
 	if (access(list->name, F_OK) == -1)
 	{
 		ft_putstr_fd("minishell: No such file or directory\n",
-			STDOUT_FILENO);
+			STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	fd = open(list->name, O_RDONLY);
