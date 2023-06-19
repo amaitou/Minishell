@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 20:43:22 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:09:37 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ static void	print_err(char *string)
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
 }
 
-static int	get_env_nb(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i + 2);
-}
-
 static int	add_variable(char *string)
 {
 	char	**newenv;
@@ -50,7 +40,8 @@ static int	add_variable(char *string)
 		i++;
 	if (i != 0 && (string[i] == '=' || !string[i]))
 	{
-		newenv = (char **)malloc(get_env_nb(g_vars->env) * sizeof(char *));
+		newenv = (char **)malloc((get_env_nb(g_vars->env) + 2)
+				* sizeof(char *));
 		i = -1;
 		while (g_vars->env[++i])
 			newenv[i] = ft_strdup(g_vars->env[i]);
@@ -67,6 +58,29 @@ static int	add_variable(char *string)
 	}
 }
 
+static int	print_env(void)
+{
+	int		i;
+	char	*name;
+	char	*value;
+
+	i = -1;
+	while (g_vars->env && g_vars->env[++i])
+	{
+		name = ft_substr(g_vars->env[i], 0,
+				(size_t)(ft_strchr(g_vars->env[i], '=') - g_vars->env[i]));
+		printf("declare -x %s", name);
+		value = ft_substr(g_vars->env[i], ft_strlen(name) + 1,
+				ft_strlen(g_vars->env[i]));
+		free(name);
+		if (value[0])
+			printf("=\"%s\"", value);
+		printf("\n");
+		free(value);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	ft_export(char **args, t_parser *list)
 {
 	int		i;
@@ -78,16 +92,18 @@ int	ft_export(char **args, t_parser *list)
 			return (EXIT_FAILURE);
 	if (args[1] && args[1][0] == '-' && args[1][1])
 		return (print_usage(args));
+	if (!args[1])
+		return (print_env());
 	i = 0;
 	while (args[++i])
 	{
 		string = ft_substr(args[i], 0,
-				(size_t)(args[i] - ft_strchr(args[i], '=')));
+				(size_t)(ft_strchr(args[i], '=') - args[i]));
 		tmp2 = ft_getenv(ft_substr(args[i], 0,
-					(size_t)(args[i] - ft_strchr(args[i], '='))), g_vars->env);
+					(size_t)(ft_strchr(args[i], '=') - args[i])), g_vars->env);
 		if (tmp2)
 			ft_setenv(string, ft_substr(args[i],
-					(size_t)(args[i] - ft_strchr(args[i], '=')),
+					(size_t)(ft_strchr(args[i], '=') - args[i]) + 1,
 					ft_strlen(args[i])), g_vars->env);
 		else if (add_variable(args[i]) == EXIT_FAILURE)
 			return (EXIT_FAILURE);

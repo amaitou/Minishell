@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:52:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 20:33:41 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:50:33 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ static int	print_usage(char **args)
 	ft_putendl_fd("unset: usage: unset [name]...", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
-
-static int	get_env_nb(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-// zmoumen was here again
 
 static void	copy_env(char **env, char **newenv, int len)
 {

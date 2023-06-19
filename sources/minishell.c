@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/19 14:42:54 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:02:32 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 {
 	int	status;
 
+	(void)context;
+	(void)siginfo;
 	if (signal == SIGINT)
 	{
 		wait(&status);

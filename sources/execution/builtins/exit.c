@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:51:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:32:11 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:04:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	numeric_arg_err(char *string)
 {
-	ft_putendl_fd("minishell: exit %s: numeric argument required",
+	ft_putstr_fd("minishell: exit ", STDERR_FILENO);
+	ft_putstr_fd(string, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required",
 		STDERR_FILENO);
 	return (255);
 }
