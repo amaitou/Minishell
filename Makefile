@@ -4,23 +4,24 @@ CC = cc
 CFLAGS =  -lreadline -L /Users/bbouagou/.brew/opt/readline/lib -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror 
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
-		 sources/ft_getenv.c \
-		 sources/ft_setenv.c \
+		 sources/parse_and_execute.c \
 		 sources/parsing/scanner.c \
-		 sources/parsing/lexer_list_utils.c \
 		 sources/parsing/scanner_utils.c \
 		 sources/parsing/lexer.c \
+		 sources/parsing/lexer_list.c \
 		 sources/parsing/lexer_utils.c \
+		 sources/parsing/lexer_utils_2.c \
+		 sources/parsing/minishell_leaks.c \
+		 sources/parsing/minishell_leaks_utils.c \
 		 sources/parsing/error_handling.c \
-		 sources/minishell_utils.c \
-		 sources/parsing/traversing.c \
-		 sources/parsing/parser_utils.c \
 		 sources/parsing/parser.c \
-		 sources/parsing/parser_list_utils.c \
+		 sources/parsing/parser_list.c \
+		 sources/parsing/parser_utils_2.c \
+		 sources/parsing/parser_utils.c \
 		 sources/parsing/params_expander.c \
 		 sources/parsing/params_expander_utils.c \
-		 sources/parsing/wilcards_expander.c \
-		 sources/parsing/wilcards_expander_utils.c \
+		 sources/parsing/wildcards_expander.c \
+		 sources/parsing/wildcards_expander_utils.c \
 		 sources/execution/executor.c \
 		 sources/execution/redirections.c \
 		 sources/execution/utils.c \

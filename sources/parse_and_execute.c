@@ -25,8 +25,12 @@ void	__parse_and_execute__(t_minishell *minishell)
 	}
 	else
 	{
+		minishell->lexer->prev = minishell->lexer;
+		params_expander(minishell->lexer, g_vars->env);
 		quotes_removal(minishell->lexer);
 		__parser__(&minishell->parser, minishell->lexer);
+		minishell->parser->prev = minishell->parser;
+		executor(minishell->parser);
 		add_history(minishell->scanner->command);
 		leaks_two(minishell);
 	}

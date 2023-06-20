@@ -23,9 +23,7 @@ static int	initialize_minishell(t_minishell *minishell)
 	minishell->error = (t_errors *)malloc(sizeof(t_errors));
 	if (!minishell->error)
 		return (3);
-	minishell->scanner->command = prompt_string(minishell);
-	if (!minishell->scanner->command)
-		return (4);
+	minishell->scanner->command = prompt_string(minishell->prompt);
 	minishell->parser = NULL;
 	minishell->lexer = NULL;
 	return (0);
@@ -109,6 +107,8 @@ int	main(int argc, char **argv, char **envp)
 		minishell = (t_minishell *)malloc(sizeof(t_minishell));
 		if (initialize_minishell(minishell))
 			return (printf("Failed to run minishell\n"));
+		if (minishell->scanner->command == NULL)
+			return (exit_shell());
 		if (check_spaces(minishell->scanner->command))
 			leaks_one(minishell);
 		else
