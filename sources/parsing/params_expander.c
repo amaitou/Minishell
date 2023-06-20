@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 14:52:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:45:00 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static void	expand_exit_status(t_dlist *list, int exit_status)
 
 static void	check_character(t_dlist *list, char *env[])
 {
+	if (!list->param_exp)
+		list->i = skip_quotes(list->value, list->i);
 	if (list->value[list->i] == '$')
 		list->param_exp = 1;
 	else if (list->param_exp && ft_isdigit(list->value[list->i])
@@ -95,6 +97,9 @@ static void	check_character(t_dlist *list, char *env[])
 		expand_var(list, env);
 	else
 		list->param_exp = 0;
+	list->i = skip_quotes(list->value, list->i);
+	if (!list->value[list->i])
+		list->i--;
 }
 
 void	params_expander(t_dlist *list, char *env[])
@@ -104,7 +109,7 @@ void	params_expander(t_dlist *list, char *env[])
 		if (ft_strcmp(list->prev->value, "<<"))
 		{
 			wildcards_expander(list);
-			list->i = skip_quotes(list->value);
+			list->i = -1;
 			list->param_exp = 0;
 			while (list->value[++list->i])
 				check_character(list, env);
