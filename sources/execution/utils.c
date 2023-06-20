@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/20 23:46:41 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:59:40 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_exit_status(pid_t pid, t_exec *es)
 			if (WIFSIGNALED(tmpsts))
 				g_vars->exit_status = WTERMSIG(tmpsts) + 128;
 			else
-				g_vars->exit_status = tmpsts >> 16;
+				g_vars->exit_status = tmpsts >> 8;
 		}
 		es->nb_commands--;
 	}
