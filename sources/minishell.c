@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/19 21:02:32 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:00:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,23 @@ static char	**set_env(char **envp)
 static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 {
 	int	status;
+	int	flag;
 
 	(void)context;
 	(void)siginfo;
-	if (signal == SIGINT)
+	if (signal == SIGINT || signal == SIGCHLD)
 	{
-		wait(&status);
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		if (WIFSIGNALED(status) == FALSE)
-			rl_redisplay();
-		else
-			g_vars->exit_status = 130;
+		flag = wait(&status);
+		if (signal == SIGINT)
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			if (flag != -1 && WIFSIGNALED(status) == FALSE)
+				rl_redisplay();
+		}
+		else if (WIFSIGNALED(status))
+			g_vars->exit_status = WTERMSIG(status) + 128;
 	}
 }
 
@@ -73,6 +77,7 @@ int	main(int argc, char **argv, char **envp)
 	sigact.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sigact, NULL);
 	sigaction(SIGQUIT, &sigact, NULL);
+	sigaction(SIGCHLD, &sigact, NULL);
 	g_vars = (t_vars *)malloc(sizeof(t_vars));
 	g_vars->env = set_env(envp);
 	while (1)
