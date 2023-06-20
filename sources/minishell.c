@@ -12,6 +12,34 @@
 
 #include "../includes/minishell.h"
 
+static int	initialize_minishell(t_minishell *minishell)
+{
+	minishell->prompt = (t_prompt *)malloc(sizeof(t_prompt));
+	if (!minishell->prompt)
+		return (1);
+	minishell->scanner = (t_scanner *)malloc(sizeof(t_scanner));
+	if (!minishell->scanner)
+		return (2);
+	minishell->error = (t_errors *)malloc(sizeof(t_errors));
+	if (!minishell->error)
+		return (3);
+	minishell->scanner->command = prompt_string(minishell);
+	if (!minishell->scanner->command)
+		return (4);
+	minishell->parser = NULL;
+	minishell->lexer = NULL;
+	return (0);
+}
+
+int	check_spaces(char *s)
+{
+	while (*s && (*s == '\t' || *s == ' '))
+		++s;
+	if (*s)
+		return (0);
+	return (1);
+}
+
 static char	**set_env(char **envp)
 {
 	char	**env;
@@ -64,12 +92,8 @@ static int	exit_shell(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_scanner			*scanner;
-	t_prompt			*prompt;
-	t_dlist				*head;
-	t_errors			*error;
+	t_minishell	*minishell;
 	struct sigaction	sigact;
-	int					return_value;
 
 	(void)argc;
 	(void)argv;
@@ -82,18 +106,13 @@ int	main(int argc, char **argv, char **envp)
 	g_vars->env = set_env(envp);
 	while (1)
 	{
-		prompt = (t_prompt *)malloc(sizeof(t_prompt));
-		scanner = (t_scanner *)malloc(sizeof(t_scanner));
-		error = (t_errors *)malloc(sizeof(t_errors));
-		scanner->command = prompt_string(prompt);
-		if (scanner->command == NULL)
-			return (exit_shell());
-		head = NULL;
-		return_value = __check__(scanner, prompt, error);
-		if (return_value == 1)
-			exit(1);
-		if (!(return_value == 2))
-			__parse__(scanner, head, error, prompt);
+		minishell = (t_minishell *)malloc(sizeof(t_minishell));
+		if (initialize_minishell(minishell))
+			return (printf("Failed to run minishell\n"));
+		if (check_spaces(minishell->scanner->command))
+			leaks_one(minishell);
+		else
+			__parse_and_execute__(minishell);
 	}
 	return (0);
 }
