@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 22:09:37 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:27:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_export(char **args, t_parser *list)
 {
 	int		i;
 	char	*string;
-	char	*tmp2;
+	char	*tmp;
 
 	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
@@ -97,17 +97,15 @@ int	ft_export(char **args, t_parser *list)
 	i = 0;
 	while (args[++i])
 	{
-		string = ft_substr(args[i], 0,
-				(size_t)(ft_strchr(args[i], '=') - args[i]));
-		tmp2 = ft_getenv(ft_substr(args[i], 0,
-					(size_t)(ft_strchr(args[i], '=') - args[i])), g_vars->env);
-		if (tmp2)
+		string = setup_variable(args, i, 0);
+		tmp = setup_variable(args, i, 1);
+		if (tmp)
 			ft_setenv(string, ft_substr(args[i],
 					(size_t)(ft_strchr(args[i], '=') - args[i]) + 1,
 					ft_strlen(args[i])), g_vars->env);
 		else if (add_variable(args[i]) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		ft_free_pointers(tmp2, string, NULL);
+		ft_free_pointers(tmp, string, NULL);
 	}
 	return (EXIT_SUCCESS);
 }

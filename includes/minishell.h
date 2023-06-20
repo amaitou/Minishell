@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/19 22:55:15 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:26:47 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ int			ft_export(char **args, t_parser *list);
 int			ft_pwd(char **args, t_parser *list);
 int			ft_unset(char **args, t_parser *list);
 int			get_env_nb(char **env);
+char		*setup_variable(char **args, int i, int flag);
 void		ft_free_pointers(char *ptr1, char *ptr2, char *ptr3);
 
 // redirections
