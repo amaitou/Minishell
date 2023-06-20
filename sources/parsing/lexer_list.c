@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 00:25:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/12 17:04:58 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/06/15 11:19:20 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/20 19:02:48 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,4 @@ void	append_node(t_dlist **head, t_dlist *new)
 		return ;
 	}
 	*head = new;
-}
-
-void	traverse_list(t_dlist *head)
-{
-	t_dlist	*temp;
-
-	temp = head;
-	if (!temp)
-		return ;
-	while (temp)
-	{
-		printf("\nvalue ---> %s\n", temp->value);
-		printf("type  ---> %d\n", temp->type);
-		printf("state  ---> %c\n", temp->type);
-		temp = temp->next;
-	}
-}
-
-void	free_nodes(t_dlist *head, int boolean)
-{
-	t_dlist	*temp;
-
-	while (head)
-	{
-		temp = head;
-		if (boolean)
-		{
-			if (temp->state == __s_quotes || temp->state == __d_quotes)
-				free(temp->value);
-		}
-		free(temp);
-		head = head->next;
-	}
 }

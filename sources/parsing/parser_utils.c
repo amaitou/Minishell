@@ -5,55 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 15:07:23 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 23:19:44 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/06/17 17:10:50 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/20 18:58:59 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// int	count_files(t_dlist	*head)
-// {
-// 	t_dlist	*temp;
-// 	int		number;
-
-// 	temp = head;
-// 	number = 0;
-// 	while (temp && temp->type != __PIPE)
-// 	{
-// 		if (temp->type == __RED_IN || temp->type == __RED_OUT
-// 			|| temp->type == __RED_APP || temp->type == __HEREDOC)
-// 			++number;
-// 		temp = temp->next;
-// 	}
-// 	return (number);
-// }
-
-int	count_arguments(t_dlist *head)
+int	check_redirection(t_dlist *lexer)
 {
-	t_dlist	*temp;
-	int		number;
-
-	temp = head;
-	number = 0;
-	while (temp && temp->type != __PIPE)
-	{
-		if ((temp->type == __WORD && !temp->prev)
-			|| (temp->type == __WORD && temp->prev->type == __WORD))
-			++number;
-		temp = temp->next;
-	}
-	return (number);
+	if (lexer->type == __RED_APP || lexer->type == __RED_IN
+		|| lexer->type == __HEREDOC || lexer->type == __RED_OUT)
+		return (1);
+	return (0);
 }
 
-// void	assign_file(t_dlist *head, t_parser *node, int i)
-// {
-// 	node->file[i].type = head->type;
-// 	node->file[i].name = ft_strdup(head->next->value);
-// }
-
-void	assign_args(t_dlist *head, t_parser *node, char *args)
+int	check_args(t_dlist *lexer)
 {
-	(void)head;
-	node->args = ft_split(args, '\n');
+	if ((lexer->type == __WORD && !lexer->prev)
+		|| (lexer->type == __WORD && (lexer->prev->type == __WORD
+				|| lexer->prev->type == __PIPE)))
+		return (1);
+	return (0);
+}
+
+void	assign_file(t_dlist *lexer, t_list *file, t_list **node)
+{
+	file->name = ft_strdup(lexer->next->value);
+	if (lexer->type == __RED_IN)
+		file->type = IN;
+	else if (lexer->type == __RED_OUT)
+		file->type = OUT;
+	else if (lexer->type == __RED_APP)
+		file->type = APPEND;
+	else if (lexer->type == __HEREDOC)
+		file->type = HEREDOC;
+	else
+		file->type = NONE;
+	ft_lstadd_back(node, file);
+}
+
+void	assign_args(t_dlist *lexer, char **args)
+{
+	if (lexer->value)
+	{
+		*args = string_join(*args, ft_strdup(lexer->value));
+		*args = string_join(*args, ft_strdup("\n"));
+	}
 }

@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 15:54:45 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 16:27:36 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/19 19:15:42 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	assign_error_type(t_dlist *node, t_errors *error)
+void	error_types(t_dlist *node, t_errors *error)
 {
 	if (node->type == __PIPE)
 		error->error_type = error_of_pipeline;
@@ -28,30 +28,34 @@ void	assign_error_type(t_dlist *node, t_errors *error)
 	{
 		if (node->state == __s_quotes)
 			error->error_type = error_of_single_quotes;
-		else
+		else if (node->state == __d_quotes)
 			error->error_type = error_of_double_quotes;
 	}
 }
 
-int	error_for_quotes(t_dlist *node)
+int	check_quotes(t_dlist *temp)
 {
 	int		i;
 	int		c;
 	char	q;
 
-	if (node->state == __s_quotes)
-		q = '\'';
-	else
-		q = '\"';
 	i = 0;
 	c = 0;
-	while (node->value[i])
+	while (temp->value[i])
 	{
-		if (node->value[i] == q)
-			c++;
+		if (temp->value[i] == '\"' || temp->value[i] == '\'')
+		{
+			c = 1;
+			q = temp->value[i];
+			++i;
+			while (temp->value[i] && temp->value[i] != q)
+				++i;
+		}
+		if (temp->value[i] == q)
+			c = 0;
 		++i;
 	}
-	return (c % 2 == 0);
+	return (c == 0);
 }
 
 int	check_errors(t_dlist *temp, t_errors *error)
@@ -59,37 +63,34 @@ int	check_errors(t_dlist *temp, t_errors *error)
 	if ((temp->type != __WORD && temp->next && temp->next->type != __WORD)
 		|| (temp->type != __WORD && !temp->next))
 	{
-		assign_error_type(temp, error);
+		error_types(temp, error);
 		return (1);
 	}
-	else
+	if (!check_quotes(temp))
 	{
-		if (!error_for_quotes(temp))
-		{
-			assign_error_type(temp, error);
-			return (1);
-		}
+		error_types(temp, error);
+		return (2);
 	}
 	return (0);
 }
 
-void	__error__(t_dlist	*head, t_errors *error)
+void	__error__(t_minishell *minishell)
 {
-	t_dlist	*temp;
+	t_dlist	*head;
 
-	temp = head;
-	if (temp->type == __PIPE)
+	head = minishell->lexer;
+	if (head->type == __PIPE)
 	{
-		assign_error_type(temp, error);
+		error_types(head, minishell->error);
 		return ;
 	}
-	while (temp)
+	while (head)
 	{
-		if (check_errors(temp, error))
+		if (check_errors(head, minishell->error))
 			return ;
-		temp = temp->next;
+		head = head->next;
 	}
-	error->error_type = no_error;
+	minishell->error->error_type = no_error;
 }
 
 void	display_error(t_errors *error)
@@ -104,9 +105,8 @@ void	display_error(t_errors *error)
 		printf("bash: syntax error near unexpected token `<'\n");
 	else if (error->error_type == error_of_redirection_out)
 		printf("bash: syntax error near unexpected token `>'\n");
-	else if (error->error_type == error_of_double_quotes)
-		printf("bash: syntax error near unclosed double quotes\n");
-	else if (error->error_type == error_of_single_quotes)
-		printf("bash: syntax error neart unclosed single quotes\n");
+	else if (error->error_type == error_of_single_quotes
+		|| error->error_type == error_of_double_quotes)
+		printf("bash: there are an unclosed quotes\n");
 	error->exit_staus = 2;
 }

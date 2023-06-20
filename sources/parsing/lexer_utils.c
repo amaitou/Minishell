@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 17:22:50 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/07 18:14:52 by amait-ou         ###   ########.fr       */
+/*   Created: 2023/06/15 11:02:01 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/20 16:50:56 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ t_dlist	*node_quotes(char *token, char quote)
 		node->state = __s_quotes;
 	else
 		node->state = __d_quotes;
-	node->value = token;
+	node->value = ft_strdup(token);
 	node->type = __WORD;
+	free(token);
 	return (node);
 }
 
@@ -31,16 +32,17 @@ t_dlist	*node_redirection(char *token)
 	t_dlist	*node;
 
 	node = create_node();
-	node->value = token;
+	node->value = ft_strdup(token);
 	node->state = __without_quotes;
-	if (!ft_strcmp(token, ">"))
+	if (!ft_strcmp(node->value, ">"))
 		node->type = __RED_OUT;
-	else if (!ft_strcmp(token, ">>"))
+	else if (!ft_strcmp(node->value, ">>"))
 		node->type = __RED_APP;
-	else if (!ft_strcmp(token, "<"))
+	else if (!ft_strcmp(node->value, "<"))
 		node->type = __RED_IN;
-	else if (!ft_strcmp(token, "<<"))
+	else if (!ft_strcmp(node->value, "<<"))
 		node->type = __HEREDOC;
+	free(token);
 	return (node);
 }
 
@@ -49,9 +51,10 @@ t_dlist	*node_pipeline(char *token)
 	t_dlist	*node;
 
 	node = create_node();
-	node->value = token;
+	node->value = ft_strdup(token);
 	node->state = __without_quotes;
 	node->type = __PIPE;
+	free(token);
 	return (node);
 }
 
@@ -60,24 +63,9 @@ t_dlist	*node_word(char *token)
 	t_dlist	*node;
 
 	node = create_node();
-	node->value = token;
+	node->value = ft_strdup(token);
 	node->state = __without_quotes;
 	node->type = __WORD;
+	free(token);
 	return (node);
-}
-
-void	remove_quotes(t_dlist *head, char quote)
-{
-	int		i;
-	char	*temp;
-
-	i = 0;
-	temp = NULL;
-	while (head->value[i])
-	{
-		if (!(head->value[i] == quote))
-			temp = string_join(temp, ft_substr(head->value, i, 1));
-		++i;
-	}
-	head->value = temp;
 }
