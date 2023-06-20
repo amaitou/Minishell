@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 19:00:23 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:36:13 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 
 	(void)context;
 	(void)siginfo;
-	if (signal == SIGINT || signal == SIGCHLD)
+	if (signal == SIGINT)
 	{
 		flag = wait(&status);
 		if (signal == SIGINT)
@@ -76,9 +76,9 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 			rl_replace_line("", 0);
 			if (flag != -1 && WIFSIGNALED(status) == FALSE)
 				rl_redisplay();
+			else
+				g_vars->exit_status = WTERMSIG(status) + 128;
 		}
-		else if (WIFSIGNALED(status))
-			g_vars->exit_status = WTERMSIG(status) + 128;
 	}
 }
 
@@ -99,7 +99,6 @@ int	main(int argc, char **argv, char **envp)
 	sigact.sa_flags = SA_SIGINFO;
 	sigaction(SIGINT, &sigact, NULL);
 	sigaction(SIGQUIT, &sigact, NULL);
-	sigaction(SIGCHLD, &sigact, NULL);
 	g_vars = (t_vars *)malloc(sizeof(t_vars));
 	g_vars->env = set_env(envp);
 	while (1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/19 19:15:42 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:40:15 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ void	display_error(t_errors *error)
 		|| error->error_type == error_of_double_quotes)
 		printf("bash: there are an unclosed quotes\n");
 	error->exit_staus = 2;
+	g_vars->exit_status = 258;
 }

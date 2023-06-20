@@ -4,6 +4,8 @@ CC = cc
 CFLAGS =  -lreadline -L /Users/bbouagou/.brew/opt/readline/lib -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror 
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
+		 sources/ft_getenv.c \
+		 sources/ft_setenv.c \
 		 sources/parse_and_execute.c \
 		 sources/parsing/scanner.c \
 		 sources/parsing/scanner_utils.c \
@@ -57,6 +59,9 @@ fclean: clean
 	@$(MAKE) fclean -C $(SUPERLIB_DIR)
 
 re : fclean all
+
+run: all
+	@clear && ./minishell
 
 git:
 	@git add .

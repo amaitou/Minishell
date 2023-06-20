@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/20 23:46:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ void	get_exit_status(pid_t pid, t_exec *es)
 		close(es->pipefd[0]);
 	while (es->nb_commands)
 	{
-		if (pid == waitpid(-1, &tmpsts, 0))
-			g_vars->exit_status = tmpsts >> 8;
+		if (pid == wait(&tmpsts))
+		{
+			if (WIFSIGNALED(tmpsts))
+				g_vars->exit_status = WTERMSIG(tmpsts) + 128;
+			else
+				g_vars->exit_status = tmpsts >> 16;
+		}
 		es->nb_commands--;
 	}
 	free (es);
@@ -76,6 +81,28 @@ void	multi_purpose_func(t_exec *es, char *string, int flag)
 		ft_putstr_fd(string, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 	}
+}
+
+t_list	*mount_heredoc(t_list *files)
+{
+	t_list	*file;
+	t_list	*heredoc;
+	t_list	*traverser;
+
+	file = files;
+	heredoc = NULL;
+	while (file)
+	{
+		if (file->type == HEREDOC)
+		{
+			ft_lstadd_back(&heredoc, ft_lstnew());
+			traverser = ft_lstlast(heredoc);
+			traverser->name = ft_strdup(file->name);
+			traverser->type = HEREDOC;
+		}
+		file = file->next;
+	}
+	return (heredoc);
 }
 
 t_exec	*init_struct(t_parser *list)
