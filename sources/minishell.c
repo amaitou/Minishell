@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/21 13:03:45 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:34:36 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	exit_shell(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_minishell	*minishell;
+	t_minishell			*minishell;
 	struct sigaction	sigact;
 
 	(void)argc;
