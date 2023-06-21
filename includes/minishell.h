@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/21 13:31:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:20:08 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int			check_args(t_dlist *lexer);
 void		assign_file(t_dlist *lexer, t_list *file, t_list **node);
 void		assign_args(t_dlist *lexer, char **args);
 void		display_parser(t_parser *parser);
+void		display_for_args(char **args);
 
 // leaks functions
 

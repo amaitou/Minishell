@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:18:30 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 16:43:41 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:10:02 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void	__parser__(t_parser **parser, t_dlist *lexer)
 		args = NULL;
 		while (lexer && lexer->type != __PIPE)
 		{
-			file = ft_lstnew();
 			if (check_redirection(lexer))
+			{
+				file = ft_lstnew();
 				assign_file(lexer, file, &node->file);
+			}
 			else if (check_args(lexer))
 			{
 				if (lexer->value)

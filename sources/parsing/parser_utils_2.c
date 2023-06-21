@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:52:44 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 16:53:54 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:19:44 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,36 @@ void	display_for_files(t_parser *parser)
 		printf("\tNo Files\n");
 }
 
-void	display_parser(t_parser *parser)
+void	display_for_args(char **args)
 {
 	int	i;
 
+	i = -1;
+	while (args[++i])
+		printf("%s ", args[i]);
+}
+
+void	display_parser(t_parser *parser)
+{
+	t_parser	*temp;
+
+	temp = parser;
 	printf("----------------------\n");
-	while (parser)
+	while (temp)
 	{
 		printf("[.] ARGS : \n\t");
 		if (parser->args)
-		{
-			i = -1;
-			while (parser->args[++i])
-				printf("%s ", parser->args[i]);
-		}
+			display_for_args(temp->args);
 		else
 			printf("No Args\n");
 		printf("\n");
-		display_for_files(parser);
+		display_for_files(temp);
 		printf("[.] PIPE :\n");
-		if (parser->type == __PIPE)
+		if (temp->type == __PIPE)
 			printf("\tyes\n");
 		else
 			printf("\tNo\n");
 		printf("----------------------\n");
-		parser = parser->next;
+		temp = temp->next;
 	}
 }
