@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:05:32 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 15:49:12 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:51:10 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*setup_variable(char **args, int i, int flag)
 	else
 	{
 		tmp = ft_substr(args[i], 0,
-					(size_t)(ft_strchr(args[i], '=') - args[i]));
+				(size_t)(ft_strchr(args[i], '=') - args[i]));
 		string = ft_getenv(tmp, g_vars->env);
 		ft_free_pointers(tmp, NULL, NULL);
 	}
