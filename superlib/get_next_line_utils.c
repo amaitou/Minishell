@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 09:55:31 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/13 22:43:53 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:01:43 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*string_join(char *s1, char *s2)
 		p[i] = s1[i];
 		++i;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 		p[i++] = s2[j++];
 	p[i] = '\0';
 	free(s1);
