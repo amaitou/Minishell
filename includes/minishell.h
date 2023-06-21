@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 18:26:47 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:31:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ void		ft_setenv(char *name, char *newval, char *env[]);
 void		params_expander(t_dlist *list, char *env[]);
 int			is_valid(char c);
 int			skip_quotes(char *string, int i);
+char		quote_type(char quote);
 
 // wildcards expansion
 void		wildcards_expander(t_dlist *list);

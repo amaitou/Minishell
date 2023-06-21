@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:42:37 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/20 15:34:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:31:48 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ int	skip_quotes(char *string, int i)
 			return (i + 1);
 	}
 	return (i);
+}
+
+char	quote_type(char quote)
+{
+	if (quote == '\'')
+		return ('\'');
+	else if (quote == '"')
+		return ('\"');
+	else
+		return (quote);
 }
