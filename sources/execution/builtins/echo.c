@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:46:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:37:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:30:40 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	should_print_newline(char *string)
 	int	i;
 
 	i = 0;
+	if (!string)
+		return (0);
 	if (string[i] != '-')
 		return (0);
 	i++;
@@ -41,18 +43,16 @@ int	ft_echo(char **args, t_parser *list)
 	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-	while (args[++i])
+	while (should_print_newline(args[++i]))
+		new_line = 1;
+	while (args[i])
 	{
-		if (i == 1 && should_print_newline(args[i]))
-			new_line = 1;
-		else
-		{
-			if (ft_putstr_fd(args[i], STDOUT_FILENO) == -1)
+		if (ft_putstr_fd(args[i], STDOUT_FILENO) == -1)
+			return (ft_perror("echo: "));
+		if (args[i + 1])
+			if (ft_putstr_fd(" ", STDOUT_FILENO) == -1)
 				return (ft_perror("echo: "));
-			if (args[i + 1])
-				if (ft_putstr_fd(" ", STDOUT_FILENO) == -1)
-					return (ft_perror("echo: "));
-		}
+		i++;
 	}
 	if (!new_line)
 		if (ft_putstr_fd("\n", STDOUT_FILENO) == -1)
