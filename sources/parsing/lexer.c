@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:37:57 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 16:46:44 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:37:55 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ void	quotes_removal(t_dlist *lexer)
 		while (lexer->value[i])
 		{
 			if (lexer->value[i] == '\'' || lexer->value[i] == '\"')
-				quote = lexer->value[i];
-			while (lexer->value[i] != quote && lexer->value[i])
 			{
-				token = string_join(token, ft_substr(lexer->value, i, 1));
-				++i;
+				quote = lexer->value[i++];
+				while (lexer->value[i] != quote && lexer->value[i])
+					token = string_join(token, ft_substr(lexer->value, i++, 1));
 			}
+			else
+				token = string_join(token, ft_substr(lexer->value, i, 1));
 			++i;
 		}
 		free(lexer->value);
