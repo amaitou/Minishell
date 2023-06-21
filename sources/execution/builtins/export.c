@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/20 18:27:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:44:00 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	add_variable(char *string)
 			newenv[i] = ft_strdup(g_vars->env[i]);
 		newenv[i++] = ft_strdup(string);
 		newenv[i] = NULL;
-		free(g_vars->env);
+		clean(g_vars->env);
 		g_vars->env = newenv;
 		return (EXIT_SUCCESS);
 	}
