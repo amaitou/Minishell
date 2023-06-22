@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:46:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:08:18 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_export(char **args, t_parser *list)
 	{
 		string = setup_variable(args, i, 0);
 		tmp = setup_variable(args, i, 1);
-		if (tmp)
+		if (tmp && args[i][ft_strlen(string)] == '=')
 			ft_setenv(string, ft_substr(args[i],
 					(size_t)(ft_strchr(args[i], '=') - args[i]) + 1,
 					ft_strlen(args[i])), g_vars->env);

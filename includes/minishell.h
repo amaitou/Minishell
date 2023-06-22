@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/22 16:45:52 by bbouagou         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/22 17:03:16 by amait-ou         ###   ########.fr       */
->>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
+/*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
+/*   Updated: 2023/06/22 18:05:31 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +232,6 @@ int			initialize_minishell(t_minishell *minishell);
 int			check_spaces(char *s);
 char		**set_env(char **envp);
 void		signal_handler(int signal, siginfo_t *siginfo, void *context);
-int			exit_shell(void);
 
 // env fetching
 char		*ft_getenv(char *name, char *env[]);

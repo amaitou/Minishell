@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 21:27:19 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:10:12 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_p
 	if (!new_wd)
 	{
 		ft_free_pointers(old_wd, c_old_pwd, NULL);
-		printf ("minishell: cd: HOME not set\n");
+		ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
 		return (EXIT_SUCCESS);
 	}
 	else if (chdir(new_wd) == -1)
@@ -46,7 +46,7 @@ static int	change_wd_oldpwd(char *new_wd, char *old_wd, char *env[], char *home)
 	if (!new_wd)
 	{
 		ft_free_pointers(old_wd, home, NULL);
-		printf ("\n");
+		ft_putstr_fd("\n", STDERR_FILENO);
 		ft_setenv("OLDPWD", getcwd(NULL, 0), env);
 		return (EXIT_SUCCESS);
 	}

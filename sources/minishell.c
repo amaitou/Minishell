@@ -3,88 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/22 15:26:23 by bbouagou         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/22 17:01:42 by amait-ou         ###   ########.fr       */
->>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
+/*   Created: 2023/06/22 17:56:29 by bbouagou          #+#    #+#             */
+/*   Updated: 2023/06/22 17:57:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-<<<<<<< HEAD
-static int	initialize_minishell(t_minishell *minishell)
-{
-	minishell->prompt = (t_prompt *)malloc(sizeof(t_prompt));
-	if (!minishell->prompt)
-		return (1);
-	minishell->scanner = (t_scanner *)malloc(sizeof(t_scanner));
-	if (!minishell->scanner)
-		return (2);
-	minishell->error = (t_errors *)malloc(sizeof(t_errors));
-	if (!minishell->error)
-		return (3);
-	minishell->scanner->command = prompt_string(minishell->prompt);
-	minishell->parser = NULL;
-	minishell->lexer = NULL;
-	return (0);
-}
-
-int	check_spaces(char *s)
-{
-	while (*s && (*s == '\t' || *s == ' '))
-		++s;
-	if (*s)
-		return (0);
-	return (1);
-}
-
-static char	**set_env(char **envp)
-{
-	char	**env;
-	int		size;
-	int		i;
-
-	i = -1;
-	size = 0;
-	while (envp && envp[++i])
-		size++;
-	i = 0;
-	env = (char **)malloc((size + 1) * sizeof(char *));
-	while (envp && envp[i])
-	{
-		env[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env[i] = NULL;
-	return (env);
-}
-
-static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
-{
-	int	status;
-
-	(void)context;
-	(void)siginfo;
-	if (signal == SIGINT)
-	{
-		wait(&status);
-		printf("\n");
-		rl_on_new_line();
-		// rl_replace_line("", 0);
-		if (WIFSIGNALED(status) == FALSE)
-			rl_redisplay();
-		else
-			g_vars->exit_status = WTERMSIG(status) + 128;
-	}
-}
-
-=======
->>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell			*minishell;

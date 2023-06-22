@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:01:04 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:38:33 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:05:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,4 @@ void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 		else
 			g_vars->exit_status = WTERMSIG(status) + 128;
 	}
-}
-
-int	exit_shell(void)
-{
-	// printf("exit\n");
-	return (g_vars->exit_status);
 }
