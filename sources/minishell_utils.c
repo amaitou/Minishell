@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:01:04 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:02:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:38:33 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 	{
 		wait(&status);
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_replace_line("", 0);
 		if (WIFSIGNALED(status) == FALSE)
 			rl_redisplay();
 		else
@@ -80,6 +80,6 @@ void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 
 int	exit_shell(void)
 {
-	printf("exit\n");
+	// printf("exit\n");
 	return (g_vars->exit_status);
 }

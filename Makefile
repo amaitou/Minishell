@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS =  -lreadline -L /Users/amait-ou/goinfre/homebrew/opt/readline/lib -I /Users/amait-ou/goinfre/homebrew/opt/readline/include -Wall -Wextra -Werror 
+CFLAGS =  -lreadline -Wall -Wextra -Werror 
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \

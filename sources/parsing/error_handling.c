@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 15:49:37 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:37:12 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ void	display_error(t_errors *error)
 		|| error->error_type == error_of_double_quotes)
 		printf("bash: there are an unclosed quotes\n");
 	else if (error->error_type == error_of_ambiguous)
+	{
 		printf("bash: ambiguous redirect\n");
-	error->exit_staus = 2;
+		g_vars->exit_status = 1;
+		return ;
+	}
 	g_vars->exit_status = 258;
 }
