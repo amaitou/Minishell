@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:32:16 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:35:14 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_number_of_names(char **names, t_errors *error)
 	return (0);
 }
 
-oid	check_ambiguous(t_dlist *lexer, t_errors *error)
+void	check_ambiguous(t_dlist *lexer, t_errors *error)
 {
 	int		i;
 	char	**names;
