@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 18:10:12 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:56:32 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	print_usage(char **args)
 	return (EXIT_FAILURE);
 }
 
-static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_pwd)
+static int	change_wd_home(char	*new_wd, char *old_wd,
+	char *env[], char *c_old_pwd)
 {
 	if (!new_wd)
 	{
@@ -41,7 +42,8 @@ static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_p
 	return (EXIT_SUCCESS);
 }
 
-static int	change_wd_oldpwd(char *new_wd, char *old_wd, char *env[], char *home)
+static int	change_wd_oldpwd(char *new_wd, char *old_wd,
+	char *env[], char *home)
 {
 	if (!new_wd)
 	{
@@ -78,7 +80,7 @@ int	ft_cd(char **args, char *env[], t_parser *list)
 	char	*home;
 	char	*old_wd;
 	char	*wd;
-	
+
 	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
@@ -97,6 +99,6 @@ int	ft_cd(char **args, char *env[], t_parser *list)
 	else if (args[1][0] == '-')
 		return (change_wd_oldpwd(old_wd, wd, env, home));
 	ft_free_pointers(home, old_wd, NULL);
-	return(change_wd(args[1], wd, env));
+	return (change_wd(args[1], wd, env));
+	return (1);
 }
-  

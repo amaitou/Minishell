@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 18:05:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:50:39 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 
 # define TRUE 1
 # define FALSE 0
+
+// error messages
+
+# define PIPE_ERROR "minishell: syntax error near unexpected token `|'"
+# define HEREDOC_ERROR "minishell: syntax error near unexpected token `<<'"
+# define APPEND_ERROR "minishell: syntax error near unexpected token `>>'"
+# define IN_ERROR "minishell: syntax error near unexpected token `<'"
+# define OUT_ERROR "minishell: syntax error near unexpected token `>'"
+# define QUOTES_ERROR "minishell: unexpected EOF while looking for matching"
+# define AMBIGUOUS_ERROR "minishell: ambiguous redirect"
 
 // struct for prompt string
 
