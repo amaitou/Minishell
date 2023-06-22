@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/22 15:26:23 by bbouagou         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/22 17:01:42 by amait-ou         ###   ########.fr       */
->>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
+/*   Created: 2023/06/22 17:01:04 by amait-ou          #+#    #+#             */
+/*   Updated: 2023/06/22 17:38:33 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-<<<<<<< HEAD
-static int	initialize_minishell(t_minishell *minishell)
+int	initialize_minishell(t_minishell *minishell)
 {
 	minishell->prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	if (!minishell->prompt)
@@ -43,7 +38,7 @@ int	check_spaces(char *s)
 	return (1);
 }
 
-static char	**set_env(char **envp)
+char	**set_env(char **envp)
 {
 	char	**env;
 	int		size;
@@ -64,7 +59,7 @@ static char	**set_env(char **envp)
 	return (env);
 }
 
-static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
+void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 {
 	int	status;
 
@@ -74,7 +69,7 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 	{
 		wait(&status);
 		printf("\n");
-		rl_on_new_line();
+		// rl_on_new_line();
 		// rl_replace_line("", 0);
 		if (WIFSIGNALED(status) == FALSE)
 			rl_redisplay();
@@ -83,32 +78,8 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 	}
 }
 
-=======
->>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
-int	main(int argc, char **argv, char **envp)
+int	exit_shell(void)
 {
-	t_minishell			*minishell;
-	struct sigaction	sigact;
-
-	(void)argc;
-	(void)argv;
-	sigact.sa_sigaction = signal_handler;
-	sigact.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sigact, NULL);
-	sigaction(SIGQUIT, &sigact, NULL);
-	g_vars = (t_vars *)malloc(sizeof(t_vars));
-	g_vars->env = set_env(envp);
-	while (1)
-	{
-		minishell = (t_minishell *)malloc(sizeof(t_minishell));
-		if (initialize_minishell(minishell))
-			return (printf("Failed to run minishell\n"));
-		if (minishell->scanner->command == NULL)
-			return (g_vars->exit_status);
-		if (check_spaces(minishell->scanner->command))
-			leaks_one(minishell);
-		else
-			__parse_and_execute__(minishell);
-	}
-	return (0);
+	// printf("exit\n");
+	return (g_vars->exit_status);
 }

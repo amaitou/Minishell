@@ -6,7 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/22 16:45:52 by bbouagou         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/22 17:03:16 by amait-ou         ###   ########.fr       */
+>>>>>>> 02234d61177f41b0a9ab456c779bc7f37c1f3634
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +229,14 @@ void		leaks_two(t_minishell *minishell);
 
 // minishell
 void		__parse_and_execute__(t_minishell *minishell);
+int			count_number_of_names(char **names, t_errors *error);
+void		check_ambiguous(t_dlist *lexer, t_errors *error);
+int			error_ambiguous(t_minishell *minishell);
+int			initialize_minishell(t_minishell *minishell);
+int			check_spaces(char *s);
+char		**set_env(char **envp);
+void		signal_handler(int signal, siginfo_t *siginfo, void *context);
+int			exit_shell(void);
 
 // env fetching
 char		*ft_getenv(char *name, char *env[]);

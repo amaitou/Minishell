@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 23:40:15 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:37:12 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	display_error(t_errors *error)
 	else if (error->error_type == error_of_single_quotes
 		|| error->error_type == error_of_double_quotes)
 		printf("bash: there are an unclosed quotes\n");
-	error->exit_staus = 2;
+	else if (error->error_type == error_of_ambiguous)
+	{
+		printf("bash: ambiguous redirect\n");
+		g_vars->exit_status = 1;
+		return ;
+	}
 	g_vars->exit_status = 258;
 }

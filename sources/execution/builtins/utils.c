@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:05:32 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 15:51:10 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:59:58 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,21 @@ char	*setup_variable(char **args, int i, int flag)
 		ft_free_pointers(tmp, NULL, NULL);
 	}
 	return (string);
+}
+
+void	print_variable(char *value)
+{
+	int	i;
+
+	i = 0;
+	ft_putstr_fd("=", STDOUT_FILENO);
+	ft_putstr_fd("\"", STDOUT_FILENO);
+	while (value && value[i])
+	{
+		if (value[i] == '$' || value[i] == '\"')
+			ft_putstr_fd("\\", STDOUT_FILENO);
+		ft_putchar_fd(value[i], STDOUT_FILENO);
+		i++;
+	}
+	ft_putstr_fd("\"", STDOUT_FILENO);
 }
