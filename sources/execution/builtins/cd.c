@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 12:04:24 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/21 21:27:19 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	print_usage(char **args)
 
 static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_pwd)
 {
-	char	*path;
-
 	if (!new_wd)
 	{
 		ft_free_pointers(old_wd, c_old_pwd, NULL);
@@ -39,16 +37,12 @@ static int	change_wd_home(char	*new_wd, char *old_wd, char *env[], char *c_old_p
 	}
 	ft_setenv("PWD", new_wd, env);
 	ft_setenv("OLDPWD", old_wd, env);
-	path = ft_getenv("PWD", env);
-	printf("%s\n", path);
-	ft_free_pointers(path, c_old_pwd, NULL);
+	ft_free_pointers(c_old_pwd, NULL, NULL);
 	return (EXIT_SUCCESS);
 }
 
 static int	change_wd_oldpwd(char *new_wd, char *old_wd, char *env[], char *home)
 {
-	char	*path;
-
 	if (!new_wd)
 	{
 		ft_free_pointers(old_wd, home, NULL);
@@ -63,16 +57,12 @@ static int	change_wd_oldpwd(char *new_wd, char *old_wd, char *env[], char *home)
 	}
 	ft_setenv("PWD", new_wd, env);
 	ft_setenv("OLDPWD", old_wd, env);
-	path = ft_getenv("PWD", env);
-	printf("%s\n", path);
-	ft_free_pointers(path, home, NULL);
+	ft_free_pointers(home, NULL, NULL);
 	return (EXIT_SUCCESS);
 }
 
 static int	change_wd(char *new_wd, char *old_wd, char *env[])
 {
-	char	*path;
-
 	if (chdir(new_wd) == -1)
 	{
 		ft_free_pointers(new_wd, old_wd, NULL);
@@ -80,9 +70,6 @@ static int	change_wd(char *new_wd, char *old_wd, char *env[])
 	}
 	ft_setenv("PWD", getcwd(NULL, 0), env);
 	ft_setenv("OLDPWD", old_wd, env);
-	path = ft_getenv("PWD", env);
-	printf("%s\n", path);
-	ft_free_pointers(path, NULL, NULL);
 	return (EXIT_SUCCESS);
 }
 
