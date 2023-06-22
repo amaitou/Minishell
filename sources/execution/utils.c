@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:38:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/20 23:59:40 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:04:06 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,4 @@ t_list	*mount_heredoc(t_list *files)
 		file = file->next;
 	}
 	return (heredoc);
-}
-
-t_exec	*init_struct(t_parser *list)
-{
-	t_exec	*head;
-
-	head = (t_exec *)malloc(sizeof(t_exec));
-	head->lst = list;
-	head->pid = 0;
-	head->old_fd = 0;
-	head->nb_commands = 0;
-	ft_memset(head->pipefd, 0, 2);
-	ft_memset(head->heredoc, 0, 2);
-	head->saved_stdin = dup(STDIN_FILENO);
-	head->saved_stdout = dup(STDOUT_FILENO);
-	return (head);
 }

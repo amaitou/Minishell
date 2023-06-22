@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS =  -lreadline -L /Users/bbouagou/.brew/opt/readline/lib -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror 
+CFLAGS =  -lreadline -L /Users/amait-ou/goinfre/homebrew/opt/readline/lib -I /Users/amait-ou/goinfre/homebrew/opt/readline/include -Wall -Wextra -Werror 
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \
@@ -27,6 +27,7 @@ CFILES = sources/prompt_string.c \
 		 sources/execution/executor.c \
 		 sources/execution/redirections.c \
 		 sources/execution/utils.c \
+		 sources/execution/utils_2.c \
 		 sources/execution/builtins/utils.c \
 		 sources/execution/builtins/echo.c \
 		 sources/execution/builtins/pwd.c \
@@ -34,7 +35,8 @@ CFILES = sources/prompt_string.c \
 		 sources/execution/builtins/env.c \
 		 sources/execution/builtins/export.c \
 		 sources/execution/builtins/unset.c \
-		 sources/execution/builtins/exit.c
+		 sources/execution/builtins/exit.c \
+		 sources/minishell_utils.c
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
