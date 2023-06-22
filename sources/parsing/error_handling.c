@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:37:12 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:14:05 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,21 +96,21 @@ void	__error__(t_minishell *minishell)
 void	display_error(t_errors *error)
 {
 	if (error->error_type == error_of_pipeline)
-		printf("bash: syntax error near unexpected token `|'\n");
+		printf("minishell: syntax error near unexpected token `|'\n");
 	else if (error->error_type == error_of_redirection_heredoc)
-		printf("bash: syntax error near unexpected token `<<'\n");
+		printf("minishell: syntax error near unexpected token `<<'\n");
 	else if (error->error_type == error_of_redirection_append)
-		printf("bash: syntax error near unexpected token `>>'\n");
+		printf("minishell: syntax error near unexpected token `>>'\n");
 	else if (error->error_type == error_of_redirection_in)
-		printf("bash: syntax error near unexpected token `<'\n");
+		printf("minishell: syntax error near unexpected token `<'\n");
 	else if (error->error_type == error_of_redirection_out)
-		printf("bash: syntax error near unexpected token `>'\n");
+		printf("minishell: syntax error near unexpected token `>'\n");
 	else if (error->error_type == error_of_single_quotes
 		|| error->error_type == error_of_double_quotes)
-		printf("bash: there are an unclosed quotes\n");
+		printf("minishell: unexpected EOF while looking for matching\n");
 	else if (error->error_type == error_of_ambiguous)
 	{
-		printf("bash: ambiguous redirect\n");
+		printf("minishell: ambiguous redirect\n");
 		g_vars->exit_status = 1;
 		return ;
 	}
