@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 16:57:05 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:32:16 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_number_of_names(char **names, t_errors *error)
 	return (0);
 }
 
-void	check_ambiguous(t_dlist *lexer, t_errors *error)
+oid	check_ambiguous(t_dlist *lexer, t_errors *error)
 {
 	int		i;
 	char	**names;
@@ -40,8 +40,11 @@ void	check_ambiguous(t_dlist *lexer, t_errors *error)
 			||lexer->type == __RED_OUT || lexer->type == __RED_IN)
 		{
 			names = ft_split(lexer->next->value, ' ');
-			if (count_number_of_names(names, error))
-				return ;
+			if (names)
+			{
+				if (count_number_of_names(names, error))
+					return ;
+			}
 			else
 			{
 				error->error_type = error_of_ambiguous;
