@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 15:00:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:29:32 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	expand_var(t_dlist *list, char *env[])
 	i = list->i;
 	while (list->value[i] && is_valid(list->value[i]))
 		++i;
+	if (list->value[i] == '@')
+		i++;
 	var = ft_substr(list->value, list->i, i - list->i);
 	list->value = string_join(tmp, ft_getenv(var, env));
 	list->value = string_join(list->value,
@@ -90,7 +92,8 @@ static void	check_character(t_dlist *list, char *env[])
 			|| (ft_strchr("\'\"", list->value[list->i])
 				&& list->value[list->i - 1] == '$'
 				&& ft_strchr(&list->value[list->i + 1],
-					quote_type(list->value[list->i])))))
+					quote_type(list->value[list->i])))
+			|| list->value[list->i] == '@'))
 		expand_var(list, env);
 	else
 		list->param_exp = 0;
