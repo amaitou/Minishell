@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 15:44:00 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:46:16 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	add_variable(char *string)
 	int		i;
 
 	i = 0;
-	while (string[i] && (ft_isdigit(string[i])
+	while (string[i] && ((ft_isdigit(string[i]) && i != 0)
 			|| ft_isalpha(string[i]) || string[i] == '_'))
 		i++;
 	if (i != 0 && (string[i] == '=' || !string[i]))
@@ -69,13 +69,14 @@ static int	print_env(void)
 	{
 		name = ft_substr(g_vars->env[i], 0,
 				(size_t)(ft_strchr(g_vars->env[i], '=') - g_vars->env[i]));
-		printf("declare -x %s", name);
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(name, STDOUT_FILENO);
 		value = ft_substr(g_vars->env[i], ft_strlen(name) + 1,
 				ft_strlen(g_vars->env[i]));
 		free(name);
-		if (value[0])
-			printf("=\"%s\"", value);
-		printf("\n");
+		if (g_vars->env[i][ft_strlen(name)] == '=')
+			print_variable(value);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		free(value);
 	}
 	return (EXIT_SUCCESS);
@@ -84,9 +85,11 @@ static int	print_env(void)
 int	ft_export(char **args, t_parser *list)
 {
 	int		i;
+	int		return_value;
 	char	*string;
 	char	*tmp;
 
+	return_value = EXIT_SUCCESS;
 	if (list->prev->type != __PIPE)
 		if (redirections_handle(list->file) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
@@ -103,9 +106,9 @@ int	ft_export(char **args, t_parser *list)
 			ft_setenv(string, ft_substr(args[i],
 					(size_t)(ft_strchr(args[i], '=') - args[i]) + 1,
 					ft_strlen(args[i])), g_vars->env);
-		else if (add_variable(args[i]) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		else
+			return_value = add_variable(args[i]);
 		ft_free_pointers(tmp, string, NULL);
 	}
-	return (EXIT_SUCCESS);
+	return (return_value);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:07:48 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/21 16:20:08 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:45:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ int			ft_unset(char **args, t_parser *list);
 int			get_env_nb(char **env);
 char		*setup_variable(char **args, int i, int flag);
 void		ft_free_pointers(char *ptr1, char *ptr2, char *ptr3);
+void		print_variable(char *value);
 
 // redirections
 int			redirect_output(t_list *list);

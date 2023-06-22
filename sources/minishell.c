@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:52:29 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/21 13:34:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:26:23 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,12 @@ static void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 		wait(&status);
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		if (WIFSIGNALED(status) == FALSE)
 			rl_redisplay();
 		else
 			g_vars->exit_status = WTERMSIG(status) + 128;
 	}
-}
-
-static int	exit_shell(void)
-{
-	printf("exit\n");
-	return (g_vars->exit_status);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -103,7 +97,7 @@ int	main(int argc, char **argv, char **envp)
 		if (initialize_minishell(minishell))
 			return (printf("Failed to run minishell\n"));
 		if (minishell->scanner->command == NULL)
-			return (exit_shell());
+			return (g_vars->exit_status);
 		if (check_spaces(minishell->scanner->command))
 			leaks_one(minishell);
 		else
