@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:35:14 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:02:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,29 @@ int	count_number_of_names(char **names, t_errors *error)
 	return (0);
 }
 
+int	ambiguous_error_helper(t_dlist *lexer, t_errors *error)
+{
+	char	**names;
+
+	names = ft_split(lexer->next->value, ' ');
+	if (names)
+	{
+		if (count_number_of_names(names, error))
+			return (1);
+	}
+	if ((lexer->next->value && lexer->next->value[0] == '\0')
+		|| !lexer->next->value)
+	{
+		error->error_type = error_of_ambiguous;
+		free_tokens(names);
+		return (1);
+	}
+	return (0);
+}
+
 void	check_ambiguous(t_dlist *lexer, t_errors *error)
 {
 	int		i;
-	char	**names;
 
 	while (lexer)
 	{
@@ -39,17 +58,8 @@ void	check_ambiguous(t_dlist *lexer, t_errors *error)
 		if (lexer->type == __RED_APP
 			||lexer->type == __RED_OUT || lexer->type == __RED_IN)
 		{
-			names = ft_split(lexer->next->value, ' ');
-			if (names)
-			{
-				if (count_number_of_names(names, error))
-					return ;
-			}
-			else
-			{
-				error->error_type = error_of_ambiguous;
+			if (ambiguous_error_helper(lexer, error))
 				return ;
-			}
 		}
 		lexer = lexer->next;
 	}
