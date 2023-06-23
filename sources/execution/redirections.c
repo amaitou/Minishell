@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 18:20:54 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:59:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	redirect_output(t_list *list)
 	if (access(list->name, F_OK) == -1)
 		fd = open(list->name, O_CREAT | O_WRONLY, 0644);
 	else
-		fd = open(list->name, O_WRONLY | O_APPEND);
+		fd = open(list->name, O_WRONLY);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (EXIT_SUCCESS);
