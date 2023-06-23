@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/23 22:22:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:41:38 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,21 @@ void	split_expanded_tokens(t_dlist *list)
 				i = 0;
 				free(list->value);
 				list->value = ft_strdup(tmp[0]);
-				while (tmp[++i])
+				while (list && tmp[++i])
 				{
 					tmp_l = list->next;
 					list->next = create_node();
 					list->next->value = ft_strdup(tmp[i]);
 					list->next->next = tmp_l;
+					list->next->prev = list;
+					list = list->next;
 				}
 			}
 			if (tmp)
 				clean(tmp);
 		}
-		list = list->next;
+		if (list)
+			list = list->next;
 	}
 }
 
