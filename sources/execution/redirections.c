@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 20:47:33 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 21:46:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	redirect_output(t_list *list)
 	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_pustr_fd(list->name, STDERR_FILENO);
-		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_putstr_fd(list->name, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -46,8 +46,8 @@ int	redirect_input(t_list *list)
 	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_pustr_fd(list->name, STDERR_FILENO);
-		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_putstr_fd(list->name, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -66,12 +66,13 @@ int	append_output(t_list *list)
 	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_pustr_fd(list->name, STDERR_FILENO);
-		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_putstr_fd(list->name, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (EXIT_SUCCESS);
 }
 
 void	heredoc_handle(t_list *list, int *heredoc)

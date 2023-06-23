@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/23 18:36:58 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 22:22:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,38 @@ int	error_ambiguous(t_minishell *minishell)
 		return (0);
 }
 
+void	split_expanded_tokens(t_dlist *list)
+{
+	char	**tmp;
+	t_dlist	*tmp_l;
+	int		i;
+
+	while (list)
+	{
+		if (!ft_strchr(list->value, '\'') && !ft_strchr(list->value, '\"')
+			&& ft_strchr(list->value, ' '))
+		{
+			tmp = ft_split(list->value, ' ');
+			if (tmp && tmp[0])
+			{
+				i = 0;
+				free(list->value);
+				list->value = ft_strdup(tmp[0]);
+				while (tmp[++i])
+				{
+					tmp_l = list->next;
+					list->next = create_node();
+					list->next->value = ft_strdup(tmp[i]);
+					list->next->next = tmp_l;
+				}
+			}
+			if (tmp)
+				clean(tmp);
+		}
+		list = list->next;
+	}
+}
+
 void	__parse_and_execute__(t_minishell *minishell)
 {
 	__scanner__(minishell);
@@ -106,6 +138,7 @@ void	__parse_and_execute__(t_minishell *minishell)
 	{
 		minishell->lexer->prev = minishell->lexer;
 		params_expander(minishell->lexer, g_vars->env);
+		split_expanded_tokens(minishell->lexer);
 		quotes_removal(minishell->lexer);
 		if (error_ambiguous(minishell))
 			leaks_one(minishell);
