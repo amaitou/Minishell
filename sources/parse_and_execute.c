@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/23 15:35:02 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:02:57 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ambiguous_error_helper(t_dlist *lexer, t_errors *error)
 		if (count_number_of_names(names, error))
 			return (1);
 	}
-	if (lexer->next->value[0] == '\0')
+	if ((lexer->next->value && lexer->next->value[0] == '\0')
+		|| !lexer->next->value)
 	{
 		error->error_type = error_of_ambiguous;
 		free_tokens(names);
