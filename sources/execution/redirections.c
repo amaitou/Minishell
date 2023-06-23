@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 18:59:41 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:47:33 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ int	redirect_output(t_list *list)
 		fd = open(list->name, O_CREAT | O_WRONLY, 0644);
 	else
 		fd = open(list->name, O_WRONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_pustr_fd(list->name, STDERR_FILENO);
+		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (EXIT_SUCCESS);
@@ -36,12 +43,19 @@ int	redirect_input(t_list *list)
 		return (EXIT_FAILURE);
 	}
 	fd = open(list->name, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_pustr_fd(list->name, STDERR_FILENO);
+		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
 
-void	append_output(t_list *list)
+int	append_output(t_list *list)
 {
 	int	fd;
 
@@ -49,6 +63,13 @@ void	append_output(t_list *list)
 		fd = open(list->name, O_CREAT | O_WRONLY, 0644);
 	else
 		fd = open(list->name, O_WRONLY | O_APPEND);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_pustr_fd(list->name, STDERR_FILENO);
+		ft_pustr_fd(": Permission denied\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
@@ -97,7 +118,8 @@ int	redirections_handle(t_list *files)
 				return (EXIT_FAILURE);
 		}
 		else if (files->type == APPEND)
-			append_output(files);
+			if (append_output(files) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 		files = files->next;
 	}
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 18:30:58 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:47:05 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,7 @@ void		print_variable(char *value);
 int			redirect_output(t_list *list);
 int			redirect_input(t_list *list);
 int			redirections_handle(t_list *files);
-void		append_output(t_list *list);
+int			append_output(t_list *list);
 void		heredoc_handle(t_list *list, int *heredoc);
 
 #endif
