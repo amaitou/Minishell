@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:04:27 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:04:39 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:17:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,21 @@ t_exec	*init_struct(t_parser *list)
 	head->saved_stdin = dup(STDIN_FILENO);
 	head->saved_stdout = dup(STDOUT_FILENO);
 	return (head);
+}
+
+int	is_dir(char *filename)
+{
+	struct stat	path;
+
+	if (stat(filename, &path) == 0)
+	{
+		if (S_ISDIR(path.st_mode))
+		{
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd(filename, STDERR_FILENO);
+			ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+			return (1);
+		}
+	}
+	return (0);
 }

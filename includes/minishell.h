@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 17:04:47 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:45:44 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ void		get_exit_status(pid_t pid, t_exec *lst);
 void		clean(char **var);
 void		close_fds(t_exec *es, t_parser *list);
 void		multi_purpose_func(t_exec *es, char *string, int flag);
+int			is_dir(char *filename);
 t_list		*mount_heredoc(t_list *files);
 t_exec		*init_struct(t_parser *list);
 
