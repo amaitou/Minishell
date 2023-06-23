@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 17:45:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:30:58 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define OUT_ERROR "minishell: syntax error near unexpected token `>'"
 # define QUOTES_ERROR "minishell: unexpected EOF while looking for matching"
 # define AMBIGUOUS_ERROR "minishell: ambiguous redirect"
+# define SPACE_REDIRECTION_ERROR "minishell: No such file or directory"
 
 // struct for prompt string
 
@@ -61,7 +62,8 @@ typedef enum e_error
 	error_of_redirection_append,
 	error_of_redirection_heredoc,
 	error_of_single_quotes,
-	error_of_double_quotes
+	error_of_double_quotes,
+	error_of_space_redirection
 }	t_error_types;
 
 typedef struct s_error

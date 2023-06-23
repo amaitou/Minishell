@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:17:21 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 20:50:07 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:31:51 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,33 @@ void	__error__(t_minishell *minishell)
 
 void	display_error(t_errors *error)
 {
-	if (error->error_type == error_of_pipeline)
-		ft_putendl_fd(PIPE_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_redirection_heredoc)
-		ft_putendl_fd(HEREDOC_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_redirection_append)
-		ft_putendl_fd(APPEND_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_redirection_in)
-		ft_putendl_fd(IN_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_redirection_out)
-		ft_putendl_fd(OUT_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_single_quotes
-		|| error->error_type == error_of_double_quotes)
-		ft_putendl_fd(QUOTES_ERROR, STDERR_FILENO);
-	else if (error->error_type == error_of_ambiguous)
+	if (error->error_type == error_of_space_redirection)
+	{
+		ft_putendl_fd(SPACE_REDIRECTION_ERROR, STDERR_FILENO);
+		g_vars->exit_status = 1;
+		return ;
+	}
+	if (error->error_type == error_of_ambiguous)
 	{
 		ft_putendl_fd(AMBIGUOUS_ERROR, STDERR_FILENO);
 		g_vars->exit_status = 1;
 		return ;
 	}
-	g_vars->exit_status = 258;
+	else
+	{
+		if (error->error_type == error_of_pipeline)
+			ft_putendl_fd(PIPE_ERROR, STDERR_FILENO);
+		else if (error->error_type == error_of_redirection_heredoc)
+			ft_putendl_fd(HEREDOC_ERROR, STDERR_FILENO);
+		else if (error->error_type == error_of_redirection_append)
+			ft_putendl_fd(APPEND_ERROR, STDERR_FILENO);
+		else if (error->error_type == error_of_redirection_in)
+			ft_putendl_fd(IN_ERROR, STDERR_FILENO);
+		else if (error->error_type == error_of_redirection_out)
+			ft_putendl_fd(OUT_ERROR, STDERR_FILENO);
+		else if (error->error_type == error_of_single_quotes
+			|| error->error_type == error_of_double_quotes)
+			ft_putendl_fd(QUOTES_ERROR, STDERR_FILENO);
+		g_vars->exit_status = 258;
+	}
 }

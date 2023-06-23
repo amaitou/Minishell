@@ -6,7 +6,7 @@
 /*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:02:57 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:36:58 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,19 @@ int	ambiguous_error_helper(t_dlist *lexer, t_errors *error)
 		if (count_number_of_names(names, error))
 			return (1);
 	}
-	if ((lexer->next->value && lexer->next->value[0] == '\0')
-		|| !lexer->next->value)
+	if ((lexer->next->value && lexer->next->value[0] == '\0'))
+	{
+		error->error_type = error_of_space_redirection;
+		free_tokens(names);
+		return (1);
+	}
+	if (lexer->next->value && check_spaces(lexer->next->value))
+	{
+		error->error_type = error_of_ambiguous;
+		free_tokens(names);
+		return (1);
+	}
+	if (!lexer->next->value)
 	{
 		error->error_type = error_of_ambiguous;
 		free_tokens(names);
@@ -69,7 +80,8 @@ void	check_ambiguous(t_dlist *lexer, t_errors *error)
 int	error_ambiguous(t_minishell *minishell)
 {
 	check_ambiguous(minishell->lexer, minishell->error);
-	if (minishell->error->error_type == error_of_ambiguous)
+	if (minishell->error->error_type == error_of_ambiguous
+		|| minishell->error->error_type == error_of_space_redirection)
 	{
 		display_error(minishell->error);
 		add_history(minishell->scanner->command);
