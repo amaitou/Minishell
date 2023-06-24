@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS =  -lreadline -L /Users/amait-ou/goinfre/homebrew/opt/readline/lib -I /Users/amait-ou/goinfre/homebrew/opt/readline/include -Wall -Wextra -Werror 
+CFLAGS =  -I /Users/amait-ou/goinfre/homebrew/opt/readline/include -Wall -Wextra -Werror 
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \
@@ -41,23 +41,30 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/error_handling_utils.c \
 		 sources/split_expanded_tokens.c
 
+SOURCES = $(CFILES:.c=.o)
+
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
 
 all: $(SUPERLIB) $(NAME)
 
 # compile the super lib
+
 $(SUPERLIB):
-	@echo "\033[0;32m[+] making superlib\033[0m"
+	@echo "\033[0;32m[+] Making Superlib\033[0m"
 	@$(MAKE) -C $(SUPERLIB_DIR)
 
-$(NAME): $(CFILES)
-	@echo "\033[95m[.] making minishel\033[0m"
-	@$(CC) $(CFLAGS) $(CFILES) $(SUPERLIB) -lreadline -o $@
+# compiling minishell
+
+$(NAME): $(SOURCES) ./includes/minishell.h
+	@echo "\033[95m[.] Making Minishel\033[0m"
+	@$(CC) $(CFLAGS) $(SOURCES) $(SUPERLIB) -lreadline -L /Users/amait-ou/goinfre/homebrew/opt/readline/lib -o $@
 
 clean :
 	@$(MAKE) clean -C $(SUPERLIB_DIR)
-	@echo "\033[1;31m[!] deleting minishell\033[0m"
+	@@echo "\033[1;31m[!] Deleting Object File\033[0m"
+	@rm -rf	$(SOURCES)
+	@echo "\033[1;31m[!] Deleting Minishell\033[0m"
 	@rm -rf $(NAME)
 
 fclean: clean

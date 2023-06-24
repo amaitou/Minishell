@@ -60,21 +60,21 @@ CFILES = ft_isalpha.c \
 SOURCES = $(CFILES:.c=.o)
 
 %.o: %.c
-	@echo "\033[0;33m[*] compiling $?\033[0m"
+	@echo "\033[0;33m[*] Compiling $?\033[0m"
 	@$(CC) $(CFLAGS) -c $?
 
 all: $(NAME)
 
 $(NAME): $(SOURCES)
-	@echo "\033[0;32m[+] archiving *.o onto superlib.a\033[0m"
+	@echo "\033[0;32m[+] Archiving Object Files Onto superlib.a\033[0m"
 	@$(AR) rcs $@ $?
 
 clean:
-	@echo "\033[1;31m[!] deleting *.o\033[0m"
+	@echo "\033[1;31m[!] Deleting Object Files\033[0m"
 	@rm -f $(SOURCES)
 
 fclean: clean
-	@echo "\033[1;31m[!] deleting superlib.a and *.o\033[0m"
+	@echo "\033[1;31m[!] Deleting superlib.a and Object Files\033[0m"
 	@rm -f $(NAME)
 
 re: fclean all
