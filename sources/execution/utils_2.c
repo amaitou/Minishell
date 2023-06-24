@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:04:27 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:37:00 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:49:45 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void	ft_print_error(char *cmd, char *msg, int exit_status)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putendl_fd("msg", STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
 	exit(exit_status);
 }

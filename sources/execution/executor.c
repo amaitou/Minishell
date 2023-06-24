@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:37:11 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:49:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static char	*search_for_cmd(char *cmd, char **path)
 		exit(126);
 	else if (cmd && cmd[0] && access(cmd, X_OK) == 0)
 		return (cmd);
-	else if (cmd && cmd[0] && ft_strchr(cmd, '/') && access(cmd, F_OK) == -1)
-		ft_print_error(cmd, ": No such file or directory", 127);
 	else if (cmd && cmd[0] && !access(cmd, F_OK) && access(cmd, X_OK))
 		ft_print_error(cmd, ": Permission denied", 126);
+	else if ((cmd && cmd[0] && ft_strchr(cmd, '/') && access(cmd, F_OK) == -1) || !path)
+		ft_print_error(cmd, ": No such file or directory", 127);
 	while (path && cmd && cmd[0] && path[++i])
 	{
 		tmp = string_join(ft_strdup(path[i]), ft_strdup("/"));
