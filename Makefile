@@ -64,11 +64,11 @@ clean :
 	@$(MAKE) clean -C $(SUPERLIB_DIR)
 	@@echo "\033[1;31m[!] Deleting Object File\033[0m"
 	@rm -rf	$(SOURCES)
-	@echo "\033[1;31m[!] Deleting Minishell\033[0m"
-	@rm -rf $(NAME)
 
 fclean: clean
 	@$(MAKE) fclean -C $(SUPERLIB_DIR)
+	@echo "\033[1;31m[!] Deleting Minishell\033[0m"
+	@rm -rf $(NAME)
 
 re : fclean all
 
