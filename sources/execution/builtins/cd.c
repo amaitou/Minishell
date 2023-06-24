@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 20:56:32 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/24 06:54:54 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	change_wd_home(char	*new_wd, char *old_wd,
 {
 	if (!new_wd)
 	{
-		ft_free_pointers(old_wd, c_old_pwd, NULL);
+		ft_free_pointers(old_wd, c_old_pwd, new_wd);
 		ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
-		return (EXIT_SUCCESS);
+		return (EXIT_FAILURE);
 	}
 	else if (chdir(new_wd) == -1)
 	{
@@ -47,10 +47,9 @@ static int	change_wd_oldpwd(char *new_wd, char *old_wd,
 {
 	if (!new_wd)
 	{
-		ft_free_pointers(old_wd, home, NULL);
-		ft_putstr_fd("\n", STDERR_FILENO);
-		ft_setenv("OLDPWD", getcwd(NULL, 0), env);
-		return (EXIT_SUCCESS);
+		ft_free_pointers(old_wd, home, new_wd);
+		ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
+		return (EXIT_FAILURE);
 	}
 	else if (chdir(new_wd) == -1)
 	{

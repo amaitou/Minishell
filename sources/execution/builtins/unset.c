@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:52:16 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/21 16:19:33 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 06:52:51 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static void	remove_variable(char *string)
 			copy_env(g_vars->env + i + 1, newenv + i, get_env_nb(g_vars->env));
 			clean(g_vars->env);
 			g_vars->env = newenv;
-			free(tmp);
+			clean(tmp);
 			break ;
 		}
-		free(tmp);
+		clean(tmp);
 	}
 }
 
