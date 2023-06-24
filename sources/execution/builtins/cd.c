@@ -71,6 +71,7 @@ static int	change_wd(char *new_wd, char *old_wd, char *env[])
 	}
 	ft_setenv("PWD", getcwd(NULL, 0), env);
 	ft_setenv("OLDPWD", old_wd, env);
+	ft_free_pointers(old_wd, NULL, NULL);
 	return (EXIT_SUCCESS);
 }
 
