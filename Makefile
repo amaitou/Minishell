@@ -41,12 +41,14 @@ CFILES = sources/prompt_string.c \
 		 sources/parsing/error_handling_utils.c \
 		 sources/split_expanded_tokens.c
 
+DEPS = includes/minishell.h
+
 SOURCES = $(CFILES:.c=.o)
 
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
 
-all: $(SUPERLIB) $(NAME)
+all: $(SUPERLIB) $(NAME) $(DEPS)
 
 # compile the super lib
 
@@ -56,7 +58,7 @@ $(SUPERLIB):
 
 # compiling minishell
 
-$(NAME): $(SOURCES) ./includes/minishell.h
+$(NAME): $(SOURCES) $(DEPS)
 	@echo "\033[95m[.] Making Minishel\033[0m"
 	@$(CC) $(CFLAGS) $(SOURCES) $(SUPERLIB) -lreadline -L /Users/bbouagou/.brew/opt/readline/lib -o $@
 

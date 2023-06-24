@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 20:12:20 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 07:18:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:43:42 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	heredoc_handle(t_list *list, int *heredoc)
 		string = readline("> ");
 		while (string)
 		{
-			if (!strcmp(string, list->name))
+			if (!ft_strcmp(string, list->name))
 			{
 				if (string)
 					free (string);

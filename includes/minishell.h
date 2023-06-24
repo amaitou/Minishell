@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 07:53:05 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:56:06 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
 # include <dirent.h>
 # include <fcntl.h>
 # include <errno.h>
@@ -27,7 +26,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
-# include <dirent.h>
 
 # define TRUE 1
 # define FALSE 0

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 16:05:58 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/17 09:57:40 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:46:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_setenv(char *name, char *newval, char *env[])
 	while (env && env[++i])
 	{
 		var = ft_split(env[i], '=');
-		if (!strcmp(name, var[0]))
+		if (!ft_strcmp(name, var[0]))
 		{
 			free (env[i]);
 			env[i] = ft_strjoin(var[0], "=");
