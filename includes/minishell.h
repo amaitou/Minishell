@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 00:09:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:39:36 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,7 @@ void		get_exit_status(pid_t pid, t_exec *lst);
 void		clean(char **var);
 void		close_fds(t_exec *es, t_parser *list);
 void		multi_purpose_func(t_exec *es, char *string, int flag);
+void		ft_print_error(char *cmd, char *msg, int exit_status);
 int			is_dir(char *filename);
 t_list		*mount_heredoc(t_list *files);
 t_exec		*init_struct(t_parser *list);
@@ -282,6 +283,7 @@ int			ft_export(char **args, t_parser *list);
 int			ft_pwd(char **args, t_parser *list);
 int			ft_unset(char **args, t_parser *list);
 int			get_env_nb(char **env);
+void		edit_variable(char **args, char *string, int i);
 char		*setup_variable(char **args, int i, int flag);
 void		ft_free_pointers(char *ptr1, char *ptr2, char *ptr3);
 void		print_variable(char *value);

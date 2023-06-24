@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:24:45 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:37:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,9 @@ static char	*search_for_cmd(char *cmd, char **path)
 	else if (cmd && cmd[0] && access(cmd, X_OK) == 0)
 		return (cmd);
 	else if (cmd && cmd[0] && ft_strchr(cmd, '/') && access(cmd, F_OK) == -1)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		exit(127);
-	}
+		ft_print_error(cmd, ": No such file or directory", 127);
 	else if (cmd && cmd[0] && !access(cmd, F_OK) && access(cmd, X_OK))
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
-		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-		exit(126);
-	}
+		ft_print_error(cmd, ": Permission denied", 126);
 	while (path && cmd && cmd[0] && path[++i])
 	{
 		tmp = string_join(ft_strdup(path[i]), ft_strdup("/"));

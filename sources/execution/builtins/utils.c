@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:05:32 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 16:59:58 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:39:17 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,11 @@ void	print_variable(char *value)
 		i++;
 	}
 	ft_putstr_fd("\"", STDOUT_FILENO);
+}
+
+void	edit_variable(char **args, char *string, int i)
+{
+	ft_setenv(string, ft_substr(args[i],
+			(size_t)(ft_strchr(args[i], '=') - args[i]) + 1,
+			ft_strlen(args[i])), g_vars->env);
 }
