@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:45:42 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/19 20:36:38 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:25:15 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	clean(char **var)
 	int	i;
 
 	i = -1;
-	while (var[++i])
-		free(var[i]);
-	free(var);
+	if (var)
+	{
+		while (var[++i])
+			free(var[i]);
+		free(var);
+	}
 }
 
 char	*ft_getenv(char *name, char *env[])

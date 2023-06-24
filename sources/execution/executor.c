@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/23 18:22:22 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:24:45 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*search_for_cmd(char *cmd, char **path)
 		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
 		exit(126);
 	}
-	while (cmd && cmd[0] && path[++i])
+	while (path && cmd && cmd[0] && path[++i])
 	{
 		tmp = string_join(ft_strdup(path[i]), ft_strdup("/"));
 		tmp = string_join(tmp, ft_strdup(cmd));
