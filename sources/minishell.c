@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:29 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 17:57:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:52:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell			*minishell;
-	struct sigaction	sigact;
 
 	(void)argc;
 	(void)argv;
-	sigact.sa_sigaction = signal_handler;
-	sigact.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sigact, NULL);
-	sigaction(SIGQUIT, &sigact, NULL);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	g_vars = (t_vars *)malloc(sizeof(t_vars));
 	g_vars->env = set_env(envp);
 	while (1)

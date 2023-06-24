@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:43 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:39:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:53:05 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ int			error_ambiguous(t_minishell *minishell);
 int			initialize_minishell(t_minishell *minishell);
 int			check_spaces(char *s);
 char		**set_env(char **envp);
-void		signal_handler(int signal, siginfo_t *siginfo, void *context);
+void		signal_handler(int signal);
 
 // env fetching
 char		*ft_getenv(char *name, char *env[]);

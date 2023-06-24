@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:01:04 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/24 04:04:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 07:53:32 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,17 @@ char	**set_env(char **envp)
 	return (env);
 }
 
-void	signal_handler(int signal, siginfo_t *siginfo, void *context)
+void	signal_handler(int signal)
 {
 	int	status;
 
-	(void)context;
-	(void)siginfo;
-	if (signal == SIGINT)
-	{
-		wait(&status);
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		if (WIFSIGNALED(status) == FALSE)
-			rl_redisplay();
-		else
-			g_vars->exit_status = WTERMSIG(status) + 128;
-	}
+	(void)signal;
+	wait(&status);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	if (WIFSIGNALED(status) == FALSE)
+		rl_redisplay();
+	else
+		g_vars->exit_status = WTERMSIG(status) + 128;
 }
