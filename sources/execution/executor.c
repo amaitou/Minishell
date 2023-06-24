@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 08:36:37 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 10:05:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static char	*search_for_cmd(char *cmd, char **path)
 		tmp = string_join(tmp, ft_strdup(cmd));
 		if (access(tmp, X_OK) == 0)
 			return (tmp);
+		free (tmp);
 	}
 	return (NULL);
 }

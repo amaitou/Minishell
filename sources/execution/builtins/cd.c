@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 06:54:54 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 10:09:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	change_wd(char *new_wd, char *old_wd, char *env[])
 {
 	if (chdir(new_wd) == -1)
 	{
-		ft_free_pointers(new_wd, old_wd, NULL);
+		ft_free_pointers(old_wd, NULL, NULL);
 		return (ft_perror("minishell: cd: "));
 	}
 	ft_setenv("PWD", getcwd(NULL, 0), env);

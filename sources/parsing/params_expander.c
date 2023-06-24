@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:15:04 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/22 18:29:32 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 09:57:09 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	truncate_digit(t_dlist *list)
 
 	i = 0;
 	tmp = (void *)0;
-	while (list->value[i] != '$')
+	while (list->value[i] && list->value[i] == '$' && list->value[i + 1] == '$')
 		i++;
 	if (i)
 		tmp = ft_substr(list->value, 0, i);

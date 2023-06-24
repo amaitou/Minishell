@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS =  -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror 
+CFLAGS =  -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \
