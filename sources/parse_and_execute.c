@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:53:43 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/23 22:41:38 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 01:03:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ int	error_ambiguous(t_minishell *minishell)
 void	split_expanded_tokens(t_dlist *list)
 {
 	char	**tmp;
-	t_dlist	*tmp_l;
+	t_dlist	*tmp_n;
 	int		i;
 
+	tmp_n = NULL;
 	while (list)
 	{
 		if (!ft_strchr(list->value, '\'') && !ft_strchr(list->value, '\"')
@@ -107,22 +108,26 @@ void	split_expanded_tokens(t_dlist *list)
 			{
 				i = 0;
 				free(list->value);
-				list->value = ft_strdup(tmp[0]);
-				while (list && tmp[++i])
+				list->value = ft_strdup(tmp[i]);
+				++i;
+				while (list && tmp[i])
 				{
-					tmp_l = list->next;
-					list->next = create_node();
-					list->next->value = ft_strdup(tmp[i]);
-					list->next->next = tmp_l;
-					list->next->prev = list;
+					tmp_n = create_node();
+					tmp_n->type = __WORD;
+					tmp_n->value = ft_strdup(tmp[i]);
+					tmp_n->prev = list;
+					tmp_n->next = list->next;
+					if (list->next)
+						list->next->prev = tmp_n;
+					list->next = tmp_n;
 					list = list->next;
+					++i;
 				}
 			}
 			if (tmp)
 				clean(tmp);
 		}
-		if (list)
-			list = list->next;
+		list = list->next;
 	}
 }
 
