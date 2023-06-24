@@ -1,7 +1,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS =  -I /Users/bbouagou/.brew/opt/readline/include -Wall -Wextra -Werror
+CFLAGS =  -I /Users/amait-ou/goinfre/homebrew/opt/readline/include -Wall -Wextra -Werror
 CFILES = sources/prompt_string.c \
 		 sources/minishell.c \
 		 sources/ft_getenv.c \
@@ -48,7 +48,7 @@ SOURCES = $(CFILES:.c=.o)
 SUPERLIB_DIR = ./superlib
 SUPERLIB = ./superlib/superlib.a
 
-all: $(SUPERLIB) $(NAME) $(DEPS)
+all: $(SUPERLIB) $(DEPS) $(NAME) 
 
 # compile the super lib
 
@@ -60,7 +60,23 @@ $(SUPERLIB):
 
 $(NAME): $(SOURCES) $(DEPS)
 	@echo "\033[95m[.] Making Minishel\033[0m"
-	@$(CC) $(CFLAGS) $(SOURCES) $(SUPERLIB) -lreadline -L /Users/bbouagou/.brew/opt/readline/lib -o $@
+	@$(CC) $(CFLAGS) $(SOURCES) $(SUPERLIB) -lreadline -L /Users/amait-ou/goinfre/homebrew/opt/readline/lib -o $@
+
+./sources/execution/%.o: ./sources/execution/%.c $(DEPS)
+	@echo "\033[0;33m[*] Compiling $?\033[0m"
+	@$(CC) $(CFLAGS) $< -c -o $@
+
+./sources/execution/builtins/%.o: ./sources/execution/builtins/%.c $(DEPS)
+	@echo "\033[0;33m[*] Compiling $?\033[0m"
+	@$(CC) $(CFLAGS) $< -c -o $@
+
+./sources/parsing/%.o: ./sources/parsing/%.c $(DEPS)
+	@echo "\033[0;33m[*] Compiling $?\033[0m"
+	@$(CC) $(CFLAGS) $< -c -o $@
+
+./sources/%.o: ./sources/%.c $(DEPS)
+	@echo "\033[0;33m[*] Compiling $?\033[0m"
+	@$(CC) $(CFLAGS) $< -c -o $@
 
 clean :
 	@$(MAKE) clean -C $(SUPERLIB_DIR)
