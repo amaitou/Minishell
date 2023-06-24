@@ -80,7 +80,7 @@ $(NAME): $(SOURCES) $(DEPS)
 
 clean :
 	@$(MAKE) clean -C $(SUPERLIB_DIR)
-	@@echo "\033[1;31m[!] Deleting Object File\033[0m"
+	@@echo "\033[1;31m[!] Deleting Object Files\033[0m"
 	@rm -rf	$(SOURCES)
 
 fclean: clean
