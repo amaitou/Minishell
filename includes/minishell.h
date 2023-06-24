@@ -212,6 +212,7 @@ void		error_types(t_dlist *node, t_errors *error);
 int			error_for_quotes(t_dlist *node);
 int			check_errors(t_dlist *temp, t_errors *error);
 void		display_error(t_errors *error);
+void		display_error_helper(t_errors *error);
 
 // __parser__functions
 
@@ -225,6 +226,9 @@ void		assign_file(t_dlist *lexer, t_list *file, t_list **node);
 void		assign_args(t_dlist *lexer, char **args);
 void		display_parser(t_parser *parser);
 void		display_for_args(char **args);
+void		assign_lexer_1(t_dlist *list, char **tmp);
+void		assign_lexer_2(t_dlist *list);
+void		split_expanded_tokens(t_dlist *list);
 
 // leaks functions
 
@@ -240,6 +244,8 @@ void		leaks_two(t_minishell *minishell);
 void		__parse_and_execute__(t_minishell *minishell);
 int			count_number_of_names(char **names, t_errors *error);
 void		check_ambiguous(t_dlist *lexer, t_errors *error);
+int			ambiguous_error_helper(t_dlist *lexer, t_errors *error);
+int			ambigous_helper_2(t_dlist *lexer, t_errors *error, char **names);
 int			error_ambiguous(t_minishell *minishell);
 int			initialize_minishell(t_minishell *minishell);
 int			check_spaces(char *s);
