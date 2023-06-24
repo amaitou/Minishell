@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:01:04 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/22 18:05:11 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 04:04:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	signal_handler(int signal, siginfo_t *siginfo, void *context)
 	{
 		wait(&status);
 		printf("\n");
-		// rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 		if (WIFSIGNALED(status) == FALSE)
 			rl_redisplay();
 		else

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wilcards_expander_utils.c                          :+:      :+:    :+:   */
+/*   wildcards_expander_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:29:19 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/18 12:36:30 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 04:21:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	search_for_match(t_dlist *list)
 	i = -1;
 	j = 0;
 	if (list->p_match[0] == '.')
+	{
+		free (list->p_match);
 		return ;
+	}
 	while (list->req[++i])
 		if (!search(list, i, &j))
 			break ;
