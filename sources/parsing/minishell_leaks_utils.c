@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_leaks_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 15:01:33 by amait-ou          #+#    #+#             */
-/*   Updated: 2023/06/20 16:48:10 by amait-ou         ###   ########.fr       */
+/*   Updated: 2023/06/24 08:28:30 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	clear_file(t_list **lst, void (*del)(void *))
 
 void	del(void	*string)
 {
-	free(string);
+	if (string)
+		free(string);
 }
 
 void	free_tokens(char **tokens)

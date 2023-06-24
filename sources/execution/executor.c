@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 01:47:00 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 03:01:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 08:36:37 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	exec_builtin(t_parser *list)
 		g_vars->exit_status = ft_env(g_vars->env, list);
 	else if (list->args && list->args[0] && !ft_strcmp(list->args[0], "exit"))
 		g_vars->exit_status = ft_exit(list->args, list);
-	else if (list->args)
+	else
 		return (0);
 	return (1);
 }
@@ -78,26 +78,23 @@ static void	exec_cmd(t_parser *list, t_exec *es)
 	char	**path;
 	char	*cmd;
 
-	if (list->args)
+	if (exec_builtin(list) == 0)
 	{
-		if (exec_builtin(list) == 0)
+		path = ft_split(ft_getenv("PATH", g_vars->env), ':');
+		cmd = search_for_cmd(list->args[0], path);
+		clean(path);
+		if (cmd)
+			if (execve(cmd, list->args, g_vars->env))
+				exit(ft_perror("execve : "));
+		if (list->args || !list->args[0])
 		{
-			path = ft_split(ft_getenv("PATH", g_vars->env), ':');
-			cmd = search_for_cmd(list->args[0], path);
-			clean(path);
-			if (cmd)
-				if (execve(cmd, list->args, g_vars->env))
-					exit(ft_perror("execve : "));
-			if (list->args || !list->args[0])
-			{
-				multi_purpose_func(NULL, list->args[0], 1);
-				exit(127);
-			}
-			exit(0);
+			multi_purpose_func(NULL, list->args[0], 1);
+			exit(127);
 		}
-		else if (list->prev->type == __PIPE)
-			exit(g_vars->exit_status);
+		exit(0);
 	}
+	else if (list->prev->type == __PIPE)
+		exit(g_vars->exit_status);
 	multi_purpose_func(es, NULL, 0);
 }
 
