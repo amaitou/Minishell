@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:45:42 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:25:15 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/06/24 13:05:43 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_getenv(char *name, char *env[])
 	while (name && env && env[++i])
 	{
 		var = ft_split(env[i], '=');
-		if (var[0] && !ft_strcmp(name, var[0]))
+		if (var && var[0] && !ft_strcmp(name, var[0]))
 		{
 			value = ft_substr(env[i], ft_strlen(var[0]) + 1,
 					ft_strlen(env[i]));
