@@ -36,7 +36,7 @@ CFILES = sources/prompt_string.c \
 		 sources/execution/builtins/export.c \
 		 sources/execution/builtins/unset.c \
 		 sources/execution/builtins/exit.c \
-		 sources/minishell_utils.c
+		 sources/minishell_utils.c \
 		 sources/parsing/ambiguous_error.c \
 		 sources/parsing/error_handling_utils.c \
 		 sources/split_expanded_tokens.c
