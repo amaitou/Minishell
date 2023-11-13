@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:40:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 10:09:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/13 06:57:28 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static int	change_wd(char *new_wd, char *old_wd, char *env[])
 	}
 	ft_setenv("PWD", getcwd(NULL, 0), env);
 	ft_setenv("OLDPWD", old_wd, env);
-	ft_free_pointers(old_wd, NULL, NULL);
 	return (EXIT_SUCCESS);
 }
 
