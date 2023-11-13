@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:56:29 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 08:03:17 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/13 05:52:14 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_vars	*g_vars = (void *)0;
 
 int	main(int argc, char **argv, char **envp)
 {

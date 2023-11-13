@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:48:28 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 01:39:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/13 05:50:22 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static int	print_env(void)
 		ft_putstr_fd(name, STDOUT_FILENO);
 		value = ft_substr(g_vars->env[i], ft_strlen(name) + 1,
 				ft_strlen(g_vars->env[i]));
-		free(name);
 		if (g_vars->env[i][ft_strlen(name)] == '=')
 			print_variable(value);
+		free(name);
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		free(value);
 	}

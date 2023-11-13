@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_expander_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: amait-ou <amait-ou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:29:19 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/06/24 04:21:04 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/13 05:49:30 by amait-ou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@ static int	search(t_dlist *list, int i, int *j)
 	if (!i && list->first && !ft_strnstr(list->p_match + *j,
 			list->req[i], ft_strlen(list->req[i])))
 	{
-		*j = (int)(ft_strnstr(list->p_match + *j, list->req[i],
+		*j = (size_t)(ft_strnstr(list->p_match + *j, list->req[i],
 					ft_strlen(list->req[i])) - list->p_match);
 		return (0);
 	}
 	else if (!list->req[i + 1] && list->last
 		&& !ft_strlaststr(list->p_match + *j, list->req[i]))
 	{
-		*j = (int)(list->p_match - ft_strlaststr(list->p_match + *j,
+		*j = (size_t)(list->p_match - ft_strlaststr(list->p_match + *j,
 					list->req[i]));
 		return (0);
 	}
 	else if (!ft_strnstr(list->p_match + *j, list->req[i],
 			ft_strlen(list->p_match)))
 	{
-		*j = (int)(list->p_match - ft_strnstr(list->p_match + *j, list->req[i],
+		*j = (size_t)(list->p_match
+				- ft_strnstr(list->p_match + *j, list->req[i],
 					ft_strlen(list->p_match)));
 		return (0);
 	}
