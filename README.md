@@ -14,3 +14,11 @@ Before I dive into this README I would love to give a special thanks to my Teamm
 In this project, the school made you create and reproduce the behavior of a Linux shell with fewer features, so you can understand in depth how things work from the bottom, starting from the scanner, and lexer, passing by the parser, and ending with the executor. the project aims to help you improve your skills in c and understand how Linux shell works step by step
 
 Your created shell must behave the same as a Linux bash shell, creating files, deleting files, executing commands, handling errors as well as handling pipes and redirection.
+
+---
+
+### **Contact Me**
+
+* [Twitter][_1]
+
+[_1]: https://twitter.com/amait0u
